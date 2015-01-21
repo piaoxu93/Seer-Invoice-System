@@ -1,0 +1,108 @@
+<div class="container-fluid">
+  <div class="row" id="form-title">
+    <h2>Fubot 发票报销表</h2>
+  </div>
+  <div class="row" id="form-content">
+    <form class="form-inline" method="post" action="/submit" name="fubot-invoice-form" id="fubot-invoice-form" role='form'>
+      <div class="form-group">
+        <label for="name">填表人</label>
+        <input type="text" class="form-control" placeholder="<%= current_user.name %>" disabled>
+        <input type="hidden" class="form-control" name="name" id="name" value="<%= current_user.name %>" novalidate="novalidate">
+      </div>
+      <hr />
+      <div class="form-group">
+        <label for="projectName">项目名称</label>
+        <input type="text" class="form-control" name="projectName" id="projectName" required autofocus>
+        <label for="department">费用支出部门</label>
+        <select class="form-control"  name="department" id="department" required>
+          <option value="部门一" selected="selected">部门一</option>
+          <option value="部门二">部门二</option>
+          <option value="部门三">部门三</option>
+          <option value="部门四">部门四</option>
+          <option value="部门五">部门五</option>
+        </select>
+      </div>
+      <hr />
+      <div class="form-group">
+        <label for="itemName">名称</label>
+        <input type="text" class="form-control" name="itemName" id="itemName" required>
+      </div>
+      <hr />
+      <div class="form-group">
+        <label for="brand">品牌</label>
+        <input type="text" class="form-control" name="brand" id="brand" required>
+        <label for="model">规格型号</label>
+        <input type="text" class="form-control" name="model" id="model" required>
+      </div>
+      <hr />
+      <div class="form-group">
+        <label for="unitPrice">单价</label>
+        <div class="input-group">
+          <div class="input-group-addon">¥</div>
+          <input type="number" class="form-control" name="unitPrice" id="unitPrice" required min="0" style="width:95px;margin-right:0px;">
+        </div>
+        .
+        <input type="number" class="form-control" name="unitPriceDecimal" id="unitPriceDecimal" required min="0" max="99" style="width:60px;" value=0>
+        <label for="quantity" style="min-width:62px;">数量</label>
+        <input type="number" class="form-control" name="quantity" id="quantity" required min="1" style="width:70px;">
+        <label for="total" style="min-width:50px;">总价</label>
+        <div class="input-group">
+          <div class="input-group-addon">¥</div>
+          <input type="number" class="form-control"  id="total-temp" disabled style="width:120px;">
+          <input type="hidden" class="form-control" name="total" id="total" novalidate="novalidate">
+        </div>
+      </div>
+      <hr />
+      <div class="form-group">
+        <label for="requisitioner">申购人</label>
+        <input type="text" class="form-control" name="requisitioner" id="requisitioner" required>
+        <label for="date">申购时间</label>
+        <input type="date" class="form-control" name="date" id="date" required>
+      </div>
+      <hr />
+      <div class="form-group">
+        <label for="payMethod">付款方式</label>
+        <select class="form-control" name="payMethod" id="payMethod">
+          <option value="现金" selected="selected">现金</option>
+          <option value="信用卡">信用卡</option>
+          <option value="信用卡">借记卡</option>
+          <option value="信用卡">支付宝</option>
+          <option value="其他">其他</option>
+        </select>
+      </div>
+      <hr />
+      <div class="form-group">
+        <label for="arrivalDate">到货时间</label>
+        <input type="date" class="form-control" name="arrivalDate" id="arrivalDate" required>
+      </div>
+      <hr />
+      <div class="form-group">
+        <label class="radio-inline">
+          <input type="radio" name="invoiceType" id="invoiceType1" value="普通发票" checked="checked">普通发票
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="invoiceType" id="invoiceType2" value="增值税发票">增值税发票
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="invoiceType" id="invoiceType3" value="替票">替票
+        </label>
+      </div>
+      <hr />
+      <div class="form-group">
+        <label for="detail">供应商明细</label>
+        <textarea class="form-control" rows="3" name="detail" id="detail" style="width:300px;"></textarea>
+      </div>
+      <hr />
+      <div class="form-group">
+        <label for="note">备注</label>
+        <textarea class="form-control" rows="3" name="note" id="note" style="width:300px;"></textarea>
+      </div>
+      <hr />
+      <input type='hidden' name='_csrf' value='<%= csrf %>'/>
+      <div class='form-actions'>
+        <button type="submit" id="submit" class="btn btn-success">Submit</button>
+        <button type="reset" class="btn btn-danger">Reset</button>
+      </div>
+    </form>
+  </div>
+</div>

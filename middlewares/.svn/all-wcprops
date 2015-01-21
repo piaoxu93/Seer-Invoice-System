@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/cnodejs/nodeclub/!svn/ver/1093/trunk/middlewares
+END
+github_strategy.js
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/cnodejs/nodeclub/!svn/ver/1027/trunk/middlewares/github_strategy.js
+END
+conf.js
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/cnodejs/nodeclub/!svn/ver/771/trunk/middlewares/conf.js
+END
+limit.js
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/cnodejs/nodeclub/!svn/ver/771/trunk/middlewares/limit.js
+END
+auth.js
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/cnodejs/nodeclub/!svn/ver/1093/trunk/middlewares/auth.js
+END
