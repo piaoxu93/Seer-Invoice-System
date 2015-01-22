@@ -26,3 +26,17 @@ exports.bhash = function (str, callback) {
 exports.bcompare = function (str, hash, callback) {
   bcrypt.compare(str, hash, callback);
 };
+
+exports.checkStringInArray = function (str, array) {
+  var inArray = false;
+  if (!(array instanceof Array)) {
+    return false;
+  }
+  for (var i = 0; i < array.length; i++) {
+    if (str === array[i]) {
+      inArray = true;
+      break;
+    }
+  }
+  return inArray;
+}

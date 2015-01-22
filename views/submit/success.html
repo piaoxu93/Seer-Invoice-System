@@ -30,7 +30,7 @@
       <hr />
       <div class="form-group">
         <label>单价</label>
-        <label class="gray-font"><%= unitPrice + '.' + unitPriceDecimal  %></label>
+        <label class="gray-font"><%= unitPrice %></label>
         <label style="min-width:62px;">数量</label>
         <label class="gray-font" style="width:70px;"><%= quantity %></label>
         <label style="min-width:50px;">总价</label>
@@ -41,7 +41,7 @@
         <label>申购人</label>
         <label class="gray-font"><%= requisitioner %></label>
         <label>申购时间</label>
-        <label class="gray-font"><%= date %></label>
+        <label class="gray-font"><%= dateStr %></label>
       </div>
       <hr />
       <div class="form-group">
@@ -51,7 +51,7 @@
       <hr />
       <div class="form-group">
         <label>到货时间</label>
-        <label class="gray-font"><%= arrivalDate %></label>
+        <label class="gray-font"><%= arrivalDateStr %></label>
       </div>
       <hr />
       <div class="form-group">

@@ -13,6 +13,7 @@ var sign = require('./controllers/sign');
 var site = require('./controllers/site');
 var user = require('./controllers/user');
 var topic = require('./controllers/topic');
+var invoice = require('./controllers/invoice');
 var staticController = require('./controllers/static');
 var auth = require('./middlewares/auth');
 var passport = require('passport');
@@ -22,8 +23,8 @@ var router = express.Router();
 
 // home page
 router.get('/', auth.userRequired, site.index);
-router.get('/submit', auth.userRequired, site.showSubmit);
-router.post('/submit', auth.userRequired, site.submit);
+router.get('/submit', auth.userRequired, invoice.showSubmit);
+router.post('/submit', auth.userRequired, invoice.submit, invoice.submitError);
 
 // sign controller
 router.post('/signout', sign.signout);  // 登出

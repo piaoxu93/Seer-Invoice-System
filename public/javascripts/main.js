@@ -36,6 +36,7 @@ $(document).ready(function () {
     var price = unitPrice + unitPriceDecimal;
     var quantity = Number($('#quantity').val());
     var totalPrice = price * quantity;
+    $('#price').val(price);
     $('#total').val(totalPrice);
     $('#total-temp').val(totalPrice);
   });

@@ -10,5 +10,7 @@ mongoose.connect(config.db, function (err) {
 
 // models
 require('./user');
+require('./invoice');
 
 exports.User = mongoose.model('User');
+exports.Invoice = mongoose.model('Invoice');

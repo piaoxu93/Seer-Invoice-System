@@ -39,10 +39,11 @@
         <label for="unitPrice">单价</label>
         <div class="input-group">
           <div class="input-group-addon">¥</div>
-          <input type="number" class="form-control" name="unitPrice" id="unitPrice" required min="0" style="width:95px;margin-right:0px;">
+          <input type="number" class="form-control" id="unitPrice" required min="0" style="width:95px;margin-right:0px;">
         </div>
         .
-        <input type="number" class="form-control" name="unitPriceDecimal" id="unitPriceDecimal" required min="0" max="99" style="width:60px;" value=0>
+        <input type="number" class="form-control" id="unitPriceDecimal" required min="0" max="99" style="width:60px;" value=0>
+        <input type="hidden" class="form-control" name="unitPrice" id="price" novalidate="novalidate">
         <label for="quantity" style="min-width:62px;">数量</label>
         <input type="number" class="form-control" name="quantity" id="quantity" required min="1" style="width:70px;">
         <label for="total" style="min-width:50px;">总价</label>

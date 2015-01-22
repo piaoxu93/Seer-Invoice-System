@@ -4,7 +4,6 @@ var eventproxy = require('eventproxy');
 var config = require('../config');
 var User = require('../proxy').User;
 var tools = require('../common/tools');
-var utility = require('utility');
 var authMiddleWare = require('../middlewares/auth');
 
 /**

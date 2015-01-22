@@ -1,18 +1,9 @@
-
 var User = require('../proxy').User;
-var Topic = require('../proxy').Topic;
-var Reply = require('../proxy').Reply;
-var TopicCollect = require('../proxy').TopicCollect;
 var utility = require('utility');
 var util = require('util');
-var TopicModel = require('../models').Topic;
-var ReplyModel = require('../models').Reply;
 
 var tools = require('../common/tools');
 var config = require('../config');
-var EventProxy = require('eventproxy');
-var validator = require('validator');
-var _ = require('lodash');
 
 exports.index = function (req, res, next) {
   var user_name = req.params.name;
@@ -25,7 +16,7 @@ exports.index = function (req, res, next) {
       return;
     }
 
-    var render = function (recent_topics, recent_replies) {
+    var render = function () {
       user.friendly_create_at = tools.formatDate(user.create_at, true);
       user.url = (function () {
         if (user.url && user.url.indexOf('http') !== 0) {
@@ -40,32 +31,11 @@ exports.index = function (req, res, next) {
       }
       res.render('user/index', {
         user: user,
-        recent_topics: recent_topics,
-        recent_replies: recent_replies,
         token: token,
         pageTitle: util.format('@%s 的个人主页', user.loginname),
       });
     };
+    render();
 
-    var proxy = new EventProxy();
-    proxy.assign('recent_topics', 'recent_replies', render);
-    proxy.fail(next);
-
-    var query = {author_id: user._id};
-    var opt = {limit: 5, sort: '-create_at'};
-    Topic.getTopicsByQuery(query, opt, proxy.done('recent_topics'));
-
-    Reply.getRepliesByAuthorId(user._id, {limit: 20, sort: '-create_at'},
-      proxy.done(function (replies) {
-        var topic_ids = [];
-        for (var i = 0; i < replies.length; i++) {
-          if (topic_ids.indexOf(replies[i].topic_id.toString()) < 0) {
-            topic_ids.push(replies[i].topic_id.toString());
-          }
-        }
-        var query = {_id: {'$in': topic_ids}};
-        var opt = {limit: 5, sort: '-create_at'};
-        Topic.getTopicsByQuery(query, opt, proxy.done('recent_replies'));
-      }));
   });
 };
