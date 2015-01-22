@@ -2,6 +2,7 @@ var validator = require('validator');
 var config = require('../config');
 var tools = require('../common/tools');
 var Invoice = require('../proxy').Invoice;
+var User = require('../proxy').User;
 
 exports.showSubmit = function (req, res, next) {
   res.render('submit/index');
@@ -84,5 +85,57 @@ exports.submitError = function(req, res, next) {
   });
 };
 
+exports.showUserInvoice = function (req, res, next) {
+  var userName = req.session.user.loginname;
+  User.getUserByLoginName(userName, function (err, user) {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      res.render('notify/notify', {error: '这个用户不存在。'});
+      return;
+    }
 
+    Invoice.getInvoicesByName(user.name, {sort: '-createDate'},
+      function (err, invoices) {
+        if (err) {
+          return next(err);
+        }
+        res.render('invoice/myinvoice', {
+          invoices: invoices
+        });
+        return;
+      });
 
+  });
+}
+
+exports.showInvoice = function (req, res, next) {
+  var id = req.params.id;
+  Invoice.getInvoiceById(id, function (err, invoice) {
+    if (err) {
+      res.render('notify/notify', {error: '不存在此发票'});
+      return;
+    }
+    if (!config.admins[req.session.user.loginname] &&
+        invoice.name !== req.session.user.name) {
+      res.render('notify/notify', {error: '抱歉，你只能查看自己提交的发票'});
+    } else {
+      res.render('invoice/invoice', invoice);
+    }
+    return;
+  });
+}
+
+exports.showAllInvoice = function (req, res, next) {
+  Invoice.getInvoices({limit: config.limit, sort: '-createDate'}, //
+    function (err, invoices) {
+      if (err) {
+        return next(err);
+      }
+      res.render('invoice/invoices', {
+        invoices: invoices
+      });
+      return;
+    });
+};

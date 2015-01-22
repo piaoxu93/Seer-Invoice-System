@@ -14,3 +14,8 @@ Fubot invoice system
 6. visit `localhost:3000`
 7. done!
 ```
+
+## ToDo
+1. XSS
+2. 首页通知
+3. 分页

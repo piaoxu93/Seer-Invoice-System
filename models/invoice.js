@@ -48,7 +48,13 @@ var InvoiceSchema = new Schema({
   }, // 发票类别
   detail: { type: String }, // 供应商明细
   note: { type: String }, // 备注
-  createDate : { type: Date, default: Date.now, required: true}
+  createDate : { type: Date, default: Date.now, required: true},
+  progress: {
+    type: String,
+    default: '未处理',
+    required: true,
+    enum: config.progress
+  } // 报销进度
 });
 
 mongoose.model('Invoice', InvoiceSchema);

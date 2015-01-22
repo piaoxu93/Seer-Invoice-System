@@ -23,3 +23,17 @@ exports.newAndSave = function(obj, callback) {
 
   invoice.save(callback);
 };
+
+exports.getInvoicesByName = function (name, opt, callback) {
+  Invoice.find({ name: name }, '_id itemName projectName createDate progress',
+               opt, callback);
+};
+
+exports.getInvoiceById = function (id, callback) {
+  Invoice.findById(id, callback);
+}
+
+exports.getInvoices = function (opt, callback) {
+  Invoice.find({}, '_id name itemName projectName createDate progress',
+               opt, callback);
+}

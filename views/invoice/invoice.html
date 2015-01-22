@@ -1,11 +1,11 @@
 <div class="container-fluid">
   <div class="row" id="form-title">
-    <h2>提交成功</h2>
+    <h2>发票详情</h2>
   </div>
   <div class="row" id="form-content">
     <div class="form-inline fubot-invoice-form">
       <div class="form-group">
-        <label>填表人</label>
+        <label>提交人</label>
         <label class="gray-font"><%= name %></label>
       </div>
       <hr />
@@ -41,7 +41,7 @@
         <label>申购人</label>
         <label class="gray-font"><%= requisitioner %></label>
         <label>申购时间</label>
-        <label class="gray-font"><%= dateStr %></label>
+        <label class="gray-font"><%= date %></label>
       </div>
       <hr />
       <div class="form-group">
@@ -51,7 +51,7 @@
       <hr />
       <div class="form-group">
         <label>到货时间</label>
-        <label class="gray-font"><%= arrivalDateStr %></label>
+        <label class="gray-font"><%= arrivalDate %></label>
       </div>
       <hr />
       <div class="form-group">
@@ -67,6 +67,11 @@
       <div class="form-group">
         <label>备注</label>
         <label class="gray-font"><%= note %><label>
+      </div>
+      <hr />
+      <div class="form-group">
+        <label>报销进度</label>
+        <label class="gray-font"><%= progress %><label>
       </div>
     </form>
   </div>

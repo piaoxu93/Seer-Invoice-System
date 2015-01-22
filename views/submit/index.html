@@ -3,7 +3,7 @@
     <h2>Fubot 发票报销表</h2>
   </div>
   <div class="row" id="form-content">
-    <form class="form-inline" method="post" action="/submit" name="fubot-invoice-form" id="fubot-invoice-form" role='form'>
+    <form class="form-inline fubot-invoice-form" method="post" action="/submit" name="fubot-invoice-form" role='form'>
       <div class="form-group">
         <label for="name">填表人</label>
         <input type="text" class="form-control" placeholder="<%= current_user.name %>" disabled>

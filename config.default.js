@@ -23,7 +23,7 @@ var config = {
   ],
 
   site_static_host: '', // 静态文件存储域名
-  // 社区的域名
+  // 网站的域名
   host: 'invoice.fubot.cn',
 
   // mongodb 配置
@@ -36,8 +36,15 @@ var config = {
   // 程序运行的端口
   port: 3030,
 
-  // admin 可删除话题，编辑标签，设某人为达人
-  admins: { user_login_name: true },
+  // admin
+  admins: {
+    piaoxu: true,
+    ninjawei: true,
+    zhyaic: false
+  },
+
+  // 数据库单次查询条数限制
+  limit: 50000,
 
   //文件上传配置
   upload: {
@@ -45,6 +52,13 @@ var config = {
     url: '/public/upload/'
   },
 
+  department: ['部门一', '部门二', '部门三', '部门四', '部门五'],
+  payMethod: ['现金','信用卡','借记卡','支付宝','其他'],
+  invoiceType: ['普通发票', '增值税发票', '替票'],
+  progress: ['未处理', '已接收', '处理中', '报销完成'],
+
+  // 首页的通知 - ToDo
+  inform: [{}, {}]
 };
 
 module.exports = config;

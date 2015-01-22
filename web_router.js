@@ -11,7 +11,6 @@
 var express = require('express');
 var sign = require('./controllers/sign');
 var site = require('./controllers/site');
-var user = require('./controllers/user');
 var topic = require('./controllers/topic');
 var invoice = require('./controllers/invoice');
 var staticController = require('./controllers/static');
@@ -23,16 +22,18 @@ var router = express.Router();
 
 // home page
 router.get('/', auth.userRequired, site.index);
+
+// invoice controller
 router.get('/submit', auth.userRequired, invoice.showSubmit);
 router.post('/submit', auth.userRequired, invoice.submit, invoice.submitError);
+router.get('/myinvoice', auth.userRequired, invoice.showUserInvoice);
+router.get('/invoice/:id', auth.userRequired, invoice.showInvoice);
+router.get('/invoices', auth.adminRequired, invoice.showAllInvoice);
 
 // sign controller
 router.post('/signout', sign.signout);  // 登出
 router.get('/signin', sign.showLogin);  // 进入登录页面
 router.post('/signin', sign.login);  // 登录校验
-
-// user controller
-router.get('/user/:name', user.index); // 用户个人主页
 
 router.post('/upload', auth.userRequired, topic.upload); //上传图片
 
