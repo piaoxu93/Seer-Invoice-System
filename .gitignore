@@ -5,6 +5,7 @@ node_modules
 .naeindex
 coverage.html
 .monitor
+.svn
 
 *.min.*.js
 *.min.*.css
