@@ -65,5 +65,16 @@ $(document).ready(function () {
       }
     }
   });
+
+  // confirm delete
+  $('#delete').click(function(event) {
+    var temp = confirm("删除后无法复原，确定删除?");
+    if (temp === true) {
+      return;
+    } else {
+      event.preventDefault();
+      return;
+    }
+  });
 });
 

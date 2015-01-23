@@ -52,7 +52,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class='nav navbar-nav navbar-right'>
         <% if (typeof(current_user) !== 'undefined'){ %>
-        <li><a href="/myinvoice" style="cursor:default"><%= current_user.name %></a></li>
+        <li><a href="/myinvoice/1" style="cursor:default"><%= current_user.name %></a></li>
         <% } %>
         <%
         var site_navs = config.site_navs || [];
@@ -63,7 +63,7 @@
         <% } %>
         <% if (typeof(current_user) !== 'undefined' && current_user.is_admin) { %>
           <li>
-            <a href='/invoices' rel="nofollow">查看</a>
+            <a href='/invoices/1' rel="nofollow">查看</a>
           </li>
         <% } %>
         <% if (typeof(current_user) !== 'undefined') { %>

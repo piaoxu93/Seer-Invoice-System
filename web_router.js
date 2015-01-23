@@ -26,8 +26,8 @@ router.get('/', auth.userRequired, site.index);
 // invoice controller
 router.get('/submit', auth.userRequired, invoice.showSubmit);
 router.post('/submit', auth.userRequired, invoice.submit, invoice.submitError);
-router.get('/myinvoice', auth.userRequired, invoice.showUserInvoice);
-router.get('/invoices', auth.adminRequired, invoice.showAllInvoice);
+router.get('/myinvoice/:page', auth.userRequired, invoice.showUserInvoice);
+router.get('/invoices/:page', auth.adminRequired, invoice.showAllInvoice);
 router.get('/invoice/id/:id', auth.userRequired, invoice.showInvoice);
 router.post('/invoice/id/:id', auth.adminRequired, invoice.changeProgress);
 router.post('/invoice/delete', auth.adminRequired, invoice.deleteInvoice);

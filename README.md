@@ -18,4 +18,3 @@ Fubot invoice system
 ## ToDo
 1. XSS
 2. 首页通知
-3. 分页

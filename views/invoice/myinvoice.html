@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row" id="form-title">
-    <h2>我的报销</h2>
+    <h2>我的报销 : <%= totalInvoices %></h2>
   </div>
   <div class="row" id="form-content">
     <div class="fubot-invoice-form">
@@ -8,7 +8,7 @@
         <% for (var i = 0; i < invoices.length; i++) { %>
         <!--  <% var date = invoices[i].createDate %> -->
           <li class="list-group-item">
-            <a href="/invoice/<%= invoices[i]._id %>">
+            <a href="/invoice/id/<%= invoices[i]._id %>">
               <label>名称 : </label>
               <label class="gray-font"><%= invoices[i].itemName %></label><br/>
               <label>项目名称 : </label>
@@ -21,6 +21,29 @@
           </li>
         <% } %>
       </ul>
+      <% if (totalInvoices !== 0) { %>
+        <nav id="pagination">
+          <ul class="pagination">
+            <li>
+              <a href="/invoices/1" aria-label="First">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <% for (var i = pageRangeFirst; i <= pageRangeLast; i++) { %>
+              <% if (i === currentPage) { %>
+                <li class="active"><a href="/invoices/<%= i %>"><%= i %></a></li>
+              <% } else { %>
+                <li><a href="/invoices/<%= i %>"><%= i %></a></li>
+              <% } %>
+            <% } %>
+            <li>
+              <a href="/invoices/<%= pages %>" aria-label="Last">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      <% }%>
     </div>
   </div>
 </div>

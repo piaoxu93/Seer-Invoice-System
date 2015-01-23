@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row" id="form-title">
-    <h2>所有报销</h2>
+    <h2>所有报销 : <%= totalInvoices %></h2>
   </div>
   <div class="row" id="form-content">
     <div class="fubot-invoice-form">
@@ -23,6 +23,29 @@
           </li>
         <% } %>
       </ul>
+      <% if (totalInvoices !== 0) { %>
+        <nav id="pagination">
+          <ul class="pagination">
+            <li>
+              <a href="/invoices/1" aria-label="First">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <% for (var i = pageRangeFirst; i <= pageRangeLast; i++) { %>
+              <% if (i === currentPage) { %>
+                <li class="active"><a href="/invoices/<%= i %>"><%= i %></a></li>
+              <% } else { %>
+                <li><a href="/invoices/<%= i %>"><%= i %></a></li>
+              <% } %>
+            <% } %>
+            <li>
+              <a href="/invoices/<%= pages %>" aria-label="Last">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      <% } %>
     </div>
   </div>
 </div>

@@ -3,6 +3,7 @@ var config = require('../config');
 var tools = require('../common/tools');
 var Invoice = require('../proxy').Invoice;
 var User = require('../proxy').User;
+var mail = require('../common/mail');
 
 exports.showSubmit = function (req, res, next) {
   res.render('submit/index');
@@ -70,12 +71,17 @@ exports.submit = function (req, res, next) {
   invoice.detail = validator.escape(invoice.detail);
   invoice.note = validator.trim(req.body.note);
   invoice.note = validator.escape(invoice.note);
-  Invoice.newAndSave(invoice, function (err) {
+  Invoice.newAndSave(invoice, function (err, newInvoice) {
     if (err) {
       req.errorMsg = err.toString();
       return next();
     }
     res.render('submit/success', invoice);
+    // 发邮件给管理员
+    for (var i = 0; i < config.admins_email.length; i++) {
+      mail.sendNewInvoiceMail(config.admins_email[i], newInvoice);
+    }
+    return;
   });
 };
 
@@ -87,6 +93,11 @@ exports.submitError = function(req, res, next) {
 
 exports.showUserInvoice = function (req, res, next) {
   var userName = req.session.user.loginname;
+  var currentPage = validator.toInt(req.params.page);
+  if (!currentPage) {
+    res.render('notify/notify', {error: '抱歉，你要的页面不存在'});
+    return;
+  }
   User.getUserByLoginName(userName, function (err, user) {
     if (err) {
       return next(err);
@@ -95,14 +106,32 @@ exports.showUserInvoice = function (req, res, next) {
       res.render('notify/notify', {error: '这个用户不存在。'});
       return;
     }
-
     Invoice.getInvoicesByName(user.name, {sort: '-createDate'},
       function (err, invoices) {
         if (err) {
           return next(err);
         }
+        var totalInvoices = invoices.length;
+        var pages = Math.ceil(totalInvoices / config.page_limit);
+        // 没有记录的时候
+        if (pages === 0 ) { pages++ };
+        if (currentPage < 1 || currentPage > pages) {
+          res.render('notify/notify', {error: '抱歉，你要的页面不存在'});
+          return;
+        } else if (currentPage === pages) {
+          invoices = invoices.slice(config.page_limit * (pages - 1));
+        } else {
+          invoices = invoices.slice(config.page_limit * (currentPage -1),
+                                    config.page_limit * currentPage);
+        }
         res.render('invoice/myinvoice', {
-          invoices: invoices
+          invoices: invoices,
+          currentPage: currentPage,
+          totalInvoices: totalInvoices,
+          pages: pages,
+          // 只显示最多前后5个分页
+          pageRangeFirst: currentPage - 5 < 1 ? 1 : currentPage - 5,
+          pageRangeLast: currentPage + 5 > pages ? pages : currentPage + 5
         });
         return;
       });
@@ -131,13 +160,37 @@ exports.showInvoice = function (req, res, next) {
 };
 
 exports.showAllInvoice = function (req, res, next) {
+  var currentPage = validator.toInt(req.params.page);
+  if (!currentPage) {
+    res.render('notify/notify', {error: '抱歉，你要的页面不存在'});
+    return;
+  }
   Invoice.getInvoices({limit: config.limit, sort: '-createDate'},
     function (err, invoices) {
       if (err) {
         return next(err);
       }
+      var totalInvoices = invoices.length;
+      var pages = Math.ceil(totalInvoices / config.page_limit);
+      // 没有记录的时候
+      if (pages === 0 ) { pages++ };
+      if (currentPage < 1 || currentPage > pages) {
+        res.render('notify/notify', {error: '抱歉，你要的页面不存在'});
+        return;
+      } else if (currentPage === pages) {
+        invoices = invoices.slice(config.page_limit * (pages - 1));
+      } else {
+        invoices = invoices.slice(config.page_limit * (currentPage -1),
+                                  config.page_limit * currentPage);
+      }
       res.render('invoice/invoices', {
-        invoices: invoices
+        invoices: invoices,
+        currentPage: currentPage,
+        totalInvoices: totalInvoices,
+        pages: pages,
+        // 只显示最多前后5个分页
+        pageRangeFirst: currentPage - 5 < 1 ? 1 : currentPage - 5,
+        pageRangeLast: currentPage + 5 > pages ? pages : currentPage + 5
       });
       return;
     });
@@ -146,8 +199,6 @@ exports.showAllInvoice = function (req, res, next) {
 exports.changeProgress = function (req, res, next) {
   var progress = validator.trim(req.body.progress);
   progress = validator.escape(progress);
-  var id = validator.trim(req.body._id);
-  id = validator.escape(id);
   if (!tools.checkStringInArray(progress, config.progress)) {
     res.render('notify/notify', {error: '请选择正确的报销进度'});
     return;
@@ -179,7 +230,7 @@ exports.deleteInvoice = function (req, res, next) {
       res.render('notify/notify', {error: '不存在此发票'});
       return;
     }
-    res.render('notify/notify', {success: '删除成功', backTo: '/invoices'});
+    res.render('notify/notify', {success: '删除成功', backTo: '/invoices/1'});
     return;
   });
 };
