@@ -11,9 +11,9 @@
       </div>
       <hr />
       <div class="form-group">
-        <label for="projectName">项目名称</label>
+        <label for="projectName">项目名称</label><label class='red-star'>*</label>
         <input type="text" class="form-control" name="projectName" id="projectName" required autofocus>
-        <label for="department">费用支出部门</label>
+        <label for="department">费用支出部门</label><label class='red-star'>*</label>
         <select class="form-control"  name="department" id="department" required>
           <option value="部门一" selected="selected">部门一</option>
           <option value="部门二">部门二</option>
@@ -24,19 +24,19 @@
       </div>
       <hr />
       <div class="form-group">
-        <label for="itemName">名称</label>
+        <label for="itemName">名称</label><label class='red-star'>*</label>
         <input type="text" class="form-control" name="itemName" id="itemName" required>
       </div>
       <hr />
       <div class="form-group">
-        <label for="brand">品牌</label>
+        <label for="brand">品牌</label><label class='red-star'>*</label>
         <input type="text" class="form-control" name="brand" id="brand" required>
-        <label for="model">规格型号</label>
+        <label for="model">规格型号</label><label class='red-star'>*</label>
         <input type="text" class="form-control" name="model" id="model" required>
       </div>
       <hr />
       <div class="form-group">
-        <label for="unitPrice">单价</label>
+        <label for="unitPrice">单价</label><label class='red-star'>*</label>
         <div class="input-group">
           <div class="input-group-addon">¥</div>
           <input type="number" class="form-control" id="unitPrice" required min="0" style="width:95px;margin-right:0px;">
@@ -44,7 +44,7 @@
         .
         <input type="number" class="form-control" id="unitPriceDecimal" required min="0" max="99" style="width:60px;" value=0>
         <input type="hidden" class="form-control" name="unitPrice" id="price" novalidate="novalidate">
-        <label for="quantity" style="min-width:62px;">数量</label>
+        <label for="quantity" style="min-width:62px;">数量</label><label class='red-star'>*</label>
         <input type="number" class="form-control" name="quantity" id="quantity" required min="1" style="width:70px;">
         <label for="total" style="min-width:50px;">总价</label>
         <div class="input-group">
@@ -55,14 +55,14 @@
       </div>
       <hr />
       <div class="form-group">
-        <label for="requisitioner">申购人</label>
+        <label for="requisitioner">申购人</label><label class='red-star'>*</label>
         <input type="text" class="form-control" name="requisitioner" id="requisitioner" required>
-        <label for="date">申购时间</label>
+        <label for="date">申购时间</label><label class='red-star'>*</label>
         <input type="date" class="form-control" name="date" id="date" required>
       </div>
       <hr />
       <div class="form-group">
-        <label for="payMethod">付款方式</label>
+        <label for="payMethod">付款方式</label><label class='red-star'>*</label>
         <select class="form-control" name="payMethod" id="payMethod">
           <option value="现金" selected="selected">现金</option>
           <option value="信用卡">信用卡</option>
@@ -73,7 +73,7 @@
       </div>
       <hr />
       <div class="form-group">
-        <label for="arrivalDate">到货时间</label>
+        <label for="arrivalDate">到货时间</label><label class='red-star'>*</label>
         <input type="date" class="form-control" name="arrivalDate" id="arrivalDate" required>
       </div>
       <hr />

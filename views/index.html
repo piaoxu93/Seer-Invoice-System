@@ -1,5 +1,21 @@
 <div class="container-fluid">
-  <div class="row">
-    ...
+  <div class="row" id="form-title">
+    <h2>通知</h2>
+  </div>
+  <div class="row" id="form-content">
+    <div class='invoice-list'>
+      <% if (typeof(informs) !== 'undefined') { %>
+        <% for (var i = 0; i < informs.length; i++) { %>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title"><%= informs[i].head %></h3>
+            </div>
+            <div class="panel-body">
+              <%= informs[i].text %>
+            </div>
+          </div>
+        <% } %>
+      <% } %>
+    </div>
   </div>
 </div>

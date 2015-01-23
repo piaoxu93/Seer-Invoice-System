@@ -64,6 +64,13 @@ $(document).ready(function () {
         return;
       }
     }
+    var temp = confirm("提交后用户将无法删除，确认无误并提交?");
+    if (temp === true) {
+      return;
+    } else {
+      event.preventDefault();
+      return;
+    }
   });
 
   // confirm delete

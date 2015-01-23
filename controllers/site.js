@@ -9,6 +9,10 @@
  * Module dependencies.
  */
 
+var config = require('../config');
+
 exports.index = function (req, res, next) {
-  res.render('index');
+  res.render('index', {
+    informs: config.informs
+  });
 };
