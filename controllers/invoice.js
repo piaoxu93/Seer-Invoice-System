@@ -157,6 +157,10 @@ exports.changeProgress = function (req, res, next) {
         if (err) {
           return next(err);
         }
+        if (!invoice) {
+          res.render('notify/notify', {error: '不存在此发票'});
+          return;
+        }
         invoice.notify = "修改进度成功";
         res.render('invoice/invoice', invoice);
         return;
