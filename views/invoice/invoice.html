@@ -3,7 +3,7 @@
     <h2>发票详情</h2>
   </div>
   <div class="row" id="form-content">
-    <div class="form-inline fubot-invoice-form">
+    <div class="fubot-invoice-form">
       <div class="form-group">
         <label>提交人</label>
         <label class="gray-font"><%= name %></label>
@@ -69,10 +69,30 @@
         <label class="gray-font"><%= note %><label>
       </div>
       <hr />
-      <div class="form-group">
-        <label>报销进度</label>
-        <label class="gray-font"><%= progress %><label>
-      </div>
-    </form>
+      <% if (typeof(current_user) !== 'undefined' && current_user.is_admin) { %>
+        <form class="form-inline" method="post" action="/invoice/<%= _id %>" name="changeprogress" role="form">
+          <div class="form-group">
+            <label for="progress">报销进度</label>
+            <select class="form-control" name="progress" id="progress" required>
+              <option value="未处理" <%= progress === '未处理' ? 'selected' : '' %>>未处理</option>
+              <option value="已接收" <%= progress === '已接收' ? 'selected' : '' %>>已接收</option>
+              <option value="处理中" <%= progress === '处理中' ? 'selected' : '' %>>处理中</option>
+              <option value="报销完成" <%= progress === '报销完成' ? 'selected' : '' %>>报销完成</option>
+            </select>
+          </div>
+          <input type="hidden" name="_id" value='<%= _id %>'/>
+          <input type='hidden' name='_csrf' value='<%= csrf %>'/>
+          <button type="submit" class="btn btn-success">确定</button>
+          <% if (typeof(notify) !== 'undefined') { %>
+            <span class="label label-danger"><%= notify %></span>
+          <% } %>
+        </form>
+      <% } else { %>
+        <div class="form-group">
+          <label>报销进度</label>
+          <label class="gray-font"><%= progress %><label>
+        </div>
+      <% } %>
+    </div>
   </div>
 </div>

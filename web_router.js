@@ -29,6 +29,7 @@ router.post('/submit', auth.userRequired, invoice.submit, invoice.submitError);
 router.get('/myinvoice', auth.userRequired, invoice.showUserInvoice);
 router.get('/invoice/:id', auth.userRequired, invoice.showInvoice);
 router.get('/invoices', auth.adminRequired, invoice.showAllInvoice);
+router.post('/invoice/:id', auth.adminRequired, invoice.changeProgress);
 
 // sign controller
 router.post('/signout', sign.signout);  // 登出

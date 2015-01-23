@@ -108,7 +108,7 @@ exports.showUserInvoice = function (req, res, next) {
       });
 
   });
-}
+};
 
 exports.showInvoice = function (req, res, next) {
   var id = req.params.id;
@@ -125,10 +125,10 @@ exports.showInvoice = function (req, res, next) {
     }
     return;
   });
-}
+};
 
 exports.showAllInvoice = function (req, res, next) {
-  Invoice.getInvoices({limit: config.limit, sort: '-createDate'}, //
+  Invoice.getInvoices({limit: config.limit, sort: '-createDate'},
     function (err, invoices) {
       if (err) {
         return next(err);
@@ -138,4 +138,23 @@ exports.showAllInvoice = function (req, res, next) {
       });
       return;
     });
+};
+
+exports.changeProgress = function(req, res, next) {
+  var progress = validator.trim(req.body.progress);
+  progress = validator.escape(progress);
+  if (!tools.checkStringInArray(progress, config.progress)) {
+    res.render('notify/notify', {error: '请选择正确的报销进度'});
+    return;
+  } else {
+    Invoice.findByIdAndUpdateProgress(req.body._id, progress,
+      function (err, invoice) {
+        if (err) {
+          return next(err);
+        }
+        invoice.notify = "修改进度成功";
+        res.render('invoice/invoice', invoice);
+        return;
+      });
+  }
 };

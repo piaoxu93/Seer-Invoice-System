@@ -43,6 +43,7 @@ $(document).ready(function () {
 
   // check date
   $('#submit').click(function(event) {
+    console.log('message');
     var today = new Date();
     var date = $('#date').val() ? new Date($('#date').val()) : null;
     var arrivalDate = $('#arrivalDate').val() ? new Date($('#arrivalDate').val()) : null;
