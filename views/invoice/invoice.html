@@ -70,7 +70,7 @@
       </div>
       <hr />
       <% if (typeof(current_user) !== 'undefined' && current_user.is_admin) { %>
-        <form class="form-inline" method="post" action="/invoice/<%= _id %>" name="changeprogress" role="form">
+        <form class="form-inline" method="post" action="/invoice/id/<%= _id %>" name="changeprogress" role="form">
           <div class="form-group">
             <label for="progress">报销进度</label>
             <select class="form-control" name="progress" id="progress" required>
@@ -92,6 +92,16 @@
           <label>报销进度</label>
           <label class="gray-font"><%= progress %><label>
         </div>
+      <% } %>
+      <% if (typeof(current_user) !== 'undefined' && current_user.is_admin) { %>
+        <hr />
+        <form class="form-inline" method="post" action="/invoice/delete" name="deleteinvoice" role="form">
+          <input type="hidden" name="_id" value='<%= _id %>'/>
+          <input type='hidden' name='_csrf' value='<%= csrf %>'/>
+          <div class='form-actions'>
+            <button type="submit" id="delete" class="btn btn-danger">删除</button>
+          </div>
+        </form>
       <% } %>
     </div>
   </div>

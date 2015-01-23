@@ -27,9 +27,10 @@ router.get('/', auth.userRequired, site.index);
 router.get('/submit', auth.userRequired, invoice.showSubmit);
 router.post('/submit', auth.userRequired, invoice.submit, invoice.submitError);
 router.get('/myinvoice', auth.userRequired, invoice.showUserInvoice);
-router.get('/invoice/:id', auth.userRequired, invoice.showInvoice);
 router.get('/invoices', auth.adminRequired, invoice.showAllInvoice);
-router.post('/invoice/:id', auth.adminRequired, invoice.changeProgress);
+router.get('/invoice/id/:id', auth.userRequired, invoice.showInvoice);
+router.post('/invoice/id/:id', auth.adminRequired, invoice.changeProgress);
+router.post('/invoice/delete', auth.adminRequired, invoice.deleteInvoice);
 
 // sign controller
 router.post('/signout', sign.signout);  // 登出

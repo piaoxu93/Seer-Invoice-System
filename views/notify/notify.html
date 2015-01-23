@@ -12,6 +12,12 @@
         <a href="javascript:history.back()">返回</a>
       </div>
       <% } %>
+      <% if(typeof(success) !== 'undefined' && success){ %>
+      <div class="alert alert-success" role="alert">
+        <strong><%= success %></strong>
+        <a href="<%= backTo %>">返回</a>
+      </div>
+      <% } %>
     </div>
   </div>
 </div>

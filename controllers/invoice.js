@@ -114,6 +114,9 @@ exports.showInvoice = function (req, res, next) {
   var id = req.params.id;
   Invoice.getInvoiceById(id, function (err, invoice) {
     if (err) {
+      return next(err);
+    }
+    if (!invoice) {
       res.render('notify/notify', {error: '不存在此发票'});
       return;
     }
@@ -140,9 +143,11 @@ exports.showAllInvoice = function (req, res, next) {
     });
 };
 
-exports.changeProgress = function(req, res, next) {
+exports.changeProgress = function (req, res, next) {
   var progress = validator.trim(req.body.progress);
   progress = validator.escape(progress);
+  var id = validator.trim(req.body._id);
+  id = validator.escape(id);
   if (!tools.checkStringInArray(progress, config.progress)) {
     res.render('notify/notify', {error: '请选择正确的报销进度'});
     return;
@@ -157,4 +162,20 @@ exports.changeProgress = function(req, res, next) {
         return;
       });
   }
+};
+
+exports.deleteInvoice = function (req, res, next) {
+  var id = validator.trim(req.body._id);
+  id = validator.escape(id);
+  Invoice.findByIdAndDeleteInvoice(id, function (err, invoice) {
+    if (err) {
+      return next(err);
+    }
+    if (!invoice) {
+      res.render('notify/notify', {error: '不存在此发票'});
+      return;
+    }
+    res.render('notify/notify', {success: '删除成功', backTo: '/invoices'});
+    return;
+  });
 };

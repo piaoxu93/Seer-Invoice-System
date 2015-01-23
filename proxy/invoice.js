@@ -38,6 +38,10 @@ exports.getInvoices = function (opt, callback) {
                opt, callback);
 };
 
-exports.findByIdAndUpdateProgress = function(id, progress, callback) {
+exports.findByIdAndUpdateProgress = function (id, progress, callback) {
   Invoice.findByIdAndUpdate(id, { $set: { progress: progress } }, callback);
+}
+
+exports.findByIdAndDeleteInvoice = function (id, callback) {
+  Invoice.findByIdAndRemove(id, callback);
 }

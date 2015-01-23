@@ -8,7 +8,7 @@
         <% for (var i = 0; i < invoices.length; i++) { %>
         <!--  <% var date = invoices[i].createDate %> -->
           <li class="list-group-item">
-            <a href="/invoice/<%= invoices[i]._id %>">
+            <a href="/invoice/id/<%= invoices[i]._id %>">
               <label>名称 : </label>
               <label class="gray-font"><%= invoices[i].itemName %></label><br/>
               <label>项目名称 : </label>
