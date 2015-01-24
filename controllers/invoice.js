@@ -4,6 +4,7 @@ var tools = require('../common/tools');
 var Invoice = require('../proxy').Invoice;
 var User = require('../proxy').User;
 var mail = require('../common/mail');
+var xss = require('xss');
 
 exports.showSubmit = function (req, res, next) {
   res.render('submit/index');
@@ -13,20 +14,26 @@ exports.submit = function (req, res, next) {
   var invoice = {};
   invoice.name = validator.trim(req.body.name);
   invoice.name = validator.escape(invoice.name);
+  invoice.name  = xss(invoice.name);
   invoice.projectName = validator.trim(req.body.projectName);
   invoice.projectName = validator.escape(invoice.projectName);
+  invoice.projectName = xss(invoice.projectName);
   invoice.department = validator.trim(req.body.department);
   invoice.department = validator.escape(invoice.department);
+  invoice.department = xss(invoice.department);
   if (!tools.checkStringInArray(invoice.department, config.department)) {
     req.errorMsg = '请选择正确的费用支出部门';
     return next();
   }
   invoice.itemName = validator.trim(req.body.itemName);
   invoice.itemName = validator.escape(invoice.itemName);
+  invoice.itemName = xss(invoice.itemName);
   invoice.brand = validator.trim(req.body.brand);
   invoice.brand = validator.escape(invoice.brand);
+  invoice.brand = xss(invoice.brand);
   invoice.model = validator.trim(req.body.model);
   invoice.model = validator.escape(invoice.model);
+  invoice.model = xss(invoice.model);
   invoice.unitPrice = validator.toFloat(req.body.unitPrice);
   if (!invoice.unitPrice || !(invoice.unitPrice > 0)) {
     req.errorMsg = '请输入正确的单价';
@@ -40,6 +47,7 @@ exports.submit = function (req, res, next) {
   invoice.total = invoice.unitPrice * invoice.quantity;
   invoice.requisitioner = validator.trim(req.body.requisitioner);
   invoice.requisitioner = validator.escape(invoice.requisitioner);
+  invoice.requisitioner = xss(invoice.requisitioner);
   invoice.date = validator.toDate(req.body.date);
   invoice.dateStr = validator.trim(req.body.date);
   invoice.dateStr = validator.escape(invoice.dateStr);
@@ -50,6 +58,7 @@ exports.submit = function (req, res, next) {
   }
   invoice.payMethod = validator.trim(req.body.payMethod);
   invoice.payMethod = validator.escape(invoice.payMethod);
+  invoice.payMethod = xss(invoice.payMethod);
   if (!tools.checkStringInArray(invoice.payMethod, config.payMethod)) {
     req.errorMsg = '请选择正确的付款方式';
     return next();
@@ -63,14 +72,17 @@ exports.submit = function (req, res, next) {
   }
   invoice.invoiceType = validator.trim(req.body.invoiceType);
   invoice.invoiceType = validator.escape(invoice.invoiceType);
+  invoice.invoiceType = xss(invoice.invoiceType);
   if (!tools.checkStringInArray(invoice.invoiceType, config.invoiceType)) {
     req.errorMsg = '请选择正确的发票类别';
     return next();
   }
   invoice.detail = validator.trim(req.body.detail);
   invoice.detail = validator.escape(invoice.detail);
+  invoice.detail = xss(invoice.detail);
   invoice.note = validator.trim(req.body.note);
   invoice.note = validator.escape(invoice.note);
+  invoice.note = xss(invoice.note);
   Invoice.newAndSave(invoice, function (err, newInvoice) {
     if (err) {
       req.errorMsg = err.toString();
@@ -141,6 +153,7 @@ exports.showUserInvoice = function (req, res, next) {
 
 exports.showInvoice = function (req, res, next) {
   var id = req.params.id;
+  id = xss(id);
   Invoice.getInvoiceById(id, function (err, invoice) {
     if (err) {
       return next(err);
@@ -199,6 +212,7 @@ exports.showAllInvoice = function (req, res, next) {
 exports.changeProgress = function (req, res, next) {
   var progress = validator.trim(req.body.progress);
   progress = validator.escape(progress);
+  progress = xss(progress);
   if (!tools.checkStringInArray(progress, config.progress)) {
     res.render('notify/notify', {error: '请选择正确的报销进度'});
     return;
@@ -222,6 +236,7 @@ exports.changeProgress = function (req, res, next) {
 exports.deleteInvoice = function (req, res, next) {
   var id = validator.trim(req.body._id);
   id = validator.escape(id);
+  id = xss(id);
   Invoice.findByIdAndDeleteInvoice(id, function (err, invoice) {
     if (err) {
       return next(err);
