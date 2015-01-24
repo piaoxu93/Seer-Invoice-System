@@ -12,27 +12,27 @@ exports.showSubmit = function (req, res, next) {
 
 exports.submit = function (req, res, next) {
   var invoice = {};
-  invoice.name = xss(invoice.name);
-  invoice.name = validator.trim(req.body.name);
+  invoice.name = xss(req.body.name);
+  invoice.name = validator.trim(invoice.name);
   invoice.name = validator.escape(invoice.name);
-  invoice.projectName = xss(invoice.projectName);
-  invoice.projectName = validator.trim(req.body.projectName);
+  invoice.projectName = xss(req.body.projectName);
+  invoice.projectName = validator.trim(invoice.projectName);
   invoice.projectName = validator.escape(invoice.projectName);
-  invoice.department = xss(invoice.department);
-  invoice.department = validator.trim(req.body.department);
+  invoice.department = xss(req.body.department);
+  invoice.department = validator.trim(invoice.department);
   invoice.department = validator.escape(invoice.department);
   if (!tools.checkStringInArray(invoice.department, config.department)) {
     req.errorMsg = '请选择正确的费用支出部门';
     return next();
   }
-  invoice.itemName = xss(invoice.itemName);
-  invoice.itemName = validator.trim(req.body.itemName);
+  invoice.itemName = xss(req.body.itemName);
+  invoice.itemName = validator.trim(invoice.itemName);
   invoice.itemName = validator.escape(invoice.itemName);
-  invoice.brand = xss(invoice.brand);
-  invoice.brand = validator.trim(req.body.brand);
+  invoice.brand = xss(req.body.brand);
+  invoice.brand = validator.trim(invoice.brand);
   invoice.brand = validator.escape(invoice.brand);
-  invoice.model = xss(invoice.model);
-  invoice.model = validator.trim(req.body.model);
+  invoice.model = xss(req.body.model);
+  invoice.model = validator.trim(invoice.model);
   invoice.model = validator.escape(invoice.model);
   invoice.unitPrice = validator.toFloat(req.body.unitPrice);
   if (!invoice.unitPrice || !(invoice.unitPrice > 0)) {
@@ -45,8 +45,8 @@ exports.submit = function (req, res, next) {
     return next();
   }
   invoice.total = invoice.unitPrice * invoice.quantity;
-  invoice.requisitioner = xss(invoice.requisitioner);
-  invoice.requisitioner = validator.trim(req.body.requisitioner);
+  invoice.requisitioner = xss(req.body.requisitioner);
+  invoice.requisitioner = validator.trim(invoice.requisitioner);
   invoice.requisitioner = validator.escape(invoice.requisitioner);
   invoice.date = validator.toDate(req.body.date);
   var today = new Date();
@@ -54,8 +54,8 @@ exports.submit = function (req, res, next) {
     req.errorMsg = '请选择正确的申购日期';
     return next();
   }
-  invoice.payMethod = xss(invoice.payMethod);
-  invoice.payMethod = validator.trim(req.body.payMethod);
+  invoice.payMethod = xss(req.body.payMethod);
+  invoice.payMethod = validator.trim(invoice.payMethod);
   invoice.payMethod = validator.escape(invoice.payMethod);
   if (!tools.checkStringInArray(invoice.payMethod, config.payMethod)) {
     req.errorMsg = '请选择正确的付款方式';
@@ -66,18 +66,19 @@ exports.submit = function (req, res, next) {
     req.errorMsg = '请选择正确的到货日期';
     return next();
   }
-  invoice.invoiceType = xss(invoice.invoiceType);
-  invoice.invoiceType = validator.trim(req.body.invoiceType);
+  invoice.invoiceType = xss(req.body.invoiceType);
+  invoice.invoiceType = validator.trim(invoice.invoiceType);
   invoice.invoiceType = validator.escape(invoice.invoiceType);
   if (!tools.checkStringInArray(invoice.invoiceType, config.invoiceType)) {
     req.errorMsg = '请选择正确的发票类别';
     return next();
   }
-  invoice.detail = xss(invoice.detail);
-  invoice.detail = validator.trim(req.body.detail);
+  invoice.detail = xss(req.body.detail);
+  console.log(invoice.detail);
+  invoice.detail = validator.trim(invoice.detail);
   invoice.detail = validator.escape(invoice.detail);
-  invoice.note = xss(invoice.note);
-  invoice.note = validator.trim(req.body.note);
+  invoice.note = xss(req.body.note);
+  invoice.note = validator.trim(invoice.note);
   invoice.note = validator.escape(invoice.note);
   Invoice.newAndSave(invoice, function (err, newInvoice) {
     if (err) {
