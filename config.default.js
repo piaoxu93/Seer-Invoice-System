@@ -27,7 +27,7 @@ var config = {
   host: 'invoice.fubot.cn',
 
   // mongodb 配置
-  db: 'mongodb://127.0.0.1/FIS_dev',
+  db: 'mongodb://FIS:123456@127.0.0.1:27017/FIS_dev',
   db_name: 'FIS_dev',
 
   session_secret: 'FIS_secret', // 务必修改
@@ -40,8 +40,13 @@ var config = {
   admins: {
     piaoxu: true,
     ninjawei: true,
-    zhyaic: false
+    zhyaic: true
   },
+  // admin email
+  admins_email: ['piaoxu@fubot.cn'],
+
+  // 每页显示的发票数量
+  page_limit: 7,
 
   // 数据库单次查询条数限制
   limit: 50000,
@@ -52,13 +57,31 @@ var config = {
     url: '/public/upload/'
   },
 
+  // 邮箱配置
+  // debug 为 true 时不会发送
+  mail_opts: {
+    host: 'smtp.ym.163.com',
+    port: 25,
+    auth: {
+      user: 'invoice@fubot.cn',
+      pass: 'wyKD8MpWg7ujKA'
+    }
+  },
+
   department: ['部门一', '部门二', '部门三', '部门四', '部门五'],
   payMethod: ['现金','信用卡','借记卡','支付宝','其他'],
   invoiceType: ['普通发票', '增值税发票', '替票'],
   progress: ['未处理', '已接收', '处理中', '报销完成'],
 
   // 首页的通知 - ToDo
-  inform: [{}, {}]
+  informs: [{
+    head: 'BUG反馈',
+    text: '使用时若发现BUG，请及时联系管理员，piaoxu@fubot.cn'
+  },
+  {
+    head: 'Fubot 发票系统开通',
+    text: 'Fubot发票系统正式上线，使用前请先点击右上角的关于查看使用方法,有任何意见及建议请联系管理员'
+  }]
 };
 
 module.exports = config;

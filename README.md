@@ -16,4 +16,4 @@ Fubot invoice system
 ```
 
 ## ToDo
-1. XSS
+1. 打印
