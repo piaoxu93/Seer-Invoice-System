@@ -30,18 +30,18 @@
       <hr />
       <div class="form-group">
         <label>单价</label>
-        <label class="gray-font"><%= unitPrice %></label>
+        <label class="gray-font">¥ <%= unitPrice %></label>
         <label style="min-width:62px;">数量</label>
         <label class="gray-font" style="width:70px;"><%= quantity %></label>
         <label style="min-width:50px;">总价</label>
-        <label class="gray-font" style="width:120px;"><%= total %></label>
+        <label class="gray-font" style="width:120px;">¥ <%= total %></label>
       </div>
       <hr />
       <div class="form-group">
         <label>申购人</label>
         <label class="gray-font"><%= requisitioner %></label>
         <label>申购时间</label>
-        <label class="gray-font"><%= date %></label>
+        <label class="gray-font"><%= dateStr %></label>
       </div>
       <hr />
       <div class="form-group">
@@ -51,7 +51,7 @@
       <hr />
       <div class="form-group">
         <label>到货时间</label>
-        <label class="gray-font"><%= arrivalDate %></label>
+        <label class="gray-font"><%= arrivalDateStr %></label>
       </div>
       <hr />
       <div class="form-group">
@@ -64,13 +64,13 @@
         <label class="gray-font"><%= detail %><label>
       </div>
       <hr />
-      <div class="form-group">
+      <div class="form-group" style="page-break-after:always">
         <label>备注</label>
         <label class="gray-font"><%= note %><label>
       </div>
-      <hr />
+      <hr id="hr1"/>
       <% if (typeof(current_user) !== 'undefined' && current_user.is_admin) { %>
-        <form class="form-inline" method="post" action="/invoice/id/<%= _id %>" name="changeprogress" role="form">
+        <form class="form-inline" method="post" action="/invoice/id/<%= _id %>" name="changeprogress" id="changeprogress" role="form">
           <div class="form-group">
             <label for="progress">报销进度</label>
             <select class="form-control" name="progress" id="progress" required>
@@ -94,12 +94,13 @@
         </div>
       <% } %>
       <% if (typeof(current_user) !== 'undefined' && current_user.is_admin) { %>
-        <hr />
-        <form class="form-inline" method="post" action="/invoice/delete" name="deleteinvoice" role="form">
+        <hr id="hr2"/>
+        <form class="form-inline" method="post" action="/invoice/delete" name="deleteinvoice" id="deleteinvoice" role="form">
           <input type="hidden" name="_id" value='<%= _id %>'/>
           <input type='hidden' name='_csrf' value='<%= csrf %>'/>
           <div class='form-actions'>
             <button type="submit" id="delete" class="btn btn-danger">删除</button>
+            <button type="button" id="printInvoice" class="btn btn-warning">打印</button>
           </div>
         </form>
       <% } %>

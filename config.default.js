@@ -24,14 +24,14 @@ var config = {
 
   site_static_host: '', // 静态文件存储域名
   // 网站的域名
-  host: 'invoice.fubot.cn',
+  host: 'test.fubot.cn',
 
   // mongodb 配置
-  db: 'mongodb://FIS:123456@127.0.0.1:27017/FIS_dev',
+  db: 'mongodb://127.0.0.1/FIS_dev',
   db_name: 'FIS_dev',
 
-  session_secret: 'FIS_secret', // 务必修改
-  auth_cookie_name: 'FIS_cookie',
+  session_secret: 'secret', // 务必修改
+  auth_cookie_name: 'cookie',
 
   // 程序运行的端口
   port: 3030,
@@ -63,8 +63,8 @@ var config = {
     host: 'smtp.ym.163.com',
     port: 25,
     auth: {
-      user: 'invoice@fubot.cn',
-      pass: 'wyKD8MpWg7ujKA'
+      user: 'test@test.com',
+      pass: '123456'
     }
   },
 

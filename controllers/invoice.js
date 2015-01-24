@@ -12,28 +12,28 @@ exports.showSubmit = function (req, res, next) {
 
 exports.submit = function (req, res, next) {
   var invoice = {};
+  invoice.name = xss(invoice.name);
   invoice.name = validator.trim(req.body.name);
   invoice.name = validator.escape(invoice.name);
-  invoice.name  = xss(invoice.name);
+  invoice.projectName = xss(invoice.projectName);
   invoice.projectName = validator.trim(req.body.projectName);
   invoice.projectName = validator.escape(invoice.projectName);
-  invoice.projectName = xss(invoice.projectName);
+  invoice.department = xss(invoice.department);
   invoice.department = validator.trim(req.body.department);
   invoice.department = validator.escape(invoice.department);
-  invoice.department = xss(invoice.department);
   if (!tools.checkStringInArray(invoice.department, config.department)) {
     req.errorMsg = '请选择正确的费用支出部门';
     return next();
   }
+  invoice.itemName = xss(invoice.itemName);
   invoice.itemName = validator.trim(req.body.itemName);
   invoice.itemName = validator.escape(invoice.itemName);
-  invoice.itemName = xss(invoice.itemName);
+  invoice.brand = xss(invoice.brand);
   invoice.brand = validator.trim(req.body.brand);
   invoice.brand = validator.escape(invoice.brand);
-  invoice.brand = xss(invoice.brand);
+  invoice.model = xss(invoice.model);
   invoice.model = validator.trim(req.body.model);
   invoice.model = validator.escape(invoice.model);
-  invoice.model = xss(invoice.model);
   invoice.unitPrice = validator.toFloat(req.body.unitPrice);
   if (!invoice.unitPrice || !(invoice.unitPrice > 0)) {
     req.errorMsg = '请输入正确的单价';
@@ -45,50 +45,48 @@ exports.submit = function (req, res, next) {
     return next();
   }
   invoice.total = invoice.unitPrice * invoice.quantity;
+  invoice.requisitioner = xss(invoice.requisitioner);
   invoice.requisitioner = validator.trim(req.body.requisitioner);
   invoice.requisitioner = validator.escape(invoice.requisitioner);
-  invoice.requisitioner = xss(invoice.requisitioner);
   invoice.date = validator.toDate(req.body.date);
-  invoice.dateStr = validator.trim(req.body.date);
-  invoice.dateStr = validator.escape(invoice.dateStr);
   var today = new Date();
   if (!invoice.date || invoice.date > today) {
     req.errorMsg = '请选择正确的申购日期';
     return next();
   }
+  invoice.payMethod = xss(invoice.payMethod);
   invoice.payMethod = validator.trim(req.body.payMethod);
   invoice.payMethod = validator.escape(invoice.payMethod);
-  invoice.payMethod = xss(invoice.payMethod);
   if (!tools.checkStringInArray(invoice.payMethod, config.payMethod)) {
     req.errorMsg = '请选择正确的付款方式';
     return next();
   }
   invoice.arrivalDate = validator.toDate(req.body.arrivalDate);
-  invoice.arrivalDateStr = validator.trim(req.body.arrivalDate);
-  invoice.arrivalDateStr = validator.escape(invoice.arrivalDateStr);
   if (!invoice.arrivalDate || invoice.arrivalDate > today) {
     req.errorMsg = '请选择正确的到货日期';
     return next();
   }
+  invoice.invoiceType = xss(invoice.invoiceType);
   invoice.invoiceType = validator.trim(req.body.invoiceType);
   invoice.invoiceType = validator.escape(invoice.invoiceType);
-  invoice.invoiceType = xss(invoice.invoiceType);
   if (!tools.checkStringInArray(invoice.invoiceType, config.invoiceType)) {
     req.errorMsg = '请选择正确的发票类别';
     return next();
   }
+  invoice.detail = xss(invoice.detail);
   invoice.detail = validator.trim(req.body.detail);
   invoice.detail = validator.escape(invoice.detail);
-  invoice.detail = xss(invoice.detail);
+  invoice.note = xss(invoice.note);
   invoice.note = validator.trim(req.body.note);
   invoice.note = validator.escape(invoice.note);
-  invoice.note = xss(invoice.note);
   Invoice.newAndSave(invoice, function (err, newInvoice) {
     if (err) {
       req.errorMsg = err.toString();
       return next();
     }
-    res.render('submit/success', invoice);
+    newInvoice.dateStr = tools.dateFormat(newInvoice.date, 'yyyy-MM-dd , D');
+    newInvoice.arrivalDateStr = tools.dateFormat(newInvoice.arrivalDate, 'yyyy-MM-dd , D');
+    res.render('submit/success', newInvoice);
     // 发邮件给管理员
     for (var i = 0; i < config.admins_email.length; i++) {
       mail.sendNewInvoiceMail(config.admins_email[i], newInvoice);
@@ -137,6 +135,7 @@ exports.showUserInvoice = function (req, res, next) {
                                     config.page_limit * currentPage);
         }
         res.render('invoice/myinvoice', {
+          dateFormat: tools.dateFormat,
           invoices: invoices,
           currentPage: currentPage,
           totalInvoices: totalInvoices,
@@ -154,6 +153,8 @@ exports.showUserInvoice = function (req, res, next) {
 exports.showInvoice = function (req, res, next) {
   var id = req.params.id;
   id = xss(id);
+  id = validator.trim(id);
+  id = validator.escape(id);
   Invoice.getInvoiceById(id, function (err, invoice) {
     if (err) {
       return next(err);
@@ -166,6 +167,8 @@ exports.showInvoice = function (req, res, next) {
         invoice.name !== req.session.user.name) {
       res.render('notify/notify', {error: '抱歉，你只能查看自己提交的发票'});
     } else {
+      invoice.dateStr = tools.dateFormat(invoice.date, 'yyyy-MM-dd , D');
+      invoice.arrivalDateStr = tools.dateFormat(invoice.arrivalDate, 'yyyy-MM-dd , D');
       res.render('invoice/invoice', invoice);
     }
     return;
@@ -197,6 +200,7 @@ exports.showAllInvoice = function (req, res, next) {
                                   config.page_limit * currentPage);
       }
       res.render('invoice/invoices', {
+        dateFormat: tools.dateFormat, // 把格式化函数传出去，invoices中所有元素的date在视图渲染时格式化
         invoices: invoices,
         currentPage: currentPage,
         totalInvoices: totalInvoices,
@@ -211,8 +215,8 @@ exports.showAllInvoice = function (req, res, next) {
 
 exports.changeProgress = function (req, res, next) {
   var progress = validator.trim(req.body.progress);
-  progress = validator.escape(progress);
   progress = xss(progress);
+  progress = validator.escape(progress);
   if (!tools.checkStringInArray(progress, config.progress)) {
     res.render('notify/notify', {error: '请选择正确的报销进度'});
     return;
@@ -235,8 +239,8 @@ exports.changeProgress = function (req, res, next) {
 
 exports.deleteInvoice = function (req, res, next) {
   var id = validator.trim(req.body._id);
-  id = validator.escape(id);
   id = xss(id);
+  id = validator.escape(id);
   Invoice.findByIdAndDeleteInvoice(id, function (err, invoice) {
     if (err) {
       return next(err);

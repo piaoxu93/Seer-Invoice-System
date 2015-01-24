@@ -14,7 +14,7 @@
               <label>项目名称 : </label>
               <label class="gray-font"><%= invoices[i].projectName %></label><br/>
               <label>提交时间 : </label>
-              <label class="gray-font"><%= invoices[i].createDate %></label><br/>
+              <label class="gray-font"><%= dateFormat(invoices[i].createDate, 'yyyy-MM-dd , D , hh:mm:ss') %></label><br/>
               <label>报销进度 : </label>
               <label class="gray-font"><%= invoices[i].progress %></label>
             </a>
