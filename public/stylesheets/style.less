@@ -4,6 +4,11 @@
 @node_black: #444444;
 
 /* base */
+::selection {
+  background-color: transparent;
+  color: #FF0091;
+}
+
 body {
   background-color: @gray1;
   font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti !important;
@@ -31,14 +36,14 @@ label {
 }
 
 #form-content {
-  padding: 0px 20px 20px;
+  padding: 0 20px 20px;
   border-radius: 7px;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
   background-color: white;
-  box-shadow: -1px 0 0 0 #d2d2d2,-1px 0 0 0 #e6e6e6,1px 0 0 0 #d2d2d2,2px 0 0 0 #e6e6e6,0 -1px 0 0 #e8e8e8,0 2px 0 0 rgba(241,241,241,0.3),0 1px 0 0 #b1b1b1;
-  -moz-box-shadow: -1px 0 0 0 #d2d2d2,-1px 0 0 0 #e6e6e6,1px 0 0 0 #d2d2d2,2px 0 0 0 #e6e6e6,0 -1px 0 0 #e8e8e8,0 2px 0 0 rgba(241,241,241,0.3),0 1px 0 0 #b1b1b1;
   -webkit-box-shadow:-1px 0 0 0 #d2d2d2,-1px 0 0 0 #e6e6e6,1px 0 0 0 #d2d2d2,2px 0 0 0 #e6e6e6,0 -1px 0 0 #e8e8e8,0 2px 0 0 rgba(241,241,241,0.3),0 1px 0 0 #b1b1b1;
+  -moz-box-shadow: -1px 0 0 0 #d2d2d2,-1px 0 0 0 #e6e6e6,1px 0 0 0 #d2d2d2,2px 0 0 0 #e6e6e6,0 -1px 0 0 #e8e8e8,0 2px 0 0 rgba(241,241,241,0.3),0 1px 0 0 #b1b1b1;
+  box-shadow: -1px 0 0 0 #d2d2d2,-1px 0 0 0 #e6e6e6,1px 0 0 0 #d2d2d2,2px 0 0 0 #e6e6e6,0 -1px 0 0 #e8e8e8,0 2px 0 0 rgba(241,241,241,0.3),0 1px 0 0 #b1b1b1;
 }
 
 #form-title {
@@ -46,14 +51,14 @@ label {
   border-radius: 7px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  padding: 0px;
-  box-shadow: -1px 0 0 0 #d2d2d2,-1px 0 0 0 #e6e6e6,1px 0 0 0 #d2d2d2,2px 0 0 0 #e6e6e6,0 -1px 0 0 #e8e8e8,0 2px 0 0 rgba(241,241,241,0.3),0 1px 0 0 #b1b1b1;
-  -moz-box-shadow: -1px 0 0 0 #d2d2d2,-1px 0 0 0 #e6e6e6,1px 0 0 0 #d2d2d2,2px 0 0 0 #e6e6e6,0 -1px 0 0 #e8e8e8,0 2px 0 0 rgba(241,241,241,0.3),0 1px 0 0 #b1b1b1;
+  padding: 0;
   -webkit-box-shadow:-1px 0 0 0 #d2d2d2,-1px 0 0 0 #e6e6e6,1px 0 0 0 #d2d2d2,2px 0 0 0 #e6e6e6,0 -1px 0 0 #e8e8e8,0 2px 0 0 rgba(241,241,241,0.3),0 1px 0 0 #b1b1b1;
+  -moz-box-shadow: -1px 0 0 0 #d2d2d2,-1px 0 0 0 #e6e6e6,1px 0 0 0 #d2d2d2,2px 0 0 0 #e6e6e6,0 -1px 0 0 #e8e8e8,0 2px 0 0 rgba(241,241,241,0.3),0 1px 0 0 #b1b1b1;
+  box-shadow: -1px 0 0 0 #d2d2d2,-1px 0 0 0 #e6e6e6,1px 0 0 0 #d2d2d2,2px 0 0 0 #e6e6e6,0 -1px 0 0 #e8e8e8,0 2px 0 0 rgba(241,241,241,0.3),0 1px 0 0 #b1b1b1;
   h2 {
     font-size: 18px;
-    margin: 0px;
-    padding: 14px 0px 14px 0px;
+    margin: 0;
+    padding: 14px 0 14px 0;
   }
 }
 
@@ -95,14 +100,14 @@ label {
 #backtotop {
   width: 24px;
   color: gray;
-  padding: 12px 0px 12px 5px;
+  padding: 12px 0 12px 5px;
   display: none;
   position: fixed;
   cursor: pointer;
   text-align: center;
   z-index: 20;
   background-color: white;
-  border-radius: 12px 0px 0px 12px;
+  border-radius: 12px 0 0 12px;
 }
 
 #pagination {
@@ -113,8 +118,8 @@ label {
 .navbar {
   background: @node_black;
   font-size: 13px;
-  border-radius: 0px;
-  border: 0px;
+  border-radius: 0;
+  border: 0;
 }
 
 .navbar-brand {
@@ -145,7 +150,7 @@ label {
 #footer_main {
   width: 90%;
   margin: 10px auto;
-  padding: 5px 0px;
+  padding: 5px 0;
   font-size: 13px;
   line-height: 2em;
   span {

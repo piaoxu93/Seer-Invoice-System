@@ -13,20 +13,12 @@
   <meta name="format-detection" content="address=no">
   <meta name="referrer" content="never">
   <meta name="robots" content="none">
+  <meta http-equiv="cache-control" content="no-cache">
 
   <!-- style -->
   <%- Loader('/public/stylesheets/index.min.css')
   .css('/public/libs/bootstrap/css/bootstrap.min.css')
   .css('/public/stylesheets/style.less')
-  .done(assets, config.site_static_host, config.mini_assets)
-  %>
-
-  <!-- scripts -->
-  <%- Loader('/public/index.min.js')
-  .js('/public/libs/jquery-2.1.0.js')
-  .js('/public/libs/jquery-ujs.js')
-  .js('/public/libs/bootstrap/js/bootstrap.min.js')
-  .js('/public/javascripts/main.js')
   .done(assets, config.site_static_host, config.mini_assets)
   %>
 
@@ -93,6 +85,13 @@
     </div>
   </div>
 </div>
-
+<!-- scripts -->
+  <%- Loader('/public/index.min.js')
+  .js('/public/libs/jquery-2.1.0.js')
+  .js('/public/libs/jquery-ujs.js')
+  .js('/public/libs/bootstrap/js/bootstrap.min.js')
+  .js('/public/javascripts/main.js')
+  .done(assets, config.site_static_host, config.mini_assets)
+  %>
 </body>
 </html>
