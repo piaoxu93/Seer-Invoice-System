@@ -16,4 +16,4 @@ Fubot invoice system
 ```
 
 ## ToDo
-1. 打印
+1. 文档：jsdoc, doxmate
