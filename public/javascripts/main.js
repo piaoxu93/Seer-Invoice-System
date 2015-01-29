@@ -88,13 +88,19 @@ $(document).ready(function () {
   $('#printInvoice').click(function(event) {
     $('#changeprogress').addClass('noPrint');
     $('#deleteinvoice').addClass('noPrint');
-    $('#hr1').addClass('noPrint');
-    $('#hr2').addClass('noPrint');
+    $('#signature1').removeClass('noPrint');
+    $('#signature2').removeClass('noPrint');
+    $('#signature3').removeClass('noPrint');
+    $('.hr').removeClass('noPrint');
+    $('.hr1').addClass('noPrint');
     window.print();
     $('#changeprogress').removeClass('noPrint');
     $('#deleteinvoice').removeClass('noPrint');
-    $('#hr1').removeClass('noPrint');
-    $('#hr2').removeClass('noPrint');
+    $('#signature1').addClass('noPrint');
+    $('#signature2').addClass('noPrint');
+    $('#signature3').addClass('noPrint');
+    $('.hr').addClass('noPrint');
+    $('.hr1').removeClass('noPrint');
     event.preventDefault();
     return;
   });

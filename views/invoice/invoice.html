@@ -59,16 +59,27 @@
         <label class="gray-font"><%= invoiceType %></label>
       </div>
       <hr />
-      <div class="form-group">
+      <div class="form-group page-break">
         <label>供应商明细</label>
         <label class="gray-font"><%= detail %><label>
       </div>
       <hr />
-      <div class="form-group" style="page-break-after:always">
+      <div class="form-group">
         <label>备注</label>
         <label class="gray-font"><%= note %><label>
       </div>
-      <hr id="hr1"/>
+      <hr />
+      <div id="signature1" class="form-group noPrint">
+        <label>总经理签名</label>
+      </div>
+      <hr class="hr noPrint"/>
+      <div id="signature2" class="form-group noPrint">
+        <label>部门经理签名</label>
+      </div>
+      <hr class="hr noPrint"/>
+      <div id="signature3" class="form-group noPrint">
+        <label>提交人签名</label>
+      </div>
       <% if (typeof(current_user) !== 'undefined' && current_user.is_admin) { %>
         <form class="form-inline" method="post" action="/invoice/id/<%= _id %>" name="changeprogress" id="changeprogress" role="form">
           <div class="form-group">
@@ -94,7 +105,7 @@
         </div>
       <% } %>
       <% if (typeof(current_user) !== 'undefined' && current_user.is_admin) { %>
-        <hr id="hr2"/>
+        <hr class="hr1"/>
         <form class="form-inline" method="post" action="/invoice/delete" name="deleteinvoice" id="deleteinvoice" role="form">
           <input type="hidden" name="_id" value='<%= _id %>'/>
           <input type='hidden' name='_csrf' value='<%= csrf %>'/>

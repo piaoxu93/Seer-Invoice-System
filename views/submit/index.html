@@ -6,13 +6,13 @@
     <form class="form-inline fubot-invoice-form" method="post" action="/submit" name="fubot-invoice-form" role='form'>
       <div class="form-group">
         <label for="name">填表人</label>
-        <input type="text" class="form-control" placeholder="<%= current_user.name %>" disabled>
+        <label><%= current_user.name %></label>
         <input type="hidden" class="form-control" name="name" id="name" value="<%= current_user.name %>" novalidate="novalidate">
       </div>
       <hr />
       <div class="form-group">
         <label for="projectName">项目名称</label><label class='red-star'>*</label>
-        <input type="text" class="form-control" name="projectName" id="projectName" required autofocus>
+        <input type="text" class="form-control" name="projectName" id="projectName" required autofocus style="margin-right: 45px;">
         <label for="department">费用支出部门</label><label class='red-star'>*</label>
         <select class="form-control"  name="department" id="department" required>
           <option value="初期费用" selected="selected">初期费用</option>
@@ -26,7 +26,7 @@
       <hr />
       <div class="form-group">
         <label for="brand">品牌</label><label class='red-star'>*</label>
-        <input type="text" class="form-control" name="brand" id="brand" required>
+        <input type="text" class="form-control" name="brand" id="brand" required style="margin-right: 47px;">
         <label for="model">规格型号</label><label class='red-star'>*</label>
         <input type="text" class="form-control" name="model" id="model" required>
       </div>
@@ -38,21 +38,24 @@
           <input type="number" class="form-control" id="unitPrice" required min="0" style="width:95px;margin-right:0px;">
         </div>
         .
-        <input type="number" class="form-control" id="unitPriceDecimal" required min="0" max="99" style="width:60px;" value=0>
+        <input type="number" class="form-control" id="unitPriceDecimal" required min="0" max="99" style="width:55px;" value=0>
         <input type="hidden" class="form-control" name="unitPrice" id="price" novalidate="novalidate">
-        <label for="quantity" style="min-width:62px;">数量</label><label class='red-star'>*</label>
+        <label for="quantity" style="min-width:62px;margin-right: 27px;">数量</label><label class='red-star'>*</label>
         <input type="number" class="form-control" name="quantity" id="quantity" required min="1" style="width:70px;">
-        <label for="total" style="min-width:50px;">总价</label>
+      </div>
+      <hr />
+      <div class="form-group">
+        <label for="total">总价</label><label class='red-star'>*</label>
         <div class="input-group">
           <div class="input-group-addon">¥</div>
-          <input type="number" class="form-control"  id="total-temp" disabled style="width:120px;">
           <input type="hidden" class="form-control" name="total" id="total" novalidate="novalidate">
+          <input type="number" class="form-control" id="total-temp" disabled style="width: 139px;">
         </div>
       </div>
       <hr />
       <div class="form-group">
         <label for="requisitioner">申购人</label><label class='red-star'>*</label>
-        <input type="text" class="form-control" name="requisitioner" id="requisitioner" required>
+        <input type="text" class="form-control" name="requisitioner" id="requisitioner" required style="margin-right: 47px;">
         <label for="date">申购时间</label><label class='red-star'>*</label>
         <input type="date" class="form-control" name="date" id="date" required>
       </div>
