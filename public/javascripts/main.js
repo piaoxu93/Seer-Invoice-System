@@ -53,11 +53,6 @@ $(document).ready(function () {
         alert('申购时间不能晚于今天');
         return;
       }
-      if (arrivalDate > today) {
-        event.preventDefault();
-        alert('到货时间不能晚于今天');
-        return;
-      }
       if (!!date && !!arrivalDate && (arrivalDate < date)) {
         event.preventDefault();
         alert('到货时间不能早于申购时间');

@@ -12,10 +12,16 @@
       <hr />
       <div class="form-group">
         <label for="projectName">项目名称</label><label class='red-star'>*</label>
-        <input type="text" class="form-control" name="projectName" id="projectName" required autofocus style="margin-right: 45px;">
+        <select class="form-control" name="projectName" id="projectName" style="margin-right:39px;width:180px;">
+          <% for (var i = 0; i < projects.length; i++) { %>
+            <option value="<%= projects[i] %>"><%= projects[i] %></option>
+          <% } %>
+        </select>
         <label for="department">费用支出部门</label><label class='red-star'>*</label>
         <select class="form-control"  name="department" id="department" required>
-          <option value="初期费用" selected="selected">初期费用</option>
+          <% for (var i = 0; i < department.length; i++) { %>
+            <option value="<%= department[i] %>"><%= department[i] %></option>
+          <% } %>
         </select>
       </div>
       <hr />
@@ -38,7 +44,7 @@
           <input type="number" class="form-control" id="unitPrice" required min="0" style="width:95px;margin-right:0px;">
         </div>
         .
-        <input type="number" class="form-control" id="unitPriceDecimal" required min="0" max="99" style="width:55px;" value=0>
+        <input type="number" class="form-control" id="unitPriceDecimal" required min="0" max="99" style="width:55px; margin-right:25px;" value=0>
         <input type="hidden" class="form-control" name="unitPrice" id="price" novalidate="novalidate">
         <label for="quantity" style="min-width:62px;margin-right: 27px;">数量</label><label class='red-star'>*</label>
         <input type="number" class="form-control" name="quantity" id="quantity" required min="1" style="width:70px;">
@@ -63,11 +69,9 @@
       <div class="form-group">
         <label for="payMethod">付款方式</label><label class='red-star'>*</label>
         <select class="form-control" name="payMethod" id="payMethod">
-          <option value="现金" selected="selected">现金</option>
-          <option value="信用卡">信用卡</option>
-          <option value="信用卡">借记卡</option>
-          <option value="信用卡">支付宝</option>
-          <option value="其他">其他</option>
+          <% for (var i = 0; i < payMethod.length; i++) { %>
+            <option value="<%= payMethod[i] %>"><%= payMethod[i] %></option>
+          <% } %>
         </select>
       </div>
       <hr />
@@ -77,20 +81,20 @@
       </div>
       <hr />
       <div class="form-group">
-        <label class="radio-inline">
-          <input type="radio" name="invoiceType" id="invoiceType1" value="普通发票" checked="checked">普通发票
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="invoiceType" id="invoiceType2" value="增值税发票">增值税发票
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="invoiceType" id="invoiceType3" value="替票">替票
-        </label>
+        <% for (var i = 0; i < invoiceType.length; i++) { %>
+          <label class="radio-inline">
+            <input type="radio" name="invoiceType" value="<%= invoiceType[i] %>"
+              <% if (i===0) { %>
+                checked="checked"
+              <% } %>
+            ><%= invoiceType[i] %>
+          </label>
+        <% } %>
       </div>
       <hr />
       <div class="form-group">
         <label for="detail">供应商明细</label>
-        <textarea class="form-control" rows="3" name="detail" id="detail" style="width:300px;"></textarea>
+        <textarea class="form-control" rows="3" name="detail" id="detail" style="width:300px;" placeholder="若是淘宝店铺，请注明店铺ID、商品详情，请不要只放商品链接"></textarea>
       </div>
       <hr />
       <div class="form-group">

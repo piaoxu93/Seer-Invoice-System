@@ -7,7 +7,13 @@ var mail = require('../common/mail');
 var xss = require('xss');
 
 exports.showSubmit = function (req, res, next) {
-  res.render('submit/index');
+  res.render('submit/index', {
+    department: config.department,
+    payMethod: config.payMethod,
+    invoiceType: config.invoiceType,
+    projects: config.projects,
+    suppliers: config.suppliers
+  });
 };
 
 exports.submit = function (req, res, next) {
@@ -18,6 +24,10 @@ exports.submit = function (req, res, next) {
   invoice.projectName = xss(req.body.projectName);
   invoice.projectName = validator.trim(invoice.projectName);
   invoice.projectName = validator.escape(invoice.projectName);
+  if (!tools.checkStringInArray(invoice.projectName, config.projectName)) {
+    req.errorMsg = '请选择正确项目名称';
+    return next();
+  }
   invoice.department = xss(req.body.department);
   invoice.department = validator.trim(invoice.department);
   invoice.department = validator.escape(invoice.department);
@@ -62,7 +72,7 @@ exports.submit = function (req, res, next) {
     return next();
   }
   invoice.arrivalDate = validator.toDate(req.body.arrivalDate);
-  if (!invoice.arrivalDate || invoice.arrivalDate > today) {
+  if (!invoice.arrivalDate || invoice.arrivalDate < invoice.date) {
     req.errorMsg = '请选择正确的到货日期';
     return next();
   }
