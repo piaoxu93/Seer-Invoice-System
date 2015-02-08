@@ -24,7 +24,7 @@ exports.submit = function (req, res, next) {
   invoice.projectName = xss(req.body.projectName);
   invoice.projectName = validator.trim(invoice.projectName);
   invoice.projectName = validator.escape(invoice.projectName);
-  if (!tools.checkStringInArray(invoice.projectName, config.projectName)) {
+  if (!tools.checkStringInArray(invoice.projectName, config.projects)) {
     req.errorMsg = '请选择正确项目名称';
     return next();
   }

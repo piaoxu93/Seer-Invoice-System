@@ -67,17 +67,17 @@
       </div>
       <hr />
       <div class="form-group">
+        <label for="arrivalDate">到货时间</label><label class='red-star'>*</label>
+        <input type="date" class="form-control" name="arrivalDate" id="arrivalDate" required>
+      </div>
+      <hr />
+      <div class="form-group">
         <label for="payMethod">付款方式</label><label class='red-star'>*</label>
         <select class="form-control" name="payMethod" id="payMethod">
           <% for (var i = 0; i < payMethod.length; i++) { %>
             <option value="<%= payMethod[i] %>"><%= payMethod[i] %></option>
           <% } %>
         </select>
-      </div>
-      <hr />
-      <div class="form-group">
-        <label for="arrivalDate">到货时间</label><label class='red-star'>*</label>
-        <input type="date" class="form-control" name="arrivalDate" id="arrivalDate" required>
       </div>
       <hr />
       <div class="form-group">
