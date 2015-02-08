@@ -29,7 +29,7 @@ exports.sendNewInvoiceMail = function (who, invoice) {
   var subject = invoice.name + ' 有新发票提交';
   var html = '<p>管理员您好：</p>' +
     '<p>' + invoice.name + '在Fubot发票系统中提交了新发票报销申请，请查看。</p>' +
-    '<a href="http://' + config.host +'/invoice/id/' + invoice._id +  '">激活链接</a>';
+    '<a href="http://' + config.host +'/invoice/id/' + invoice._id +  '">查看链接</a>';
   exports.sendMail({
     from: from,
     to: to,
