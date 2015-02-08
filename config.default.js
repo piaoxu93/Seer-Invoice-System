@@ -24,10 +24,10 @@ var config = {
 
   site_static_host: '', // 静态文件存储域名
   // 网站的域名
-  host: 'test.fubot.cn',
+  host: 'invoice.fubot.cn',
 
   // mongodb 配置
-  db: 'mongodb://127.0.0.1/FIS_dev',
+  db: 'mongodb://FIS:123456@127.0.0.1:27017/FIS_dev',
   db_name: 'FIS_dev',
 
   session_secret: 'secret', // 务必修改
@@ -60,18 +60,21 @@ var config = {
   // 邮箱配置
   // debug 为 true 时不会发送
   mail_opts: {
-    host: 'smtp.ym.163.com',
+    host: 'www.mail.com',
     port: 25,
     auth: {
-      user: 'test@test.com',
-      pass: '123456'
+      user: 'mail@mail.cn',
+      pass: 'password'
     }
   },
 
-  department: ['部门一', '部门二', '部门三', '部门四', '部门五'],
-  payMethod: ['现金','信用卡','借记卡','支付宝','其他'],
-  invoiceType: ['普通发票', '增值税发票', '替票'],
-  progress: ['未处理', '已接收', '处理中', '报销完成'],
+  projects: ['FU001_七宝巡检车', 'FU002_IBM银行机器人'], // 当前项目列表
+  suppliers: [], // 供应商列表
+  department: ['公司费用'], // 部门
+  payMethod: ['现金','信用卡','借记卡','支付宝','其他'], // 付款方式
+  invoiceType: ['普通发票', '增值税发票', '替票'], // 发票类别
+  progress: ['未处理', '已接收', '处理中', '报销完成'], // 报销进度
+
 
   // 首页的通知 - ToDo
   informs: [{
