@@ -99,7 +99,7 @@
           <% } %>
         </form>
       <% } else { %>
-        <div class="form-group">
+        <div class="form-group" id="changeprogress">
           <label>报销进度</label>
           <label class="gray-font"><%= progress %><label>
         </div>
@@ -111,6 +111,13 @@
           <input type='hidden' name='_csrf' value='<%= csrf %>'/>
           <div class='form-actions'>
             <button type="submit" id="delete" class="btn btn-danger">删除</button>
+            <button type="button" id="printInvoice" class="btn btn-warning">打印</button>
+          </div>
+        </form>
+      <% } else { %>
+        <hr class="hr1"/>
+        <form class="form-inline" id="deleteinvoice">
+          <div class='form-actions'>
             <button type="button" id="printInvoice" class="btn btn-warning">打印</button>
           </div>
         </form>
