@@ -6,8 +6,14 @@ var User = require('../proxy').User;
 var mail = require('../common/mail');
 var xss = require('xss');
 
-exports.showSubmit = function (req, res, next) {
-  res.render('submit/index', {
+exports.choose = function (req, res, next) {
+  res.render('submit/choose', {
+
+  });
+};
+
+exports.showSubmitCash = function (req, res, next) {
+  res.render('submit/cash', {
     department: config.department,
     payMethod: config.payMethod,
     invoiceType: config.invoiceType,
@@ -16,7 +22,7 @@ exports.showSubmit = function (req, res, next) {
   });
 };
 
-exports.submit = function (req, res, next) {
+exports.submitCash = function (req, res, next) {
   var invoice = {};
   invoice.name = xss(req.body.name);
   invoice.name = validator.trim(invoice.name);
