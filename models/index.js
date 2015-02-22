@@ -12,5 +12,9 @@ mongoose.connect(config.db, function (err) {
 require('./user');
 require('./invoice');
 
-exports.User = mongoose.model('User');
-exports.Invoice = mongoose.model('Invoice');
+exports.User        = mongoose.model('User');
+exports.CashInvoice = mongoose.model('CashInvoice');
+//exports.Item        = mongoose.model('');
+//exports.TravelInvoice = mongoose.model('');
+//exports.Ticket      = mongoose.model('');
+//exports.Hotel       = mongoose.model('');

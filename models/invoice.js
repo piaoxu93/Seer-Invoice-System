@@ -2,7 +2,7 @@ var config = require('../config');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var InvoiceSchema = new Schema({
+var CashInvoiceSchema = new Schema({
   name: { type: String, required: true }, // 填表人
   projectName: { type: String, required: true }, // 项目名称
   department: {
@@ -57,4 +57,4 @@ var InvoiceSchema = new Schema({
   } // 报销进度
 });
 
-mongoose.model('Invoice', InvoiceSchema);
+mongoose.model('CashInvoice', CashInvoiceSchema);
