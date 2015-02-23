@@ -1,2 +1,3 @@
 exports.User = require('./user');
-exports.Invoice = require('./invoice');
+exports.CashInvoice = require('./cashinvoice');
+exports.Item = require('./item')

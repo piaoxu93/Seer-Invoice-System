@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ItemSchema = new Schema({
-  ItemName: { type: String, required: true },
+  itemName: { type: String, required: true },
   brand: { type: String, required: true }, // 品牌
   model: { type: String, required: true }, // 规格型号
   unitPrice: {
@@ -24,4 +24,4 @@ ItemSchema.virtual('totalPrice').get(function () {
   return this.unitPrice * this.quantity;
 });
 
-mongoose.model('Item', CashInvoiceSchema);
+mongoose.model('Item', ItemSchema);

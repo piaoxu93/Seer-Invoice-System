@@ -10,22 +10,8 @@ var CashInvoiceSchema = new Schema({
     required: true,
     enum: config.department
   }, // 费用支出部门
-  itemName: { type: String, required: true }, // 名称
-  brand: { type: String, required: true }, // 品牌
-  model: { type: String, required: true }, // 规格型号
-  unitPrice: {
-    type: Number,
-    default: 0.0,
-    required: true,
-    min: 0
-  }, // 单价
-  quantity: {
-    type: Number,
-    default: 0,
-    required: true,
-    min: 0
-  }, // 数量
-  total: {
+  itemId: { type: Array, required: true }, // 保存item的索引Id
+  totalPrice: {
     type: Number,
     default: 0.0,
     required: true,

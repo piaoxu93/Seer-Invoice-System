@@ -1,18 +1,14 @@
 var models = require('../models');
-var CaseInvoice = models.CashInvoice;
+var CashInvoice = models.CashInvoice;
 
 // 存入数据库
 exports.newAndSave = function(obj, callback) {
-  var invoice = new CaseInvoice();
+  var invoice = new CashInvoice();
   invoice.name = obj.name;
   invoice.projectName = obj.projectName;
   invoice.department = obj.department;
-  invoice.itemName = obj.itemName;
-  invoice.brand = obj.brand;
-  invoice.model = obj.model;
-  invoice.unitPrice = obj.unitPrice;
-  invoice.quantity = obj.quantity;
-  invoice.total = obj.total;
+  invoice.itemId = obj.itemId;
+  invoice.totalPrice = obj.totalPrice;
   invoice.requisitioner = obj.requisitioner;
   invoice.date = obj.date;
   invoice.payMethod = obj.payMethod;
@@ -25,23 +21,23 @@ exports.newAndSave = function(obj, callback) {
 };
 
 exports.getInvoicesByName = function (name, opt, callback) {
-  CaseInvoice.find({ name: name }, '_id itemName projectName createDate progress',
+  CashInvoice.find({ name: name }, '_id itemId projectName createDate progress',
                opt, callback);
 };
 
 exports.getInvoiceById = function (id, callback) {
-  CaseInvoice.findById(id, callback);
+  CashInvoice.findById(id, callback);
 };
 
 exports.getInvoices = function (opt, callback) {
-  CaseInvoice.find({}, '_id name itemName projectName createDate progress',
+  CashInvoice.find({}, '_id name itemId projectName createDate progress',
                opt, callback);
 };
 
 exports.findByIdAndUpdateProgress = function (id, progress, callback) {
-  CaseInvoice.findByIdAndUpdate(id, { $set: { progress: progress } }, callback);
+  CashInvoice.findByIdAndUpdate(id, { $set: { progress: progress } }, callback);
 }
 
 exports.findByIdAndDeleteInvoice = function (id, callback) {
-  CaseInvoice.findByIdAndRemove(id, callback);
+  CashInvoice.findByIdAndRemove(id, callback);
 }

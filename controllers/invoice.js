@@ -1,7 +1,8 @@
 var validator = require('validator');
 var config = require('../config');
 var tools = require('../common/tools');
-var Invoice = require('../proxy').Invoice;
+var CashInvoice = require('../proxy').CashInvoice;
+var Item = require('../proxy').Item;
 var User = require('../proxy').User;
 var mail = require('../common/mail');
 var xss = require('xss');
@@ -41,26 +42,26 @@ exports.submitCash = function (req, res, next) {
     req.errorMsg = '请选择正确的费用支出部门';
     return next();
   }
-  invoice.itemName = xss(req.body.itemName);
-  invoice.itemName = validator.trim(invoice.itemName);
-  invoice.itemName = validator.escape(invoice.itemName);
-  invoice.brand = xss(req.body.brand);
-  invoice.brand = validator.trim(invoice.brand);
-  invoice.brand = validator.escape(invoice.brand);
-  invoice.model = xss(req.body.model);
-  invoice.model = validator.trim(invoice.model);
-  invoice.model = validator.escape(invoice.model);
-  invoice.unitPrice = validator.toFloat(req.body.unitPrice);
-  if (!invoice.unitPrice || !(invoice.unitPrice > 0)) {
-    req.errorMsg = '请输入正确的单价';
-    return next();
-  }
-  invoice.quantity = validator.toInt(req.body.quantity);
-  if (!invoice.quantity || !(invoice.quantity > 0)) {
-    req.errorMsg = '请输入正确的数量';
-    return next();
-  }
-  invoice.total = invoice.unitPrice * invoice.quantity;
+  // invoice.itemName = xss(req.body.itemName);
+  // invoice.itemName = validator.trim(invoice.itemName);
+  // invoice.itemName = validator.escape(invoice.itemName);
+  // invoice.brand = xss(req.body.brand);
+  // invoice.brand = validator.trim(invoice.brand);
+  // invoice.brand = validator.escape(invoice.brand);
+  // invoice.model = xss(req.body.model);
+  // invoice.model = validator.trim(invoice.model);
+  // invoice.model = validator.escape(invoice.model);
+  // invoice.unitPrice = validator.toFloat(req.body.unitPrice);
+  // if (!invoice.unitPrice || !(invoice.unitPrice > 0)) {
+  //   req.errorMsg = '请输入正确的单价';
+  //   return next();
+  // }
+  // invoice.quantity = validator.toInt(req.body.quantity);
+  // if (!invoice.quantity || !(invoice.quantity > 0)) {
+  //   req.errorMsg = '请输入正确的数量';
+  //   return next();
+  // }
+  invoice.totalPrice = 0;
   invoice.requisitioner = xss(req.body.requisitioner);
   invoice.requisitioner = validator.trim(invoice.requisitioner);
   invoice.requisitioner = validator.escape(invoice.requisitioner);
@@ -96,20 +97,65 @@ exports.submitCash = function (req, res, next) {
   invoice.note = xss(req.body.note);
   invoice.note = validator.trim(invoice.note);
   invoice.note = validator.escape(invoice.note);
-  Invoice.newAndSave(invoice, function (err, newInvoice) {
+
+  invoice.itemId = [];
+
+  var items = [];
+  var itemNum = validator.toInt(req.body.itemNum);
+  if (!itemNum || !(itemNum > 0)) {
+    req.errorMsg = '请添加商品';
+    return next();
+  }
+  for (var j = 0; j < itemNum; j++) {
+    var item = {};
+    item.itemName = xss(req.body.['itemName' + j]);
+    item.itemName = validator.trim(item.itemName);
+    item.itemName = validator.escape(item.itemName);
+    item.brand = xss(req.body.['brand' + j]);
+    item.brand = validator.trim(item.brand);
+    item.brand = validator.escape(item.brand);
+    item.model = xss(req.body.['model' + j]);
+    item.model = validator.trim(item.model);
+    item.model = validator.escape(item.model);
+    item.unitPrice = validator.toFloat(req.body.['unitPrice' + j]);
+    if (!item.unitPrice || !(item.unitPrice > 0)) {
+      req.errorMsg = '请输入正确的单价';
+      return next();
+    }
+    item.quantity = validator.toInt(req.body.quantity);
+    if (!item.quantity || !(item.quantity > 0)) {
+      req.errorMsg = '请输入正确的数量';
+      return next();
+    }
+    items.push[item]; // 将所有item存入一个数组
+  }
+
+  Item.newAndSaveAll(items, function (err, Ids, totalPrice) {
     if (err) {
       req.errorMsg = err.toString();
       return next();
     }
-    newInvoice.dateStr = tools.dateFormat(newInvoice.date, 'yyyy-MM-dd , D');
-    newInvoice.arrivalDateStr = tools.dateFormat(newInvoice.arrivalDate, 'yyyy-MM-dd , D');
-    res.render('submit/success', newInvoice);
-    // 发邮件给管理员
-    for (var i = 0; i < config.admins_email.length; i++) {
-      mail.sendNewInvoiceMail(config.admins_email[i], newInvoice);
-    }
-    return;
+
+    invoice.itemId = Ids;
+    invoice.totalPrice = totalPrice;
+
+    CashInvoice.newAndSave(invoice, function (err, newInvoice) {
+      if (err) {
+        req.errorMsg = err.toString();
+        return next();
+      }
+      newInvoice.dateStr = tools.dateFormat(newInvoice.date, 'yyyy-MM-dd , D');
+      newInvoice.arrivalDateStr = tools.dateFormat(newInvoice.arrivalDate, 'yyyy-MM-dd , D');
+      res.render('submit/success', newInvoice);
+      // 发邮件给管理员
+      for (var i = 0; i < config.admins_email.length; i++) {
+        mail.sendNewInvoiceMail(config.admins_email[i], newInvoice);
+      }
+      return;
+    });
+
   });
+
 };
 
 exports.submitError = function(req, res, next) {
@@ -133,7 +179,7 @@ exports.showUserInvoice = function (req, res, next) {
       res.render('notify/notify', {error: '这个用户不存在。'});
       return;
     }
-    Invoice.getInvoicesByName(user.name, {sort: '-createDate'},
+    CashInvoice.getInvoicesByName(user.name, {sort: '-createDate'},
       function (err, invoices) {
         if (err) {
           return next(err);
@@ -172,7 +218,7 @@ exports.showInvoice = function (req, res, next) {
   id = xss(id);
   id = validator.trim(id);
   id = validator.escape(id);
-  Invoice.getInvoiceById(id, function (err, invoice) {
+  CashInvoice.getInvoiceById(id, function (err, invoice) {
     if (err) {
       return next(err);
     }
@@ -198,7 +244,7 @@ exports.showAllInvoice = function (req, res, next) {
     res.render('notify/notify', {error: '抱歉，你要的页面不存在'});
     return;
   }
-  Invoice.getInvoices({limit: config.limit, sort: '-createDate'},
+  CashInvoice.getInvoices({limit: config.limit, sort: '-createDate'},
     function (err, invoices) {
       if (err) {
         return next(err);
@@ -238,7 +284,7 @@ exports.changeProgress = function (req, res, next) {
     res.render('notify/notify', {error: '请选择正确的报销进度'});
     return;
   } else {
-    Invoice.findByIdAndUpdateProgress(req.body._id, progress,
+    CashInvoice.findByIdAndUpdateProgress(req.body._id, progress,
       function (err, invoice) {
         if (err) {
           return next(err);
@@ -258,7 +304,7 @@ exports.deleteInvoice = function (req, res, next) {
   var id = validator.trim(req.body._id);
   id = xss(id);
   id = validator.escape(id);
-  Invoice.findByIdAndDeleteInvoice(id, function (err, invoice) {
+  CashInvoice.findByIdAndDeleteInvoice(id, function (err, invoice) {
     if (err) {
       return next(err);
     }
