@@ -12,7 +12,7 @@ exports.newAndSaveAll = function(objs, callback) {
       totalPrice += items[j].totalPrice;
       Ids.push(items[j]._id);
     }
-    callback(null, Ids, totalPrice);
+    callback(null, Ids, totalPrice, items);
   });
 
   for (var i = 0; i < num; i++) {
@@ -21,10 +21,7 @@ exports.newAndSaveAll = function(objs, callback) {
         req.errorMsg = err.toString();
         return next();
       }
-      var tempItem = {};
-      tempItem._id = newItem._id;
-      tempItem.totalPrice = newItem.totalPrice;
-      ep.emit('saved', tempItem);
+      ep.emit('saved', newItem);
     });
   }
 };
@@ -41,8 +38,42 @@ exports.newAndSave = function(obj, callback) {
   item.save(callback);
 };
 
+exports.getItemsByIds = function (ids, callback) {
+  var ep = new EventProxy();
+  var num = ids.length;
+  ep.after('found', num, function (items) {
+    callback(null, items);
+  });
+  for (var k = 0; k < num; k++) {
+    exports.getItemById(ids[k], function (err, item) {
+      if (err) {
+        req.errorMsg = err.toString();
+        return next();
+      }
+      ep.emit('found', item);
+    });
+  }
+};
+
 exports.getItemById = function (id, callback) {
   Item.findById(id, callback);
+};
+
+exports.findByIdsAndDelete = function (ids, callback) {
+  var ep = new EventProxy();
+  var num = ids.length;
+  ep.after('deleted', num, function (items) {
+    callback(null, items);
+  });
+  for (var n = 0; n < num; n++) {
+    exports.findByIdAndDelete(ids[n], function (err, item) {
+      if (err) {
+        req.errorMsg = err.toString();
+        return next();
+      }
+      ep.emit('deleted', item);
+    });
+  }
 };
 
 exports.findByIdAndDelete = function (id, callback) {

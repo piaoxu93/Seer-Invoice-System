@@ -8,9 +8,7 @@ var mail = require('../common/mail');
 var xss = require('xss');
 
 exports.choose = function (req, res, next) {
-  res.render('submit/choose', {
-
-  });
+  res.render('submit/choose');
 };
 
 exports.showSubmitCash = function (req, res, next) {
@@ -111,7 +109,7 @@ exports.submitCash = function (req, res, next) {
     items.push(item); // 将所有item存入invoice的一个数组元素中
   }
 
-  Item.newAndSaveAll(items, function (err, Ids, totalPrice) {
+  Item.newAndSaveAll(items, function (err, Ids, totalPrice, newItems) {
     if (err) {
       req.errorMsg = err.toString();
       return next();
@@ -127,7 +125,10 @@ exports.submitCash = function (req, res, next) {
       }
       newInvoice.dateStr = tools.dateFormat(newInvoice.date, 'yyyy-MM-dd , D');
       newInvoice.arrivalDateStr = tools.dateFormat(newInvoice.arrivalDate, 'yyyy-MM-dd , D');
-      res.render('submit/success', newInvoice);
+      res.render('submit/success', {
+        invoice: newInvoice,
+        items: newItems
+      });
       // 发邮件给管理员
       for (var i = 0; i < config.admins_email.length; i++) {
         mail.sendNewInvoiceMail(config.admins_email[i], newInvoice);
@@ -190,7 +191,6 @@ exports.showUserInvoice = function (req, res, next) {
         });
         return;
       });
-
   });
 };
 
@@ -213,9 +213,18 @@ exports.showInvoice = function (req, res, next) {
     } else {
       invoice.dateStr = tools.dateFormat(invoice.date, 'yyyy-MM-dd , D');
       invoice.arrivalDateStr = tools.dateFormat(invoice.arrivalDate, 'yyyy-MM-dd , D');
-      res.render('invoice/invoice', invoice);
+      Item.getItemsByIds(invoice.itemId, function (err, items) {
+        if (err) {
+          req.errorMsg = err.toString();
+          return next();
+        }
+        res.render('invoice/invoice', {
+          invoice: invoice,
+          items: items
+        });
+        return;
+      });
     }
-    return;
   });
 };
 
@@ -274,9 +283,18 @@ exports.changeProgress = function (req, res, next) {
           res.render('notify/notify', {error: '不存在此发票'});
           return;
         }
-        invoice.notify = "修改进度成功";
-        res.render('invoice/invoice', invoice);
-        return;
+        Item.getItemsByIds(invoice.itemId, function (err, items) {
+          if (err) {
+            req.errorMsg = err.toString();
+            return next();
+          }
+          res.render('invoice/invoice', {
+            invoice: invoice,
+            notify: '修改进度成功',
+            items: items
+          });
+          return;
+        });
       });
   }
 };
@@ -293,7 +311,13 @@ exports.deleteInvoice = function (req, res, next) {
       res.render('notify/notify', {error: '不存在此发票'});
       return;
     }
-    res.render('notify/notify', {success: '删除成功', backTo: '/invoices/1'});
-    return;
+    Item.findByIdsAndDelete(invoice.itemId, function (err, items) {
+      if (err) {
+        req.errorMsg = err.toString();
+        return next();
+      }
+      res.render('notify/notify', {success: '删除成功', backTo: '/invoices/1'});
+      return;
+    });
   });
 };

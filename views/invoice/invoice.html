@@ -6,67 +6,74 @@
     <div class="fubot-invoice-form">
       <div class="form-group">
         <label>提交人</label>
-        <label class="gray-font"><%= name %></label>
+        <label class="gray-font"><%= invoice.name %></label>
       </div>
       <hr />
       <div class="form-group">
         <label>项目名称</label>
-        <label class="gray-font label-250"><%= projectName %></label>
+        <label class="gray-font label-250"><%= invoice.projectName %></label>
         <label>费用支出部门</label>
-        <label class="gray-font"><%= department %></label>
+        <label class="gray-font"><%= invoice.department %></label>
       </div>
       <hr />
+
+
+      <% for (var i = 0; i < items.length; i++) { %>
+        <div id="item<%= i+1 %>">
+          <div class="form-group">
+            <label class="gray-font">商品 <%= i+1 %></label>
+            <br />
+            <label>名称</label>
+            <label class="gray-font"><%= items[i].itemName %></label>
+            <label>品牌</label>
+            <label class="gray-font"><%= items[i].brand %></label>
+            <label>规格型号</label>
+            <label class="gray-font"><%= items[i].model %></label>
+            <br />
+            <label>单价</label>
+            <label class="gray-font">¥ <%= items[i].unitPrice %></label>
+            <label>数量</label>
+            <label class="gray-font"><%= items[i].quantity %></label>
+          </div>
+        </div>
+        <hr />
+      <% } %>
+
       <div class="form-group">
-        <label>名称</label>
-        <label class="gray-font"></label>
-      </div>
-      <hr />
-      <div class="form-group">
-        <label>品牌</label>
-        <label class="gray-font label-250"></label>
-        <label>规格型号</label>
-        <label class="gray-font"></label>
-      </div>
-      <hr />
-      <div class="form-group">
-        <label>单价</label>
-        <label class="gray-font">¥ </label>
-        <label style="min-width:62px;">数量</label>
-        <label class="gray-font" style="width:70px;"></label>
-        <label style="min-width:50px;">总价</label>
-        <label class="gray-font" style="width:120px;">¥ <%= totalPrice %></label>
+        <label>总价</label>
+        <label class="gray-font">¥ <%= invoice.totalPrice %></label>
       </div>
       <hr />
       <div class="form-group">
         <label>申购人</label>
-        <label class="gray-font label-250"><%= requisitioner %></label>
+        <label class="gray-font label-250"><%= invoice.requisitioner %></label>
         <label>申购时间</label>
-        <label class="gray-font"><%= dateStr %></label>
+        <label class="gray-font"><%= invoice.dateStr %></label>
       </div>
       <hr />
       <div class="form-group">
         <label>到货时间</label>
-        <label class="gray-font"><%= arrivalDateStr %></label>
+        <label class="gray-font"><%= invoice.arrivalDateStr %></label>
       </div>
       <hr />
       <div class="form-group">
         <label>付款方式</label>
-        <label class="gray-font"><%= payMethod %></label>
+        <label class="gray-font"><%= invoice.payMethod %></label>
       </div>
       <hr />
       <div class="form-group">
         <label>发票类别</label>
-        <label class="gray-font"><%= invoiceType %></label>
+        <label class="gray-font"><%= invoice.invoiceType %></label>
       </div>
       <hr />
       <div class="form-group page-break">
         <label>供应商明细</label>
-        <label class="gray-font"><%= detail %><label>
+        <label class="gray-font"><%= invoice.detail %><label>
       </div>
       <hr />
       <div class="form-group">
         <label>备注</label>
-        <label class="gray-font"><%= note %><label>
+        <label class="gray-font"><%= invoice.note %><label>
       </div>
       <hr />
       <div id="signature1" class="form-group noPrint">
@@ -81,17 +88,17 @@
         <label>提交人签名</label>
       </div>
       <% if (typeof(current_user) !== 'undefined' && current_user.is_admin) { %>
-        <form class="form-inline" method="post" action="/invoice/id/<%= _id %>" name="changeprogress" id="changeprogress" role="form">
+        <form class="form-inline" method="post" action="/invoice/id/<%= invoice._id %>" name="changeprogress" id="changeprogress" role="form">
           <div class="form-group">
             <label for="progress">报销进度</label>
             <select class="form-control" name="progress" id="progress" required>
-              <option value="未处理" <%= progress === '未处理' ? 'selected' : '' %>>未处理</option>
-              <option value="已接收" <%= progress === '已接收' ? 'selected' : '' %>>已接收</option>
-              <option value="处理中" <%= progress === '处理中' ? 'selected' : '' %>>处理中</option>
-              <option value="报销完成" <%= progress === '报销完成' ? 'selected' : '' %>>报销完成</option>
+              <option value="未处理" <%= invoice.progress === '未处理' ? 'selected' : '' %>>未处理</option>
+              <option value="已接收" <%= invoice.progress === '已接收' ? 'selected' : '' %>>已接收</option>
+              <option value="处理中" <%= invoice.progress === '处理中' ? 'selected' : '' %>>处理中</option>
+              <option value="报销完成" <%= invoice.progress === '报销完成' ? 'selected' : '' %>>报销完成</option>
             </select>
           </div>
-          <input type="hidden" name="_id" value='<%= _id %>'/>
+          <input type="hidden" name="_id" value='<%= invoice._id %>'/>
           <input type='hidden' name='_csrf' value='<%= csrf %>'/>
           <button type="submit" class="btn btn-success">确定</button>
           <% if (typeof(notify) !== 'undefined') { %>
@@ -101,13 +108,13 @@
       <% } else { %>
         <div class="form-group" id="changeprogress">
           <label>报销进度</label>
-          <label class="gray-font"><%= progress %><label>
+          <label class="gray-font"><%= invoice.progress %><label>
         </div>
       <% } %>
       <% if (typeof(current_user) !== 'undefined' && current_user.is_admin) { %>
         <hr class="hr1"/>
         <form class="form-inline" method="post" action="/invoice/delete" name="deleteinvoice" id="deleteinvoice" role="form">
-          <input type="hidden" name="_id" value='<%= _id %>'/>
+          <input type="hidden" name="_id" value='<%= invoice._id %>'/>
           <input type='hidden' name='_csrf' value='<%= csrf %>'/>
           <div class='form-actions'>
             <button type="submit" id="delete" class="btn btn-danger">删除</button>

@@ -11,13 +11,13 @@
       </div>
       <hr />
       <div class="form-group">
-        <label for="projectName">项目名称</label><label class='red-star'>*</label>
+        <label for="projectName">项目名称</label><label class="red-star">*</label>
         <select class="form-control" name="projectName" id="projectName" style="margin-right:39px;width:180px;">
           <% for (var i = 0; i < projects.length; i++) { %>
             <option value="<%= projects[i] %>"><%= projects[i] %></option>
           <% } %>
         </select>
-        <label for="department">费用支出部门</label><label class='red-star'>*</label>
+        <label for="department">费用支出部门</label><label class="red-star">*</label>
         <select class="form-control"  name="department" id="department" required>
           <% for (var i = 0; i < department.length; i++) { %>
             <option value="<%= department[i] %>"><%= department[i] %></option>
@@ -26,45 +26,54 @@
       </div>
       <hr />
 
-      <input class="form-control" name="itemNum" type="number">
-      <div class="form-group">
-        <label for="itemName0">名称</label><label class='red-star'>*</label>
-        <input type="text" class="form-control" name="itemName0" id="itemName" required>
-      </div>
-      <hr />
-      <div class="form-group">
-        <label for="brand0">品牌</label><label class='red-star'>*</label>
-        <input type="text" class="form-control" name="brand0" id="brand" required style="margin-right: 47px;">
-        <label for="model0">规格型号</label><label class='red-star'>*</label>
-        <input type="text" class="form-control" name="model0" id="model" required>
-      </div>
-      <hr />
-      <div class="form-group">
-        <label for="unitPrice0">单价</label><label class='red-star'>*</label>
-        <div class="input-group">
-          <div class="input-group-addon">¥</div>
-          <input class="form-control" id="unitPrice" required min="0" name="unitPrice0" style="width:95px;margin-right:0px;">
+      <input class="form-control" name="itemNum" id="itemNum" type="hidden">
+
+      <div id="item1">
+        <div class="form-group">
+          <label class="gray-font">商品 1</label>
+          <br />
+          <br />
+          <label>名称</label><label class="red-star">*</label>
+          <input type="text" class="form-control" name="itemName0" required>
+          <label>品牌</label><label class="red-star">*</label>
+          <input type="text" class="form-control" name="brand0" required>
+          <br />
+          <br />
+          <label>规格型号</label><label class="red-star">*</label>
+          <input type="text" class="form-control" name="model0" required>
+          <label>单价</label><label class="red-star">*</label>
+          <div class="input-group">
+            <div class="input-group-addon">¥</div>
+            <input class="form-control" required min="0" name="unitPrice0" style="width:139px" placeholder="e.g. 100.00">
+          </div>
+          <br />
+          <br />
+          <label>数量</label><label class="red-star">*</label>
+          <input type="number" class="form-control" name="quantity0" required min="1" style="width:80px;">
         </div>
-        <label for="quantity0" style="min-width:62px;margin-right: 27px;">数量</label><label class='red-star'>*</label>
-        <input type="number" class="form-control" name="quantity0" id="quantity" required min="1" style="width:70px;">
+        <hr />
       </div>
+
+      <button type="button" class="btn btn-warning" aria-label="Add Item" id="addItem">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加商品
+      </button>
       <hr />
 
 
       <div class="form-group">
-        <label for="requisitioner">申购人</label><label class='red-star'>*</label>
+        <label for="requisitioner">申购人</label><label class="red-star">*</label>
         <input type="text" class="form-control" name="requisitioner" id="requisitioner" required style="margin-right: 47px;">
-        <label for="date">申购时间</label><label class='red-star'>*</label>
+        <label for="date">申购时间</label><label class="red-star">*</label>
         <input type="date" class="form-control" name="date" id="date" required>
       </div>
       <hr />
       <div class="form-group">
-        <label for="arrivalDate">到货时间</label><label class='red-star'>*</label>
+        <label for="arrivalDate">到货时间</label><label class="red-star">*</label>
         <input type="date" class="form-control" name="arrivalDate" id="arrivalDate" required>
       </div>
       <hr />
       <div class="form-group">
-        <label for="payMethod">付款方式</label><label class='red-star'>*</label>
+        <label for="payMethod">付款方式</label><label class="red-star">*</label>
         <select class="form-control" name="payMethod" id="payMethod">
           <% for (var i = 0; i < payMethod.length; i++) { %>
             <option value="<%= payMethod[i] %>"><%= payMethod[i] %></option>

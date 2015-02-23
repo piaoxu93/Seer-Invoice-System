@@ -61,6 +61,38 @@ $(document).ready(function () {
     }
   });
 
+  var itemNum = 1;
+  $('#itemNum').val(itemNum);
+  $('#addItem').click(function(event) {
+    itemNum++;
+    $('#itemNum').val(itemNum);
+    $(this).before('<div id="item' + itemNum + '">' +
+        '<div class="form-group">' +
+          '<label class="gray-font">商品 ' + itemNum + '</label>' +
+          '<br />' +
+          '<br />' +
+          '<label>名称</label><label class="red-star">*</label>' +
+          '<input type="text" class="form-control" name="itemName' + (itemNum - 1) + '" required>' +
+          '<label>品牌</label><label class="red-star">*</label>' +
+          '<input type="text" class="form-control" name="brand'+ (itemNum - 1) + '" required>' +
+          '<br />' +
+          '<br />' +
+          '<label>规格型号</label><label class="red-star">*</label>' +
+          '<input type="text" class="form-control" name="model' + (itemNum - 1) + '" required>' +
+          '<label>单价</label><label class="red-star">*</label>' +
+          '<div class="input-group">' +
+            '<div class="input-group-addon">¥</div>' +
+            '<input class="form-control" required min="0" name="unitPrice' + (itemNum - 1) + '" style="width:139px" placeholder="e.g. 100.00">' +
+          '</div>' +
+          '<br />' +
+          '<br />' +
+          '<label>数量</label><label class="red-star">*</label>' +
+          '<input type="number" class="form-control" name="quantity' + (itemNum - 1) + '" required min="1" style="width:80px;">' +
+        '</div>' +
+        '<hr />' +
+      '</div>');
+  });
+
   // print
   $('#printInvoice').click(function(event) {
     $('#changeprogress').addClass('noPrint');
