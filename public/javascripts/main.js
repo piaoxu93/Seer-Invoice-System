@@ -24,26 +24,8 @@ $(document).ready(function () {
   moveBacktotop();
   $(window).resize(moveBacktotop);
 
-  // calculate the total price
-  $('#quantity, #unitPriceDecimal, #unitPrice').blur(function () {
-    var unitPrice = $('#unitPrice').val() ? Number($('#unitPrice').val()) : 0;
-    var unitPriceDecimal = $('#unitPriceDecimal').val() ? Number($('#unitPriceDecimal').val()) : 0;
-    if (unitPriceDecimal < 10) {
-      unitPriceDecimal /= 10;
-    } else {
-      unitPriceDecimal /= 100;
-    }
-    var price = unitPrice + unitPriceDecimal;
-    var quantity = Number($('#quantity').val());
-    var totalPrice = price * quantity;
-    $('#price').val(price);
-    $('#total').val(totalPrice);
-    $('#total-temp').val(totalPrice);
-  });
-
   // check date
   $('#submit').click(function(event) {
-    console.log('message');
     var today = new Date();
     var date = $('#date').val() ? new Date($('#date').val()) : null;
     var arrivalDate = $('#arrivalDate').val() ? new Date($('#arrivalDate').val()) : null;

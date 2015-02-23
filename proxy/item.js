@@ -12,7 +12,7 @@ exports.newAndSaveAll = function(objs, callback) {
       totalPrice += items[j].totalPrice;
       Ids.push(items[j]._id);
     }
-    callback(err, Ids, totalPrice);
+    callback(null, Ids, totalPrice);
   });
 
   for (var i = 0; i < num; i++) {

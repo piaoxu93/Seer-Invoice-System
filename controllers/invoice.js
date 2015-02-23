@@ -42,25 +42,6 @@ exports.submitCash = function (req, res, next) {
     req.errorMsg = '请选择正确的费用支出部门';
     return next();
   }
-  // invoice.itemName = xss(req.body.itemName);
-  // invoice.itemName = validator.trim(invoice.itemName);
-  // invoice.itemName = validator.escape(invoice.itemName);
-  // invoice.brand = xss(req.body.brand);
-  // invoice.brand = validator.trim(invoice.brand);
-  // invoice.brand = validator.escape(invoice.brand);
-  // invoice.model = xss(req.body.model);
-  // invoice.model = validator.trim(invoice.model);
-  // invoice.model = validator.escape(invoice.model);
-  // invoice.unitPrice = validator.toFloat(req.body.unitPrice);
-  // if (!invoice.unitPrice || !(invoice.unitPrice > 0)) {
-  //   req.errorMsg = '请输入正确的单价';
-  //   return next();
-  // }
-  // invoice.quantity = validator.toInt(req.body.quantity);
-  // if (!invoice.quantity || !(invoice.quantity > 0)) {
-  //   req.errorMsg = '请输入正确的数量';
-  //   return next();
-  // }
   invoice.totalPrice = 0;
   invoice.requisitioner = xss(req.body.requisitioner);
   invoice.requisitioner = validator.trim(invoice.requisitioner);
@@ -108,26 +89,26 @@ exports.submitCash = function (req, res, next) {
   }
   for (var j = 0; j < itemNum; j++) {
     var item = {};
-    item.itemName = xss(req.body.['itemName' + j]);
+    item.itemName = xss(req.body['itemName' + j]);
     item.itemName = validator.trim(item.itemName);
     item.itemName = validator.escape(item.itemName);
-    item.brand = xss(req.body.['brand' + j]);
+    item.brand = xss(req.body['brand' + j]);
     item.brand = validator.trim(item.brand);
     item.brand = validator.escape(item.brand);
-    item.model = xss(req.body.['model' + j]);
+    item.model = xss(req.body['model' + j]);
     item.model = validator.trim(item.model);
     item.model = validator.escape(item.model);
-    item.unitPrice = validator.toFloat(req.body.['unitPrice' + j]);
+    item.unitPrice = validator.toFloat(req.body['unitPrice' + j]);
     if (!item.unitPrice || !(item.unitPrice > 0)) {
       req.errorMsg = '请输入正确的单价';
       return next();
     }
-    item.quantity = validator.toInt(req.body.quantity);
+    item.quantity = validator.toInt(req.body['quantity' + j]);
     if (!item.quantity || !(item.quantity > 0)) {
       req.errorMsg = '请输入正确的数量';
       return next();
     }
-    items.push[item]; // 将所有item存入一个数组
+    items.push(item); // 将所有item存入invoice的一个数组元素中
   }
 
   Item.newAndSaveAll(items, function (err, Ids, totalPrice) {
