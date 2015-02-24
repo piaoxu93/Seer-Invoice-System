@@ -19,7 +19,6 @@ var TravelInvoiceSchema = new Schema({
     required: true,
     min: 0
   }, // 总价
-  note: { type: String }, // 备注
   createDate: { type: Date, default: Date.now, required: true},
   progress: {
     type: String,

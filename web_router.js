@@ -37,12 +37,12 @@ router.post('/cashinvoice/delete', auth.adminRequired, cashInvoice.deleteInvoice
 
 // travel invoice controller
 router.get('/submit/travel', auth.userRequired, travelInvoice.showSubmitTravel);
-router.post('/submit/travel', auth.userRequired, travelInvoice.submitTravel. travelInvoice.submitError);
-router.get('/mytravelinvoices/:page', auth.userRequired, travelInvoice.showUserInvoice);
-router.get('/travelinvoices/:page', auth.adminRequired, travelInvoice.showAllInvoice);
-router.get('/travelinvoice/id/:id', auth.userRequired, travelInvoice.showInvoice);
-router.post('/travelinvoice/id/:id', auth.adminRequired, travelInvoice.changeProgress);
-router.post('/travelinvoice/delete', auth.adminRequired, travelInvoice.deleteInvoice);
+// router.post('/submit/travel', auth.userRequired, travelInvoice.submitTravel. travelInvoice.submitError);
+// router.get('/mytravelinvoices/:page', auth.userRequired, travelInvoice.showUserInvoice);
+// router.get('/travelinvoices/:page', auth.adminRequired, travelInvoice.showAllInvoice);
+// router.get('/travelinvoice/id/:id', auth.userRequired, travelInvoice.showInvoice);
+// router.post('/travelinvoice/id/:id', auth.adminRequired, travelInvoice.changeProgress);
+// router.post('/travelinvoice/delete', auth.adminRequired, travelInvoice.deleteInvoice);
 
 // sign controller
 router.post('/signout', sign.signout);  // 登出

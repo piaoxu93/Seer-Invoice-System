@@ -82,7 +82,7 @@ $(document).ready(function () {
           '<label>单价</label><label class="red-star">*</label>' +
           '<div class="input-group">' +
             '<div class="input-group-addon">¥</div>' +
-            '<input class="form-control" required min="0" name="unitPrice' + (itemNum - 1) + '" style="width:139px" placeholder="e.g. 100.00">' +
+            '<input class="form-control" required name="unitPrice' + (itemNum - 1) + '" style="width:139px" placeholder="e.g. 100.00">' +
           '</div>' +
           '<br />' +
           '<br />' +
@@ -92,6 +92,121 @@ $(document).ready(function () {
         '<hr />' +
       '</div>');
   });
+
+  var ticketNum = 0;
+  var hotelNum = 0;
+  var mealNum = 0;
+  $('#ticketNum').val(ticketNum);
+  $('#hotelNum').val(hotelNum);
+  $('#mealNum').val(mealNum);
+  $('#addTicket').click(function(event) {
+    ticketNum++;
+    $('#ticketNum').val(ticketNum);
+    $('#addButtonGroup').before('<div id="ticket' + ticketNum + '">' +
+        '<div class="form-group">' +
+          '<label class="gray-font">车次/航班 ' + ticketNum + '</label>' +
+          '<br />' +
+          '<br />' +
+          '<label>车次/航班</label><label class="red-star">*</label>' +
+          '<input type="text" class="form-control" name="flights' + (ticketNum - 1) + '" required>' +
+          '<label>出发时间</label><label class="red-star">*</label>' +
+          '<input type="date" class="form-control" name="date' + (ticketNum - 1) + '" required style="width:172px;">' +
+          '<br />' +
+          '<br />' +
+          '<label>出发地</label><label class="red-star">*</label>' +
+          '<input type="text" class="form-control" name="departure'+ (ticketNum - 1) + '" required>' +
+          '<label>目的地</label><label class="red-star">*</label>' +
+          '<input type="text" class="form-control" name="destination' + (ticketNum - 1) + '" required>' +
+          '<br />' +
+          '<br />' +
+          '<label>单价</label><label class="red-star">*</label>' +
+          '<div class="input-group">' +
+            '<div class="input-group-addon">¥</div>' +
+            '<input class="form-control" required name="price' + (ticketNum - 1) + '" style="width:139px" placeholder="e.g. 100.00">' +
+          '</div>' +
+          '<label>乘客姓名</label><label class="red-star">*</label>' +
+          '<input type="text" class="form-control" name="person'+ (ticketNum - 1) + '" required placeholder="e.g. 张三">' +
+          '<br />' +
+          '<br />' +
+          '<label>备注</label>' +
+          '<textarea class="form-control" rows="1" name="note' + (ticketNum - 1) + '" style="width:466px;"></textarea>' +
+        '</div>' +
+        '<hr />' +
+      '</div>');
+  });
+  $('#addHotel').click(function(event) {
+    hotelNum++;
+    $('#hotelNum').val(hotelNum);
+    $('#addButtonGroup').before('<div id="hotel' + hotelNum + '">' +
+        '<div class="form-group">' +
+          '<label class="gray-font">酒店 ' + hotelNum + '</label>' +
+          '<br />' +
+          '<br />' +
+          '<label>酒店名称</label><label class="red-star">*</label>' +
+          '<input type="text" class="form-control" name="name' + (hotelNum - 1) + '" required>' +
+          '<label>地址</label><label class="red-star">*</label>' +
+          '<input type="text" class="form-control" name="address' + (hotelNum - 1) + '" required>' +
+          '<br />' +
+          '<br />' +
+          '<label>入住时间</label><label class="red-star">*</label>' +
+          '<input type="date" class="form-control" name="checkInDate'+ (hotelNum - 1) + '" required style="width:172px;">' +
+          '<label>入住人员</label><label class="red-star">*</label>' +
+          '<input type="text" class="form-control" name="person' + (hotelNum - 1) + '" required placeholder="e.g. 张三、李四">' +
+          '<br />' +
+          '<br />' +
+          '<label>单价</label><label class="red-star">*</label>' +
+          '<div class="input-group">' +
+            '<div class="input-group-addon">¥</div>' +
+            '<input class="form-control" required name="unitPrice' + (hotelNum - 1) + '" style="width:139px" placeholder="e.g. 100.00">' +
+          '</div>' +
+          '<label>天数</label><label class="red-star">*</label>' +
+          '<input type="number" class="form-control" name="days' + (hotelNum - 1) + '" required min="1" style="width:80px;">' +
+          '<br />' +
+          '<br />' +
+          '<label>备注</label>' +
+          '<textarea class="form-control" rows="1" name="note' + (hotelNum - 1) + '" style="width:466px;"></textarea>' +
+        '</div>' +
+        '<hr />' +
+      '</div>');
+  });
+  $('#addMeal').click(function(event) {
+    mealNum++;
+    $('#mealNum').val(mealNum);
+    $('#addButtonGroup').before('<div id="hotel' + mealNum + '">' +
+        '<div class="form-group">' +
+          '<label class="gray-font">餐饮 ' + mealNum + '</label>' +
+          '<br />' +
+          '<br />' +
+          '<label>饭店名称</label><label class="red-star">*</label>' +
+          '<input type="text" class="form-control" name="restaurant' + (mealNum - 1) + '" required>' +
+          '<label>地址</label><label class="red-star">*</label>' +
+          '<input type="text" class="form-control" name="address' + (mealNum - 1) + '" required>' +
+          '<br />' +
+          '<br />' +
+          '<label>就餐时间</label><label class="red-star">*</label>' +
+          '<input type="date" class="form-control" name="date'+ (mealNum - 1) + '" required style="width:172px;">' +
+          '<label>就餐人员</label><label class="red-star">*</label>' +
+          '<input type="text" class="form-control" name="person' + (mealNum - 1) + '" required placeholder="e.g. 张三、李四">' +
+          '<br />' +
+          '<br />' +
+          '<label>价格</label><label class="red-star">*</label>' +
+          '<div class="input-group">' +
+            '<div class="input-group-addon">¥</div>' +
+            '<input class="form-control" required name="price' + (mealNum - 1) + '" style="width:139px" placeholder="e.g. 100.00">' +
+          '</div>' +
+          '<br />' +
+          '<br />' +
+          '<label>备注</label>' +
+          '<textarea class="form-control" rows="1" name="note' + (mealNum - 1) + '" style="width:466px;"></textarea>' +
+        '</div>' +
+        '<hr />' +
+      '</div>');
+  });
+
+
+
+
+
 
   // print
   $('#printInvoice').click(function(event) {
