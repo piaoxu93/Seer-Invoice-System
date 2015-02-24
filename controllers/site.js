@@ -16,3 +16,7 @@ exports.index = function (req, res, next) {
     informs: config.informs
   });
 };
+
+exports.choose = function (req, res, next) {
+  res.render('submit/choose');
+};

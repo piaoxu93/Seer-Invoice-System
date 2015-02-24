@@ -7,10 +7,6 @@ var User = require('../proxy').User;
 var mail = require('../common/mail');
 var xss = require('xss');
 
-exports.choose = function (req, res, next) {
-  res.render('submit/choose');
-};
-
 exports.showSubmitCash = function (req, res, next) {
   res.render('submit/cash', {
     department: config.department,

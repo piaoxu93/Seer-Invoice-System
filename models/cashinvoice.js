@@ -21,7 +21,7 @@ var CashInvoiceSchema = new Schema({
   date: { type: Date, required: true }, // 申购日期
   payMethod: {
     type: String,
-    default: '现金',
+    default: '信用卡',
     required: true,
     enum: config.payMethod
   }, // 付款方式

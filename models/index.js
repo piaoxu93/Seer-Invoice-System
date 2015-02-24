@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var config = require('../config');
+var config   = require('../config');
 
 mongoose.connect(config.db, function (err) {
   if (err) {
@@ -12,10 +12,15 @@ mongoose.connect(config.db, function (err) {
 require('./user');
 require('./cashinvoice');
 require('./item');
+require('./travelinvoice');
+require('./ticket');
+require('./hotel');
+require('./meal');
 
-exports.User        = mongoose.model('User');
-exports.CashInvoice = mongoose.model('CashInvoice');
-exports.Item        = mongoose.model('Item');
-//exports.TravelInvoice = mongoose.model('');
-//exports.Ticket      = mongoose.model('');
-//exports.Hotel       = mongoose.model('');
+exports.User          = mongoose.model('User');
+exports.CashInvoice   = mongoose.model('CashInvoice');
+exports.Item          = mongoose.model('Item');
+exports.TravelInvoice = mongoose.model('TravelInvoice');
+exports.Ticket        = mongoose.model('Ticket');
+exports.Hotel         = mongoose.model('Hotel');
+exports.Meal          = mongoose.model('Meal');

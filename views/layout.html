@@ -43,30 +43,35 @@
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class='nav navbar-nav navbar-right'>
-        <% if (typeof(current_user) !== 'undefined'){ %>
-        <li><a href="/mycashinvoices/1" style="cursor:default"><%= current_user.name %></a></li>
+        <% if (typeof(current_user) !== 'undefined') { %>
+        <li><a href="/" rel="nofollow"><%= current_user.name %></a></li>
+        <li><a href="/mycashinvoices/1" rel="nofollow">我的现金发票</a></li>
+        <li><a href="/mytravelinvoices/1" rel="nofollow">我的差旅发票</a></li>
         <% } %>
         <%
         var site_navs = config.site_navs || [];
         for (var i = 0, l = site_navs.length; i < l; i++) {
         var nav = site_navs[i];
         %>
-        <li><a href="<%- nav[0] %>" target="<%- nav[2] %>"><%- nav[1] %></a></li>
         <% } %>
         <% if (typeof(current_user) !== 'undefined' && current_user.is_admin) { %>
           <li>
-            <a href='/cashinvoices/1' rel="nofollow">查看</a>
+            <a href="/cashinvoices/1" rel="nofollow">所有现金发票</a>
+          </li>
+          <li>
+            <a href="/travelinvoices/1" rel="nofollow">所有差旅发票</a>
           </li>
         <% } %>
         <% if (typeof(current_user) !== 'undefined') { %>
         <li>
-          <a href='/submit/choose' rel="nofollow">提交</a>
+          <a href="/submit/choose" rel="nofollow">提交</a>
         </li>
+        <li><a href="<%= nav[0] %>"><%= nav[1] %></a></li>
         <li>
-          <a href='/signout' data-method="post" rel="nofollow">退出</a>
+          <a href="/signout" data-method="post" rel="nofollow">退出</a>
         </li>
         <% } else { %>
-        <li><a href='/signin'>登录</a></li>
+        <li><a href="/signin" rel="nofollow">登录</a></li>
         <% } %>
       </ul>
     </div>
