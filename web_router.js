@@ -12,7 +12,7 @@ var express = require('express');
 var sign = require('./controllers/sign');
 var site = require('./controllers/site');
 var topic = require('./controllers/topic');
-var invoice = require('./controllers/invoice');
+var cashInvoice = require('./controllers/cashinvoice');
 var staticController = require('./controllers/static');
 var auth = require('./middlewares/auth');
 var passport = require('passport');
@@ -23,17 +23,17 @@ var router = express.Router();
 // home page
 router.get('/', auth.userRequired, site.index);
 
-// invoice controller
-router.get('/submit/choose', auth.userRequired, invoice.choose);
-router.get('/submit/cash', auth.userRequired, invoice.showSubmitCash);
-router.post('/submit/cash', auth.userRequired, invoice.submitCash, invoice.submitError);
+// cash invoice controller
+router.get('/submit/choose', auth.userRequired, cashInvoice.choose);
+router.get('/submit/cash', auth.userRequired, cashInvoice.showSubmitCash);
+router.post('/submit/cash', auth.userRequired, cashInvoice.submitCash, cashInvoice.submitError);
 //router.get('/submit/travel', auth.userRequired, invoice.showSubmitTravel);
 //router.post('/submit/travel', auth.userRequired, invoice.submitTravel. invoice.submitError);
-router.get('/myinvoice/:page', auth.userRequired, invoice.showUserInvoice);
-router.get('/invoices/:page', auth.adminRequired, invoice.showAllInvoice);
-router.get('/invoice/id/:id', auth.userRequired, invoice.showInvoice);
-router.post('/invoice/id/:id', auth.adminRequired, invoice.changeProgress);
-router.post('/invoice/delete', auth.adminRequired, invoice.deleteInvoice);
+router.get('/mycashinvoices/:page', auth.userRequired, cashInvoice.showUserInvoice);
+router.get('/cashinvoices/:page', auth.adminRequired, cashInvoice.showAllInvoice);
+router.get('/cashinvoice/id/:id', auth.userRequired, cashInvoice.showInvoice);
+router.post('/cashinvoice/id/:id', auth.adminRequired, cashInvoice.changeProgress);
+router.post('/cashinvoice/delete', auth.adminRequired, cashInvoice.deleteInvoice);
 
 // sign controller
 router.post('/signout', sign.signout);  // 登出

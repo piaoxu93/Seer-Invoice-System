@@ -102,6 +102,7 @@ $(document).ready(function () {
     $('#signature3').removeClass('noPrint');
     $('.hr').removeClass('noPrint');
     $('.hr1').addClass('noPrint');
+    $('#backtotop').css('display', 'none');
     window.print();
     $('#changeprogress').removeClass('noPrint');
     $('#deleteinvoice').removeClass('noPrint');
@@ -110,6 +111,7 @@ $(document).ready(function () {
     $('#signature3').addClass('noPrint');
     $('.hr').addClass('noPrint');
     $('.hr1').removeClass('noPrint');
+    $('#backtotop').css('display', 'block');
     event.preventDefault();
     return;
   });

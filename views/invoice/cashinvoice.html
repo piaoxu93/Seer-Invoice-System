@@ -88,7 +88,7 @@
         <label>提交人签名</label>
       </div>
       <% if (typeof(current_user) !== 'undefined' && current_user.is_admin) { %>
-        <form class="form-inline" method="post" action="/invoice/id/<%= invoice._id %>" name="changeprogress" id="changeprogress" role="form">
+        <form class="form-inline" method="post" action="/cashinvoice/id/<%= invoice._id %>" name="changeprogress" id="changeprogress" role="form">
           <div class="form-group">
             <label for="progress">报销进度</label>
             <select class="form-control" name="progress" id="progress" required>
@@ -113,7 +113,7 @@
       <% } %>
       <% if (typeof(current_user) !== 'undefined' && current_user.is_admin) { %>
         <hr class="hr1"/>
-        <form class="form-inline" method="post" action="/invoice/delete" name="deleteinvoice" id="deleteinvoice" role="form">
+        <form class="form-inline" method="post" action="/cashinvoice/delete" name="deleteinvoice" id="deleteinvoice" role="form">
           <input type="hidden" name="_id" value='<%= invoice._id %>'/>
           <input type='hidden' name='_csrf' value='<%= csrf %>'/>
           <div class='form-actions'>

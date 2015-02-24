@@ -44,7 +44,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class='nav navbar-nav navbar-right'>
         <% if (typeof(current_user) !== 'undefined'){ %>
-        <li><a href="/myinvoice/1" style="cursor:default"><%= current_user.name %></a></li>
+        <li><a href="/mycashinvoices/1" style="cursor:default"><%= current_user.name %></a></li>
         <% } %>
         <%
         var site_navs = config.site_navs || [];
@@ -55,7 +55,7 @@
         <% } %>
         <% if (typeof(current_user) !== 'undefined' && current_user.is_admin) { %>
           <li>
-            <a href='/invoices/1' rel="nofollow">查看</a>
+            <a href='/cashinvoices/1' rel="nofollow">查看</a>
           </li>
         <% } %>
         <% if (typeof(current_user) !== 'undefined') { %>
@@ -75,7 +75,7 @@
 <div id='main'>
   <%- body %>
 </div>
-<div id='backtotop'>回到顶部</div>
+<div id='backtotop' class="noPrint">回到顶部</div>
 <div class="navbar navbar-default navbar-fixed-bottom">
   <div class="container">
     <div id='footer'>

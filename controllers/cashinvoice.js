@@ -179,7 +179,7 @@ exports.showUserInvoice = function (req, res, next) {
           invoices = invoices.slice(config.page_limit * (currentPage -1),
                                     config.page_limit * currentPage);
         }
-        res.render('invoice/myinvoice', {
+        res.render('invoice/mycashinvoices', {
           dateFormat: tools.dateFormat,
           invoices: invoices,
           currentPage: currentPage,
@@ -218,7 +218,7 @@ exports.showInvoice = function (req, res, next) {
           req.errorMsg = err.toString();
           return next();
         }
-        res.render('invoice/invoice', {
+        res.render('invoice/cashinvoice', {
           invoice: invoice,
           items: items
         });
@@ -252,7 +252,7 @@ exports.showAllInvoice = function (req, res, next) {
         invoices = invoices.slice(config.page_limit * (currentPage -1),
                                   config.page_limit * currentPage);
       }
-      res.render('invoice/invoices', {
+      res.render('invoice/cashinvoices', {
         dateFormat: tools.dateFormat, // 把格式化函数传出去，invoices中所有元素的date在视图渲染时格式化
         invoices: invoices,
         currentPage: currentPage,
@@ -288,7 +288,7 @@ exports.changeProgress = function (req, res, next) {
             req.errorMsg = err.toString();
             return next();
           }
-          res.render('invoice/invoice', {
+          res.render('invoice/cashinvoice', {
             invoice: invoice,
             notify: '修改进度成功',
             items: items
@@ -316,7 +316,7 @@ exports.deleteInvoice = function (req, res, next) {
         req.errorMsg = err.toString();
         return next();
       }
-      res.render('notify/notify', {success: '删除成功', backTo: '/invoices/1'});
+      res.render('notify/notify', {success: '删除成功', backTo: '/cashinvoices/1'});
       return;
     });
   });
