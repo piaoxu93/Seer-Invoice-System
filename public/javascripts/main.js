@@ -108,28 +108,28 @@ $(document).ready(function () {
           '<br />' +
           '<br />' +
           '<label>车次/航班</label><label class="red-star">*</label>' +
-          '<input type="text" class="form-control" name="flights' + (ticketNum - 1) + '" required>' +
+          '<input type="text" class="form-control" name="ticket-flights' + (ticketNum - 1) + '" required>' +
           '<label>出发时间</label><label class="red-star">*</label>' +
-          '<input type="date" class="form-control" name="date' + (ticketNum - 1) + '" required style="width:172px;">' +
+          '<input type="date" class="form-control" name="ticket-date' + (ticketNum - 1) + '" required style="width:172px;">' +
           '<br />' +
           '<br />' +
           '<label>出发地</label><label class="red-star">*</label>' +
-          '<input type="text" class="form-control" name="departure'+ (ticketNum - 1) + '" required>' +
+          '<input type="text" class="form-control" name="ticket-departure'+ (ticketNum - 1) + '" required>' +
           '<label>目的地</label><label class="red-star">*</label>' +
-          '<input type="text" class="form-control" name="destination' + (ticketNum - 1) + '" required>' +
+          '<input type="text" class="form-control" name="ticket-destination' + (ticketNum - 1) + '" required>' +
           '<br />' +
           '<br />' +
           '<label>单价</label><label class="red-star">*</label>' +
           '<div class="input-group">' +
             '<div class="input-group-addon">¥</div>' +
-            '<input class="form-control" required name="price' + (ticketNum - 1) + '" style="width:139px" placeholder="e.g. 100.00">' +
+            '<input class="form-control" required name="ticket-price' + (ticketNum - 1) + '" style="width:139px" placeholder="e.g. 100.00">' +
           '</div>' +
           '<label>乘客姓名</label><label class="red-star">*</label>' +
-          '<input type="text" class="form-control" name="person'+ (ticketNum - 1) + '" required placeholder="e.g. 张三">' +
+          '<input type="text" class="form-control" name="ticket-person'+ (ticketNum - 1) + '" required placeholder="e.g. 张三">' +
           '<br />' +
           '<br />' +
           '<label>备注</label>' +
-          '<textarea class="form-control" rows="1" name="note' + (ticketNum - 1) + '" style="width:466px;"></textarea>' +
+          '<textarea class="form-control" rows="1" name="ticket-note' + (ticketNum - 1) + '" style="width:466px;"></textarea>' +
         '</div>' +
         '<hr />' +
       '</div>');
@@ -143,28 +143,28 @@ $(document).ready(function () {
           '<br />' +
           '<br />' +
           '<label>酒店名称</label><label class="red-star">*</label>' +
-          '<input type="text" class="form-control" name="name' + (hotelNum - 1) + '" required>' +
+          '<input type="text" class="form-control" name="hotel-name' + (hotelNum - 1) + '" required>' +
           '<label>地址</label><label class="red-star">*</label>' +
-          '<input type="text" class="form-control" name="address' + (hotelNum - 1) + '" required>' +
+          '<input type="text" class="form-control" name="hotel-address' + (hotelNum - 1) + '" required>' +
           '<br />' +
           '<br />' +
           '<label>入住时间</label><label class="red-star">*</label>' +
-          '<input type="date" class="form-control" name="checkInDate'+ (hotelNum - 1) + '" required style="width:172px;">' +
+          '<input type="date" class="form-control" name="hotel-checkInDate'+ (hotelNum - 1) + '" required style="width:172px;">' +
           '<label>入住人员</label><label class="red-star">*</label>' +
-          '<input type="text" class="form-control" name="person' + (hotelNum - 1) + '" required placeholder="e.g. 张三、李四">' +
+          '<input type="text" class="form-control" name="hotel-person' + (hotelNum - 1) + '" required placeholder="e.g. 张三、李四">' +
           '<br />' +
           '<br />' +
           '<label>单价</label><label class="red-star">*</label>' +
           '<div class="input-group">' +
             '<div class="input-group-addon">¥</div>' +
-            '<input class="form-control" required name="unitPrice' + (hotelNum - 1) + '" style="width:139px" placeholder="e.g. 100.00">' +
+            '<input class="form-control" required name="hotel-unitPrice' + (hotelNum - 1) + '" style="width:139px" placeholder="e.g. 100.00">' +
           '</div>' +
           '<label>天数</label><label class="red-star">*</label>' +
-          '<input type="number" class="form-control" name="days' + (hotelNum - 1) + '" required min="1" style="width:80px;">' +
+          '<input type="number" class="form-control" name="hotel-days' + (hotelNum - 1) + '" required min="1" style="width:80px;">' +
           '<br />' +
           '<br />' +
           '<label>备注</label>' +
-          '<textarea class="form-control" rows="1" name="note' + (hotelNum - 1) + '" style="width:466px;"></textarea>' +
+          '<textarea class="form-control" rows="1" name="hotel-note' + (hotelNum - 1) + '" style="width:466px;"></textarea>' +
         '</div>' +
         '<hr />' +
       '</div>');
@@ -178,35 +178,30 @@ $(document).ready(function () {
           '<br />' +
           '<br />' +
           '<label>饭店名称</label><label class="red-star">*</label>' +
-          '<input type="text" class="form-control" name="restaurant' + (mealNum - 1) + '" required>' +
+          '<input type="text" class="form-control" name="meal-restaurant' + (mealNum - 1) + '" required>' +
           '<label>地址</label><label class="red-star">*</label>' +
-          '<input type="text" class="form-control" name="address' + (mealNum - 1) + '" required>' +
+          '<input type="text" class="form-control" name="meal-address' + (mealNum - 1) + '" required>' +
           '<br />' +
           '<br />' +
           '<label>就餐时间</label><label class="red-star">*</label>' +
-          '<input type="date" class="form-control" name="date'+ (mealNum - 1) + '" required style="width:172px;">' +
+          '<input type="date" class="form-control" name="meal-date'+ (mealNum - 1) + '" required style="width:172px;">' +
           '<label>就餐人员</label><label class="red-star">*</label>' +
-          '<input type="text" class="form-control" name="person' + (mealNum - 1) + '" required placeholder="e.g. 张三、李四">' +
+          '<input type="text" class="form-control" name="meal-person' + (mealNum - 1) + '" required placeholder="e.g. 张三、李四">' +
           '<br />' +
           '<br />' +
           '<label>价格</label><label class="red-star">*</label>' +
           '<div class="input-group">' +
             '<div class="input-group-addon">¥</div>' +
-            '<input class="form-control" required name="price' + (mealNum - 1) + '" style="width:139px" placeholder="e.g. 100.00">' +
+            '<input class="form-control" required name="meal-price' + (mealNum - 1) + '" style="width:139px" placeholder="e.g. 100.00">' +
           '</div>' +
           '<br />' +
           '<br />' +
           '<label>备注</label>' +
-          '<textarea class="form-control" rows="1" name="note' + (mealNum - 1) + '" style="width:466px;"></textarea>' +
+          '<textarea class="form-control" rows="1" name="meal-note' + (mealNum - 1) + '" style="width:466px;"></textarea>' +
         '</div>' +
         '<hr />' +
       '</div>');
   });
-
-
-
-
-
 
   // print
   $('#printInvoice').click(function(event) {

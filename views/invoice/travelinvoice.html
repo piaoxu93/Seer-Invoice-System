@@ -1,0 +1,160 @@
+<div class="container-fluid">
+  <div class="row" id="form-title">
+    <h2>发票详情</h2>
+  </div>
+  <div class="row" id="form-content">
+    <div class="fubot-invoice-form">
+      <div class="form-group">
+        <label>提交人</label>
+        <label class="gray-font"><%= invoice.name %></label>
+      </div>
+      <hr />
+      <div class="form-group">
+        <label>项目名称</label>
+        <label class="gray-font label-250"><%= invoice.projectName %></label>
+        <label>费用支出部门</label>
+        <label class="gray-font"><%= invoice.department %></label>
+      </div>
+      <hr />
+
+
+      <% for (var i = 0; i < tickets.length; i++) { %>
+        <div id="ticket<%= i+1 %>">
+          <div class="form-group">
+            <label class="gray-font">车次/航班 <%= i+1 %></label>
+            <br />
+            <label>车次/航班</label>
+            <label class="gray-font"><%= tickets[i].flights %></label>
+            <label>出发时间</label>
+            <label class="gray-font"><%= tickets[i].date %></label>
+            <br />
+            <label>出发地</label>
+            <label class="gray-font"><%= tickets[i].departure %></label>
+            <label>目的地</label>
+            <label class="gray-font"><%= tickets[i].destination %></label>
+            <br />
+            <label>单价</label>
+            <label class="gray-font">¥ <%= tickets[i].price %></label>
+            <label>乘客姓名</label>
+            <label class="gray-font"><%= tickets[i].person %></label>
+            <br />
+            <label>备注</label>
+            <label class="gray-font"><%= tickets[i].note %><label>
+          </div>
+        </div>
+        <hr />
+      <% } %>
+
+      <% for (var j = 0; j < hotels.length; j++) { %>
+        <div id="hotel<%= j+1 %>">
+          <div class="form-group">
+            <label class="gray-font">酒店 <%= j+1 %></label>
+            <br />
+            <label>酒店名称</label>
+            <label class="gray-font"><%= hotels[j].name %></label>
+            <label>地址</label>
+            <label class="gray-font"><%= hotels[j].address %></label>
+            <br />
+            <label>入住时间</label>
+            <label class="gray-font"><%= hotels[j].checkInDate %></label>
+            <label>入住人员</label>
+            <label class="gray-font"><%= hotels[j].person %></label>
+            <br />
+            <label>单价</label>
+            <label class="gray-font">¥ <%= hotels[j].unitPrice %></label>
+            <label>天数</label>
+            <label class="gray-font"><%= hotels[j].days %></label>
+            <br />
+            <label>备注</label>
+            <label class="gray-font"><%= hotels[j].note %><label>
+          </div>
+        </div>
+        <hr />
+      <% } %>
+
+      <% for (var k = 0; k < meals.length; k++) { %>
+        <div id="meal<%= k+1 %>">
+          <div class="form-group">
+            <label class="gray-font">餐饮 <%= k+1 %></label>
+            <br />
+            <label>饭店名称</label>
+            <label class="gray-font"><%= meals[k].restaurant %></label>
+            <label>地址</label>
+            <label class="gray-font"><%= meals[k].address %></label>
+            <br />
+            <label>就餐时间</label>
+            <label class="gray-font"><%= meals[k].date %></label>
+            <label>就餐人员</label>
+            <label class="gray-font"><%= meals[k].person %></label>
+            <br />
+            <label>价格</label>
+            <label class="gray-font">¥ <%= meals[k].price %></label>
+            <br />
+            <label>备注</label>
+            <label class="gray-font"><%= meals[k].note %><label>
+          </div>
+        </div>
+        <hr />
+      <% } %>
+
+      <div class="form-group">
+        <label>总价</label>
+        <label class="gray-font">¥ <%= invoice.totalPrice %></label>
+      </div>
+      <hr />
+      <div id="signature1" class="form-group noPrint">
+        <label>总经理签名</label>
+      </div>
+      <hr class="hr noPrint"/>
+      <div id="signature2" class="form-group noPrint">
+        <label>部门经理签名</label>
+      </div>
+      <hr class="hr noPrint"/>
+      <div id="signature3" class="form-group noPrint">
+        <label>提交人签名</label>
+      </div>
+      <% if (typeof(current_user) !== 'undefined' && current_user.is_admin) { %>
+        <form class="form-inline" method="post" action="/travelinvoice/id/<%= invoice._id %>" name="changeprogress" id="changeprogress" role="form">
+          <div class="form-group">
+            <label for="progress">报销进度</label>
+            <select class="form-control" name="progress" id="progress" required>
+              <option value="未处理" <%= invoice.progress === '未处理' ? 'selected' : '' %>>未处理</option>
+              <option value="已接收" <%= invoice.progress === '已接收' ? 'selected' : '' %>>已接收</option>
+              <option value="处理中" <%= invoice.progress === '处理中' ? 'selected' : '' %>>处理中</option>
+              <option value="报销完成" <%= invoice.progress === '报销完成' ? 'selected' : '' %>>报销完成</option>
+            </select>
+          </div>
+          <input type="hidden" name="_id" value='<%= invoice._id %>'/>
+          <input type='hidden' name='_csrf' value='<%= csrf %>'/>
+          <button type="submit" class="btn btn-success">确定</button>
+          <% if (typeof(notify) !== 'undefined') { %>
+            <span class="label label-danger"><%= notify %></span>
+          <% } %>
+        </form>
+      <% } else { %>
+        <div class="form-group" id="changeprogress">
+          <label>报销进度</label>
+          <label class="gray-font"><%= invoice.progress %><label>
+        </div>
+      <% } %>
+      <% if (typeof(current_user) !== 'undefined' && current_user.is_admin) { %>
+        <hr class="hr1"/>
+        <form class="form-inline" method="post" action="/travelinvoice/delete" name="deleteinvoice" id="deleteinvoice" role="form">
+          <input type="hidden" name="_id" value='<%= invoice._id %>'/>
+          <input type='hidden' name='_csrf' value='<%= csrf %>'/>
+          <div class='form-actions'>
+            <button type="submit" id="delete" class="btn btn-danger">删除</button>
+            <button type="button" id="printInvoice" class="btn btn-warning">打印</button>
+          </div>
+        </form>
+      <% } else { %>
+        <hr class="hr1"/>
+        <form class="form-inline" id="deleteinvoice">
+          <div class='form-actions'>
+            <button type="button" id="printInvoice" class="btn btn-warning">打印</button>
+          </div>
+        </form>
+      <% } %>
+    </div>
+  </div>
+</div>

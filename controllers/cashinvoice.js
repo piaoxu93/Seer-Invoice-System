@@ -66,7 +66,6 @@ exports.submitCash = function (req, res, next) {
     return next();
   }
   invoice.detail = xss(req.body.detail);
-  console.log(invoice.detail);
   invoice.detail = validator.trim(invoice.detail);
   invoice.detail = validator.escape(invoice.detail);
   invoice.note = xss(req.body.note);
@@ -121,7 +120,7 @@ exports.submitCash = function (req, res, next) {
       }
       newInvoice.dateStr = tools.dateFormat(newInvoice.date, 'yyyy-MM-dd , D');
       newInvoice.arrivalDateStr = tools.dateFormat(newInvoice.arrivalDate, 'yyyy-MM-dd , D');
-      res.render('submit/success', {
+      res.render('submit/cashsuccess', {
         invoice: newInvoice,
         items: newItems
       });

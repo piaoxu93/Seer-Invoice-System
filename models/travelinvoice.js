@@ -10,9 +10,9 @@ var TravelInvoiceSchema = new Schema({
     required: true,
     enum: config.department
   }, // 费用支出部门
-  ticketId: { type: Array, required: true }, // 保存ticket的索引Id
-  hotelId: { type: Array, required: true },
-  mealId: { type: Array, required: true },
+  ticketId: { type: Array },
+  hotelId: { type: Array },
+  mealId: { type: Array },
   totalPrice: {
     type: Number,
     default: 0.0,

@@ -1,0 +1,105 @@
+<div class="container-fluid">
+  <div class="row" id="form-title">
+    <h2>现金发票提交成功</h2>
+  </div>
+  <div class="row" id="form-content">
+    <div class="form-inline fubot-invoice-form">
+      <div class="form-group">
+        <label>填表人</label>
+        <label class="gray-font"><%= invoice.name %></label>
+      </div>
+      <hr />
+      <div class="form-group">
+        <label>项目名称</label>
+        <label class="gray-font label-250"><%= invoice.projectName %></label>
+        <label>费用支出部门</label>
+        <label class="gray-font"><%= invoice.department %></label>
+      </div>
+      <hr />
+
+      <% for (var i = 0; i < tickets.length; i++) { %>
+        <div id="ticket<%= i+1 %>">
+          <div class="form-group">
+            <label class="gray-font">车次/航班 <%= i+1 %></label>
+            <br />
+            <label>车次/航班</label>
+            <label class="gray-font"><%= tickets[i].flights %></label>
+            <label>出发时间</label>
+            <label class="gray-font"><%= tickets[i].date %></label>
+            <br />
+            <label>出发地</label>
+            <label class="gray-font"><%= tickets[i].departure %></label>
+            <label>目的地</label>
+            <label class="gray-font"><%= tickets[i].destination %></label>
+            <br />
+            <label>单价</label>
+            <label class="gray-font">¥ <%= tickets[i].price %></label>
+            <label>乘客姓名</label>
+            <label class="gray-font"><%= tickets[i].person %></label>
+            <br />
+            <label>备注</label>
+            <label class="gray-font"><%= tickets[i].note %><label>
+          </div>
+        </div>
+        <hr />
+      <% } %>
+
+      <% for (var j = 0; j < hotels.length; j++) { %>
+        <div id="hotel<%= j+1 %>">
+          <div class="form-group">
+            <label class="gray-font">酒店 <%= j+1 %></label>
+            <br />
+            <label>酒店名称</label>
+            <label class="gray-font"><%= hotels[j].name %></label>
+            <label>地址</label>
+            <label class="gray-font"><%= hotels[j].address %></label>
+            <br />
+            <label>入住时间</label>
+            <label class="gray-font"><%= hotels[j].checkInDate %></label>
+            <label>入住人员</label>
+            <label class="gray-font"><%= hotels[j].person %></label>
+            <br />
+            <label>单价</label>
+            <label class="gray-font">¥ <%= hotels[j].unitPrice %></label>
+            <label>天数</label>
+            <label class="gray-font"><%= hotels[j].days %></label>
+            <br />
+            <label>备注</label>
+            <label class="gray-font"><%= hotels[j].note %><label>
+          </div>
+        </div>
+        <hr />
+      <% } %>
+
+      <% for (var k = 0; k < meals.length; k++) { %>
+        <div id="meal<%= k+1 %>">
+          <div class="form-group">
+            <label class="gray-font">餐饮 <%= k+1 %></label>
+            <br />
+            <label>饭店名称</label>
+            <label class="gray-font"><%= meals[k].restaurant %></label>
+            <label>地址</label>
+            <label class="gray-font"><%= meals[k].address %></label>
+            <br />
+            <label>就餐时间</label>
+            <label class="gray-font"><%= meals[k].date %></label>
+            <label>就餐人员</label>
+            <label class="gray-font"><%= meals[k].person %></label>
+            <br />
+            <label>价格</label>
+            <label class="gray-font">¥ <%= meals[k].price %></label>
+            <br />
+            <label>备注</label>
+            <label class="gray-font"><%= meals[k].note %><label>
+          </div>
+        </div>
+        <hr />
+      <% } %>
+
+      <div class="form-group">
+        <label>总价</label>
+        <label class="gray-font">¥ <%= invoice.totalPrice %></label>
+      </div>
+    </div>
+  </div>
+</div>
