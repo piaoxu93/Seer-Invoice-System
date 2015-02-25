@@ -21,7 +21,7 @@ exports.newAndSave = function(obj, callback) {
 };
 
 exports.getInvoicesByName = function (name, opt, callback) {
-  CashInvoice.find({ name: name }, '_id itemId projectName createDate progress',
+  CashInvoice.find({ name: name }, '_id itemId projectName totalPrice createDate progress',
                opt, callback);
 };
 
@@ -30,7 +30,7 @@ exports.getInvoiceById = function (id, callback) {
 };
 
 exports.getInvoices = function (opt, callback) {
-  CashInvoice.find({}, '_id name itemId projectName createDate progress',
+  CashInvoice.find({}, '_id name itemId projectName totalPrice createDate progress',
                opt, callback);
 };
 

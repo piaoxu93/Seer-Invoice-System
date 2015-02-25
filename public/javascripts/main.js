@@ -207,18 +207,14 @@ $(document).ready(function () {
   $('#printInvoice').click(function(event) {
     $('#changeprogress').addClass('noPrint');
     $('#deleteinvoice').addClass('noPrint');
-    $('#signature1').removeClass('noPrint');
-    $('#signature2').removeClass('noPrint');
-    $('#signature3').removeClass('noPrint');
+    $('#signature').removeClass('noPrint');
     $('.hr').removeClass('noPrint');
     $('.hr1').addClass('noPrint');
     $('#backtotop').css('display', 'none');
     window.print();
     $('#changeprogress').removeClass('noPrint');
     $('#deleteinvoice').removeClass('noPrint');
-    $('#signature1').addClass('noPrint');
-    $('#signature2').addClass('noPrint');
-    $('#signature3').addClass('noPrint');
+    $('#signature').addClass('noPrint');
     $('.hr').addClass('noPrint');
     $('.hr1').removeClass('noPrint');
     $('#backtotop').css('display', 'block');

@@ -16,7 +16,7 @@ exports.newAndSave = function(obj, callback) {
 };
 
 exports.getInvoicesByName = function (name, opt, callback) {
-  TravelInvoice.find({ name: name }, '_id projectName createDate progress',
+  TravelInvoice.find({ name: name }, '_id projectName totalPrice createDate progress',
                opt, callback);
 };
 
@@ -25,7 +25,7 @@ exports.getInvoiceById = function (id, callback) {
 };
 
 exports.getInvoices = function (opt, callback) {
-  TravelInvoice.find({}, '_id name projectName createDate progress',
+  TravelInvoice.find({}, '_id name projectName totalPrice createDate progress',
                opt, callback);
 };
 

@@ -23,16 +23,16 @@
             <label class="gray-font">商品 <%= i+1 %></label>
             <br />
             <label>名称</label>
-            <label class="gray-font"><%= items[i].itemName %></label>
+            <label class="gray-font label-140"><%= items[i].itemName %></label>
             <label>品牌</label>
-            <label class="gray-font"><%= items[i].brand %></label>
+            <label class="gray-font label-140"><%= items[i].brand %></label>
             <label>规格型号</label>
-            <label class="gray-font"><%= items[i].model %></label>
+            <label class="gray-font label-140"><%= items[i].model %></label>
             <br />
             <label>单价</label>
-            <label class="gray-font">¥ <%= items[i].unitPrice %></label>
+            <label class="gray-font label-140">¥ <%= items[i].unitPrice %></label>
             <label>数量</label>
-            <label class="gray-font"><%= items[i].quantity %></label>
+            <label class="gray-font label-140"><%= items[i].quantity %></label>
           </div>
         </div>
         <hr />
@@ -45,34 +45,28 @@
       <hr />
       <div class="form-group">
         <label>申购人</label>
-        <label class="gray-font label-250"><%= invoice.requisitioner %></label>
+        <label class="gray-font label-140"><%= invoice.requisitioner %></label>
         <label>申购时间</label>
-        <label class="gray-font"><%= invoice.dateStr %></label>
+        <label class="gray-font label-140"><%= invoice.dateStr %></label>
       </div>
       <hr />
       <div class="form-group">
         <label>到货时间</label>
-        <label class="gray-font"><%= invoice.arrivalDateStr %></label>
-      </div>
-      <hr />
-      <div class="form-group">
+        <label class="gray-font label-140"><%= invoice.arrivalDateStr %></label>
         <label>付款方式</label>
-        <label class="gray-font"><%= invoice.payMethod %></label>
-      </div>
-      <hr />
-      <div class="form-group">
+        <label class="gray-font label-140"><%= invoice.payMethod %></label>
         <label>发票类别</label>
-        <label class="gray-font"><%= invoice.invoiceType %></label>
+        <label class="gray-font label-140"><%= invoice.invoiceType %></label>
       </div>
       <hr />
       <div class="form-group">
         <label>供应商明细</label>
-        <label class="gray-font"><%= invoice.detail %><label>
+        <label class="gray-font label-550"><%= invoice.detail %><label>
       </div>
       <hr />
       <div class="form-group">
         <label>备注</label>
-        <label class="gray-font"><%= invoice.note %><label>
+        <label class="gray-font label-550"><%= invoice.note %><label>
       </div>
     </div>
   </div>

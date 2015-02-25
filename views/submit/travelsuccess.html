@@ -23,19 +23,19 @@
             <label class="gray-font">车次/航班 <%= i+1 %></label>
             <br />
             <label>车次/航班</label>
-            <label class="gray-font"><%= tickets[i].flights %></label>
+            <label class="gray-font label-250"><%= tickets[i].flights %></label>
             <label>出发时间</label>
-            <label class="gray-font"><%= tickets[i].date %></label>
+            <label class="gray-font label-250"><%= dateFormat(tickets[i].date, 'yyyy-MM-dd , D') %></label>
             <br />
             <label>出发地</label>
-            <label class="gray-font"><%= tickets[i].departure %></label>
+            <label class="gray-font label-250"><%= tickets[i].departure %></label>
             <label>目的地</label>
-            <label class="gray-font"><%= tickets[i].destination %></label>
+            <label class="gray-font label-250"><%= tickets[i].destination %></label>
             <br />
             <label>单价</label>
-            <label class="gray-font">¥ <%= tickets[i].price %></label>
+            <label class="gray-font label-250">¥ <%= tickets[i].price %></label>
             <label>乘客姓名</label>
-            <label class="gray-font"><%= tickets[i].person %></label>
+            <label class="gray-font label-250"><%= tickets[i].person %></label>
             <br />
             <label>备注</label>
             <label class="gray-font"><%= tickets[i].note %><label>
@@ -50,19 +50,19 @@
             <label class="gray-font">酒店 <%= j+1 %></label>
             <br />
             <label>酒店名称</label>
-            <label class="gray-font"><%= hotels[j].name %></label>
+            <label class="gray-font label-250"><%= hotels[j].name %></label>
             <label>地址</label>
-            <label class="gray-font"><%= hotels[j].address %></label>
+            <label class="gray-font label-250"><%= hotels[j].address %></label>
             <br />
             <label>入住时间</label>
-            <label class="gray-font"><%= hotels[j].checkInDate %></label>
+            <label class="gray-font label-250"><%= dateFormat(hotels[j].checkInDate, 'yyyy-MM-dd , D') %></label>
             <label>入住人员</label>
-            <label class="gray-font"><%= hotels[j].person %></label>
+            <label class="gray-font label-250"><%= hotels[j].person %></label>
             <br />
             <label>单价</label>
-            <label class="gray-font">¥ <%= hotels[j].unitPrice %></label>
+            <label class="gray-font label-250">¥ <%= hotels[j].unitPrice %></label>
             <label>天数</label>
-            <label class="gray-font"><%= hotels[j].days %></label>
+            <label class="gray-font label-250"><%= hotels[j].days %></label>
             <br />
             <label>备注</label>
             <label class="gray-font"><%= hotels[j].note %><label>
@@ -77,17 +77,17 @@
             <label class="gray-font">餐饮 <%= k+1 %></label>
             <br />
             <label>饭店名称</label>
-            <label class="gray-font"><%= meals[k].restaurant %></label>
+            <label class="gray-font label-250"><%= meals[k].restaurant %></label>
             <label>地址</label>
-            <label class="gray-font"><%= meals[k].address %></label>
+            <label class="gray-font label-250"><%= meals[k].address %></label>
             <br />
             <label>就餐时间</label>
-            <label class="gray-font"><%= meals[k].date %></label>
+            <label class="gray-font label-250"><%= dateFormat(meals[k].date, 'yyyy-MM-dd , D') %></label>
             <label>就餐人员</label>
-            <label class="gray-font"><%= meals[k].person %></label>
+            <label class="gray-font label-250"><%= meals[k].person %></label>
             <br />
             <label>价格</label>
-            <label class="gray-font">¥ <%= meals[k].price %></label>
+            <label class="gray-font label-250">¥ <%= meals[k].price %></label>
             <br />
             <label>备注</label>
             <label class="gray-font"><%= meals[k].note %><label>

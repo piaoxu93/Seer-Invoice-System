@@ -146,6 +146,7 @@ exports.submitTravel = function (req, res, next) {
         return next();
       }
       res.render('submit/travelsuccess', {
+        dateFormat: tools.dateFormat,
         invoice: newInvoice,
         tickets: tickets,
         hotels: hotels,
@@ -242,11 +243,16 @@ exports.showUserInvoice = function (req, res, next) {
           invoices = invoices.slice(config.page_limit * (currentPage -1),
                                     config.page_limit * currentPage);
         }
+        var totalMoney = 0;
+        for (var i = 0; i < totalInvoices; i++) {
+          totalMoney += invoices[i].totalPrice;
+        }
         res.render('invoice/mytravelinvoices', {
           dateFormat: tools.dateFormat,
           invoices: invoices,
           currentPage: currentPage,
           totalInvoices: totalInvoices,
+          totalMoney: totalMoney,
           pages: pages,
           // 只显示最多前后5个分页
           pageRangeFirst: currentPage - 5 < 1 ? 1 : currentPage - 5,
@@ -277,6 +283,7 @@ exports.showInvoice = function (req, res, next) {
       var ep = new EventProxy();
       ep.all('ticket', 'hotel', 'meal', function (tickets, hotels, meals) {
         res.render('invoice/travelinvoice', {
+          dateFormat: tools.dateFormat,
           invoice: invoice,
           tickets: tickets,
           hotels: hotels,
@@ -349,11 +356,16 @@ exports.showAllInvoice = function (req, res, next) {
         invoices = invoices.slice(config.page_limit * (currentPage -1),
                                   config.page_limit * currentPage);
       }
+      var totalMoney = 0;
+      for (var i = 0; i < totalInvoices; i++) {
+        totalMoney += invoices[i].totalPrice;
+      }
       res.render('invoice/travelinvoices', {
         dateFormat: tools.dateFormat, // 把格式化函数传出去，invoices中所有元素的date在视图渲染时格式化
         invoices: invoices,
         currentPage: currentPage,
         totalInvoices: totalInvoices,
+        totalMoney: totalMoney,
         pages: pages,
         // 只显示最多前后5个分页
         pageRangeFirst: currentPage - 5 < 1 ? 1 : currentPage - 5,
