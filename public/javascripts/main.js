@@ -67,6 +67,7 @@ $(document).ready(function () {
     itemNum++;
     $('#itemNum').val(itemNum);
     $(this).before('<div id="item' + itemNum + '">' +
+        '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
         '<div class="form-group">' +
           '<label class="gray-font">商品 ' + itemNum + '</label>' +
           '<br />' +
@@ -103,6 +104,7 @@ $(document).ready(function () {
     ticketNum++;
     $('#ticketNum').val(ticketNum);
     $('#addButtonGroup').before('<div id="ticket' + ticketNum + '">' +
+        '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
         '<div class="form-group">' +
           '<label class="gray-font">车次/航班 ' + ticketNum + '</label>' +
           '<br />' +
@@ -138,6 +140,7 @@ $(document).ready(function () {
     hotelNum++;
     $('#hotelNum').val(hotelNum);
     $('#addButtonGroup').before('<div id="hotel' + hotelNum + '">' +
+        '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
         '<div class="form-group">' +
           '<label class="gray-font">酒店 ' + hotelNum + '</label>' +
           '<br />' +
@@ -173,6 +176,7 @@ $(document).ready(function () {
     mealNum++;
     $('#mealNum').val(mealNum);
     $('#addButtonGroup').before('<div id="hotel' + mealNum + '">' +
+        '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
         '<div class="form-group">' +
           '<label class="gray-font">餐饮 ' + mealNum + '</label>' +
           '<br />' +

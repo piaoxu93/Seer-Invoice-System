@@ -53,6 +53,9 @@ exports.submitTravel = function (req, res, next) {
   }
   for (var j = 0; j < ticketNum; j++) {
     var ticket = {};
+    if (!req.body['ticket-flights' + j]) {
+      continue;
+    }
     ticket.flights = xss(req.body['ticket-flights' + j]);
     ticket.flights = validator.trim(ticket.flights);
     ticket.flights = validator.escape(ticket.flights);
@@ -82,6 +85,9 @@ exports.submitTravel = function (req, res, next) {
   }
   for (var k = 0; k < hotelNum; k++) {
     var hotel = {};
+    if (!req.body['hotel-name' + k]) {
+      continue;
+    }
     hotel.name = xss(req.body['hotel-name' + k]);
     hotel.name = validator.trim(hotel.name);
     hotel.name = validator.escape(hotel.name);
@@ -113,6 +119,9 @@ exports.submitTravel = function (req, res, next) {
   }
   for (var n = 0; n < mealNum; n++) {
     var meal = {};
+    if (!req.body['meal-restaurant' + n]) {
+      continue;
+    }
     meal.restaurant = xss(req.body['meal-restaurant' + n]);
     meal.restaurant = validator.trim(meal.restaurant);
     meal.restaurant = validator.escape(meal.restaurant);
@@ -231,6 +240,10 @@ exports.showUserInvoice = function (req, res, next) {
           return next(err);
         }
         var totalInvoices = invoices.length;
+        var totalMoney = 0;
+        for (var i = 0; i < totalInvoices; i++) {
+          totalMoney += invoices[i].totalPrice;
+        }
         var pages = Math.ceil(totalInvoices / config.page_limit);
         // 没有记录的时候
         if (pages === 0 ) { pages++ };
@@ -242,10 +255,6 @@ exports.showUserInvoice = function (req, res, next) {
         } else {
           invoices = invoices.slice(config.page_limit * (currentPage -1),
                                     config.page_limit * currentPage);
-        }
-        var totalMoney = 0;
-        for (var i = 0; i < totalInvoices; i++) {
-          totalMoney += invoices[i].totalPrice;
         }
         res.render('invoice/mytravelinvoices', {
           dateFormat: tools.dateFormat,
@@ -344,6 +353,10 @@ exports.showAllInvoice = function (req, res, next) {
         return next(err);
       }
       var totalInvoices = invoices.length;
+      var totalMoney = 0;
+      for (var i = 0; i < totalInvoices; i++) {
+        totalMoney += invoices[i].totalPrice;
+      }
       var pages = Math.ceil(totalInvoices / config.page_limit);
       // 没有记录的时候
       if (pages === 0 ) { pages++ };
@@ -355,10 +368,6 @@ exports.showAllInvoice = function (req, res, next) {
       } else {
         invoices = invoices.slice(config.page_limit * (currentPage -1),
                                   config.page_limit * currentPage);
-      }
-      var totalMoney = 0;
-      for (var i = 0; i < totalInvoices; i++) {
-        totalMoney += invoices[i].totalPrice;
       }
       res.render('invoice/travelinvoices', {
         dateFormat: tools.dateFormat, // 把格式化函数传出去，invoices中所有元素的date在视图渲染时格式化

@@ -82,6 +82,9 @@ exports.submitCash = function (req, res, next) {
   }
   for (var j = 0; j < itemNum; j++) {
     var item = {};
+    if (!req.body['itemName' + j]) {
+      continue;
+    }
     item.itemName = xss(req.body['itemName' + j]);
     item.itemName = validator.trim(item.itemName);
     item.itemName = validator.escape(item.itemName);
@@ -162,6 +165,10 @@ exports.showUserInvoice = function (req, res, next) {
           return next(err);
         }
         var totalInvoices = invoices.length;
+        var totalMoney = 0;
+        for (var i = 0; i < totalInvoices; i++) {
+          totalMoney += invoices[i].totalPrice;
+        }
         var pages = Math.ceil(totalInvoices / config.page_limit);
         // 没有记录的时候
         if (pages === 0 ) { pages++ };
@@ -173,10 +180,6 @@ exports.showUserInvoice = function (req, res, next) {
         } else {
           invoices = invoices.slice(config.page_limit * (currentPage -1),
                                     config.page_limit * currentPage);
-        }
-        var totalMoney = 0;
-        for (var i = 0; i < totalInvoices; i++) {
-          totalMoney += invoices[i].totalPrice;
         }
         res.render('invoice/mycashinvoices', {
           dateFormat: tools.dateFormat,
@@ -240,6 +243,10 @@ exports.showAllInvoice = function (req, res, next) {
         return next(err);
       }
       var totalInvoices = invoices.length;
+      var totalMoney = 0;
+      for (var i = 0; i < totalInvoices; i++) {
+        totalMoney += invoices[i].totalPrice;
+      }
       var pages = Math.ceil(totalInvoices / config.page_limit);
       // 没有记录的时候
       if (pages === 0 ) { pages++ };
@@ -251,10 +258,6 @@ exports.showAllInvoice = function (req, res, next) {
       } else {
         invoices = invoices.slice(config.page_limit * (currentPage -1),
                                   config.page_limit * currentPage);
-      }
-      var totalMoney = 0;
-      for (var i = 0; i < totalInvoices; i++) {
-        totalMoney += invoices[i].totalPrice;
       }
       res.render('invoice/cashinvoices', {
         dateFormat: tools.dateFormat, // 把格式化函数传出去，invoices中所有元素的date在视图渲染时格式化
