@@ -39,7 +39,7 @@
             <label class="gray-font label-250"><%= tickets[i].person %></label>
             <br />
             <label>备注</label>
-            <label class="gray-font"><%= tickets[i].note %><label>
+            <pre class="gray-font label-550"><%= tickets[i].note %></pre>
           </div>
         </div>
         <hr />
@@ -66,7 +66,7 @@
             <label class="gray-font label-250"><%= hotels[j].days %></label>
             <br />
             <label>备注</label>
-            <label class="gray-font"><%= hotels[j].note %><label>
+            <pre class="gray-font label-550"><%= hotels[j].note %></pre>
           </div>
         </div>
         <hr />
@@ -91,7 +91,7 @@
             <label class="gray-font label-250">¥ <%= meals[k].price %></label>
             <br />
             <label>备注</label>
-            <label class="gray-font"><%= meals[k].note %><label>
+            <pre class="gray-font label-550"><%= meals[k].note %></pre>
           </div>
         </div>
         <hr />
@@ -128,7 +128,7 @@
       <% } else { %>
         <div class="form-group" id="changeprogress">
           <label>报销进度</label>
-          <label class="gray-font"><%= invoice.progress %><label>
+          <label class="gray-font"><%= invoice.progress %></label>
         </div>
       <% } %>
       <% if (typeof(current_user) !== 'undefined' && current_user.is_admin) { %>
