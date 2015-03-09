@@ -28,7 +28,7 @@ exports.sendNewInvoiceMail = function (who, invoice) {
   var to = who;
   var subject = invoice.name + ' 有新发票提交';
   var html = '<p>管理员您好：</p>' +
-    '<p>' + invoice.name + '在Fubot发票系统中提交了新的现金发票报销申请，请查看。</p>' +
+    '<p>' + invoice.name + '在Fubot发票系统中提交了新的发票报销申请，请查看。</p>' +
     '<a href="http://' + config.host +'/cashinvoice/id/' + invoice._id +  '">查看链接</a>';
   exports.sendMail({
     from: from,

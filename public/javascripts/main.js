@@ -211,6 +211,9 @@ $(document).ready(function () {
   $('#printInvoice').click(function(event) {
     $('#changeprogress').addClass('noPrint');
     $('#deleteinvoice').addClass('noPrint');
+    $('#detail').addClass('noPrint');
+    $('#note').addClass('noPrint');
+    $('.note').addClass('noPrint');
     $('#signature').removeClass('noPrint');
     $('.hr').removeClass('noPrint');
     $('.hr1').addClass('noPrint');
@@ -218,6 +221,9 @@ $(document).ready(function () {
     window.print();
     $('#changeprogress').removeClass('noPrint');
     $('#deleteinvoice').removeClass('noPrint');
+    $('#detail').removeClass('noPrint');
+    $('#note').removeClass('noPrint');
+    $('.note').removeClass('noPrint');
     $('#signature').addClass('noPrint');
     $('.hr').addClass('noPrint');
     $('.hr1').removeClass('noPrint');

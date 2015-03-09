@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row" id="form-title">
-    <h2>发票详情</h2>
+    <h2>现金发票详情</h2>
   </div>
   <div class="row" id="form-content">
     <div class="fubot-invoice-form">
@@ -60,12 +60,12 @@
         <label class="gray-font label-150"><%= invoice.invoiceType %></label>
       </div>
       <hr />
-      <div class="form-group">
+      <div class="form-group" id="detail">
         <label>供应商明细</label>
         <pre class="gray-font label-550"><%= invoice.detail %></pre>
       </div>
       <hr />
-      <div class="form-group">
+      <div class="form-group" id="note">
         <label>备注</label>
         <pre class="gray-font label-550"><%= invoice.note %></pre>
       </div>

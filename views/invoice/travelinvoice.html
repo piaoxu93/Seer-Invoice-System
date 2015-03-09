@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row" id="form-title">
-    <h2>发票详情</h2>
+    <h2>差旅发票详情</h2>
   </div>
   <div class="row" id="form-content">
     <div class="fubot-invoice-form">
@@ -38,8 +38,10 @@
             <label>乘客姓名</label>
             <label class="gray-font label-250"><%= tickets[i].person %></label>
             <br />
-            <label>备注</label>
-            <pre class="gray-font label-550"><%= tickets[i].note %></pre>
+            <div class="note">
+              <label>备注</label>
+              <pre class="gray-font label-550"><%= tickets[i].note %></pre>
+            </div>
           </div>
         </div>
         <hr />
@@ -65,8 +67,10 @@
             <label>天数</label>
             <label class="gray-font label-250"><%= hotels[j].days %></label>
             <br />
-            <label>备注</label>
-            <pre class="gray-font label-550"><%= hotels[j].note %></pre>
+            <div class="note">
+              <label>备注</label>
+              <pre class="gray-font label-550"><%= hotels[j].note %></pre>
+            </div>
           </div>
         </div>
         <hr />
@@ -90,8 +94,10 @@
             <label>价格</label>
             <label class="gray-font label-250">¥ <%= meals[k].price %></label>
             <br />
-            <label>备注</label>
-            <pre class="gray-font label-550"><%= meals[k].note %></pre>
+            <div class="note">
+              <label>备注</label>
+              <pre class="gray-font label-550"><%= meals[k].note %></pre>
+            </div>
           </div>
         </div>
         <hr />
