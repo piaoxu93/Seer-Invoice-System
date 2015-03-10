@@ -119,9 +119,9 @@
             <label for="progress">报销进度</label>
             <select class="form-control" name="progress" id="progress" required>
               <option value="未处理" <%= invoice.progress === '未处理' ? 'selected' : '' %>>未处理</option>
-              <option value="已接收" <%= invoice.progress === '已接收' ? 'selected' : '' %>>已接收</option>
-              <option value="处理中" <%= invoice.progress === '处理中' ? 'selected' : '' %>>处理中</option>
-              <option value="报销完成" <%= invoice.progress === '报销完成' ? 'selected' : '' %>>报销完成</option>
+              <option value="已受理" <%= invoice.progress === '已受理' ? 'selected' : '' %>>已受理</option>
+              <option value="发票收到" <%= invoice.progress === '发票收到' ? 'selected' : '' %>>发票收到</option>
+              <option value="已完成" <%= invoice.progress === '已完成' ? 'selected' : '' %>>已完成</option>
             </select>
           </div>
           <input type="hidden" name="_id" value='<%= invoice._id %>'/>
