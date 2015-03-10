@@ -404,6 +404,7 @@ exports.changeProgress = function (req, res, next) {
         var ep = new EventProxy();
         ep.all('ticket', 'hotel', 'meal', function (tickets, hotels, meals) {
           res.render('invoice/travelinvoice', {
+            dateFormat: tools.dateFormat,
             invoice: invoice,
             tickets: tickets,
             hotels: hotels,
