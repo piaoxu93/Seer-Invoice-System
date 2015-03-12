@@ -156,5 +156,95 @@
         </form>
       <% } %>
     </div>
+    <div id="printPage">
+      <table class="table table-condensed table-bordered" style="margin-bottom:0">
+        <tr>
+          <th style="text-align: center;">差旅发票报销核对表</th>
+        </tr>
+        <tr>
+          <td style="text-align: center;"><%= invoice._id %></td>
+        </tr>
+      </table>
+      <table class="table table-condensed table-bordered" style="margin-bottom:0">
+        <tbody>
+          <tr>
+            <th style="text-align: center;">提交人</th>
+            <th style="text-align: center;"><%= invoice.name %></th>
+            <th style="text-align: center;">项目名称</th>
+            <th style="text-align: center;"><%= invoice.projectName %></th>
+          </tr>
+          <tr>
+            <th style="text-align: center;">提交日期</th>
+            <th style="text-align: center;"><%= dateFormat(invoice.createDate, 'yyyy-MM-dd') %></th>
+            <th style="text-align: center;">支出部门</th>
+            <th style="text-align: center;"><%= invoice.department %></th>
+          </tr>
+        </tbody>
+      </table>
+      <table class="table table-condensed table-bordered" style="margin-bottom:0">
+        <tr>
+          <td>每月20日为本公司报销日，请在该日前打印本表格，并将对应发票粘贴在背面，交于管理员签字审核</td>
+        </tr>
+      </table>
+      <table class="table table-condensed table-bordered" style="margin-bottom:0; text-align: center;">
+        <thead>
+          <tr>
+            <th style="text-align: center;">编号</th>
+            <th style="text-align: center;">日期</th>
+            <th style="text-align: center;">类型</th>
+            <th style="text-align: center;">备注</th>
+            <th style="text-align: center;">金额</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% var i = 0; %>
+          <% for (; i < tickets.length; i++) { %>
+            <tr>
+              <td><%= i+1 %></td>
+              <td><%= dateFormat(tickets[i].date, 'yyyy-MM-dd') %></td>
+              <td>交通费</td>
+              <td><%= tickets[i].flights %></td>
+              <td>¥ <%= tickets[i].price %></td>
+            </tr>
+          <% } %>
+          <% var j = i; %>
+          <% for (; i < hotels.length + j; i++) { %>
+            <tr>
+              <td><%= i+1 %></td>
+              <td><%= dateFormat(hotels[i - j].checkInDate, 'yyyy-MM-dd') %></td>
+              <td>住宿费</td>
+              <td><%= hotels[i - j].name %></td>
+              <td>¥ <%= hotels[i - j].totalPrice %></td>
+            </tr>
+          <% } %>
+          <% var k = i; %>
+          <% for (; i < meals.length + k; i++) { %>
+            <tr>
+              <td><%= i+1 %></td>
+              <td><%= dateFormat(meals[i - k].date, 'yyyy-MM-dd') %></td>
+              <td>餐饮费</td>
+              <td><%= meals[i - k].restaurant %></td>
+              <td>¥ <%= meals[i - k].price %></td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+      <table class="table table-condensed table-bordered" style="margin-bottom:0; text-align: center;">
+        <thead>
+          <tr>
+            <th style="text-align: center;">合计</th>
+            <th style="text-align: center;">¥ <%= invoice.totalPrice %></th>
+          </tr>
+          <tr>
+            <th style="text-align: center;">报销方式</th>
+            <th style="text-align: center;">银行转账</th>
+          </tr>
+          <tr>
+            <th style="text-align: center;">审核人</th>
+            <th style="text-align: center;"></th>
+          </tr>
+        </thead>
+      </table>
+    </div>
   </div>
 </div>
