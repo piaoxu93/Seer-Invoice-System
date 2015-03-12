@@ -222,6 +222,7 @@ exports.showInvoice = function (req, res, next) {
           return next();
         }
         res.render('invoice/cashinvoice', {
+          dateFormat: tools.dateFormat,
           invoice: invoice,
           items: items
         });
