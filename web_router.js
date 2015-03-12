@@ -15,6 +15,7 @@ var topic = require('./controllers/topic');
 var cashInvoice = require('./controllers/cashinvoice');
 var travelInvoice = require('./controllers/travelinvoice');
 var staticController = require('./controllers/static');
+var printMonthly = require('./controllers/printmonthly');
 var auth = require('./middlewares/auth');
 var passport = require('passport');
 var config = require('./config');
@@ -43,6 +44,9 @@ router.get('/travelinvoices/:page', auth.adminRequired, travelInvoice.showAllInv
 router.get('/travelinvoice/id/:id', auth.userRequired, travelInvoice.showInvoice);
 router.post('/travelinvoice/id/:id', auth.adminRequired, travelInvoice.changeProgress);
 router.post('/travelinvoice/delete', auth.adminRequired, travelInvoice.deleteInvoice);
+
+// print monthly table controller
+router.get('/printmonthly', auth.adminRequired, printMonthly.show);
 
 // sign controller
 router.post('/signout', sign.signout);  // 登出

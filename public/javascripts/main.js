@@ -29,7 +29,7 @@ $(document).ready(function () {
     var today = new Date();
     var date = $('#date').val() ? new Date($('#date').val()) : null;
     var arrivalDate = $('#arrivalDate').val() ? new Date($('#arrivalDate').val()) : null;
-    if (!!date || !!arrivalDate) {
+    if (!!date && !!arrivalDate) {
       if (date > today) {
         event.preventDefault();
         alert('申购时间不能晚于今天');
@@ -237,6 +237,27 @@ $(document).ready(function () {
     document.body.innerHTML = headstr + newstr + footstr;
     window.print();
     document.body.innerHTML = oldstr;
+    event.preventDefault();
+    return;
+  });
+
+  // print monthly
+  $('#confirm-monthly').click(function(event) {
+    var today = new Date();
+    var beginDate = $('#beginDate').val() ? new Date($('#beginDate').val()) : null;
+    var endDate = $('#endDate').val() ? new Date($('#endDate').val()) : null;
+    if (!!beginDate && !!endDate) {
+      if (beginDate > today || endDate > today) {
+        event.preventDefault();
+        alert('起始时间或截止时间不能晚于今天');
+        return;
+      }
+      if (beginDate > endDate) {
+        event.preventDefault();
+        alert('起始时间不能晚于截止时间');
+        return;
+      }
+    }
     event.preventDefault();
     return;
   });
