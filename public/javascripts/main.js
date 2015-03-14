@@ -278,6 +278,7 @@ $(document).ready(function () {
     function (data, status) {
       if (status === 'success') {
         var printPage = $('#printPage');
+        printPage.empty();
         printPage.append('<table class="table table-condensed table-bordered" style="margin-bottom:0">' +
                            '<tr>' +
                              '<th style="text-align: center;">福物月度发票报销核对总表</th>' +

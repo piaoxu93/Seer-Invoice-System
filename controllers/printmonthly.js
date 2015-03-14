@@ -24,13 +24,6 @@ exports.getData = function (req, res, next) {
   var ep = new EventProxy();
   ep.all('cash', 'travel', function (cash, travel) {
   	res.status(200);
-  	for (var i = 0; i < cash.length; i++) {
-  	  cash[i].displayDate = tools.dateFormat(cash[i].createDate, 'yyyy-MM-dd');
-  	}
-  	for (var i = 0; i < travel.length; i++) {
-  	  travel[i].displayDate = tools.dateFormat(travel[i].createDate, 'yyyy-MM-dd');
-  	}
-  	//console.log(cash[0]);
   	res.json({ cash: cash, travel: travel, beginDate: beginDate, endDate: endDate});
   });
 
