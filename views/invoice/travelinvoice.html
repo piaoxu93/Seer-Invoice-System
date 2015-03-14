@@ -159,17 +159,14 @@
     <div id="printPage">
       <table class="table table-condensed table-bordered" style="margin-bottom:0">
         <tr>
-          <th style="text-align: center;">差旅发票报销核对表</th>
-        </tr>
-        <tr>
-          <td style="text-align: center;"><%= invoice._id %></td>
+          <th style="text-align: center;">福物差旅发票报销核对表</th>
         </tr>
       </table>
       <table class="table table-condensed table-bordered" style="margin-bottom:0">
         <tbody>
           <tr>
-            <th style="text-align: center;">提交人</th>
-            <th style="text-align: center;"><%= invoice.name %></th>
+            <th style="text-align: center; width: 25%">提交人</th>
+            <th style="text-align: center; width: 25%"><%= invoice.name %></th>
             <th style="text-align: center;">项目名称</th>
             <th style="text-align: center;"><%= invoice.projectName %></th>
           </tr>
@@ -189,11 +186,11 @@
       <table class="table table-condensed table-bordered" style="margin-bottom:0; text-align: center;">
         <thead>
           <tr>
-            <th style="text-align: center;">编号</th>
-            <th style="text-align: center;">日期</th>
-            <th style="text-align: center;">类型</th>
-            <th style="text-align: center;">备注</th>
-            <th style="text-align: center;">金额</th>
+            <th style="text-align: center; width: 10%">编号</th>
+            <th style="text-align: center; width: 20%">日期</th>
+            <th style="text-align: center; width: 20%">类型</th>
+            <th style="text-align: center; width: 30%">备注</th>
+            <th style="text-align: center; width: 20%">金额</th>
           </tr>
         </thead>
         <tbody>
@@ -232,16 +229,18 @@
       <table class="table table-condensed table-bordered" style="margin-bottom:0; text-align: center;">
         <thead>
           <tr>
-            <th style="text-align: center;">合计</th>
-            <th style="text-align: center;">¥ <%= invoice.totalPrice %></th>
+            <th style="text-align: center; width: 50%">合计</th>
+            <th style="text-align: center; width: 50%">¥ <%= invoice.totalPrice %></th>
           </tr>
+        </thead>
+      </table>
+      <table class="table table-condensed table-bordered" style="margin-bottom:0; text-align: center;">
+        <thead>
           <tr>
-            <th style="text-align: center;">报销方式</th>
-            <th style="text-align: center;">银行转账</th>
-          </tr>
-          <tr>
-            <th style="text-align: center;">审核人</th>
-            <th style="text-align: center;"></th>
+            <th style="text-align: center; width: 25%">报销人</th>
+            <th style="text-align: center; width: 25%"></th>
+            <th style="text-align: center; width: 25%">审核人</th>
+            <th style="text-align: center; width: 25%"></th>
           </tr>
         </thead>
       </table>

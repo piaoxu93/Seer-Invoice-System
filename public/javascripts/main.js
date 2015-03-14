@@ -246,6 +246,18 @@ $(document).ready(function () {
     var today = new Date();
     var beginDate = $('#beginDate').val() ? new Date($('#beginDate').val()) : null;
     var endDate = $('#endDate').val() ? new Date($('#endDate').val()) : null;
+    if (!beginDate || !endDate) {
+      return;
+    }
+    beginDate.setHours(0);
+    beginDate.setMinutes(0);
+    beginDate.setSeconds(0);
+    endDate.setHours(23);
+    endDate.setMinutes(59);
+    endDate.setSeconds(59);
+    today.setHours(23);
+    today.setMinutes(59);
+    today.setSeconds(59);
     if (!!beginDate && !!endDate) {
       if (beginDate > today || endDate > today) {
         event.preventDefault();
@@ -259,7 +271,108 @@ $(document).ready(function () {
       }
     }
     event.preventDefault();
+    $.post('/monthlydata', {
+      beginDate: beginDate,
+      endDate: endDate
+    },
+    function (data, status) {
+      if (status === 'success') {
+        var printPage = $('#printPage');
+        printPage.append('<table class="table table-condensed table-bordered" style="margin-bottom:0">' +
+                           '<tr>' +
+                             '<th style="text-align: center;">福物月度发票报销核对总表</th>' +
+                           '</tr>' +
+                         '</table>');
+        printPage.append('<table class="table table-condensed table-bordered" style="margin-bottom:0">' +
+                           '<tbody>' +
+                             '<tr>' +
+                               '<th style="text-align: center; width: 25%">起始日期</th>' +
+                               '<th style="text-align: center; width: 25%">' + dateFormat(new Date(data.beginDate), 'yyyy-MM-dd') + '</th>' +
+                               '<th style="text-align: center; width: 25%">截止日期</th>' +
+                               '<th style="text-align: center; width: 25%">' + dateFormat(new Date(data.endDate), 'yyyy-MM-dd') + '</th>' +
+                             '</tr>' +
+                           '</tbody>' +
+                         '</table>');
+        var i = 0;
+        var sum = 0;
+        printPage.append('<table id="table_1" class="table table-condensed table-bordered" style="margin-bottom:0; text-align: center;">' +
+                           '<thead>' +
+                             '<tr>' +
+                               '<th style="text-align: center;">编号</th>' +
+                               '<th style="text-align: center;">类型</th>' +
+                               '<th style="text-align: center;">提交人</th>' +
+                               '<th style="text-align: center;">项目名称</th>' +
+                               '<th style="text-align: center;">提交时间</th>' +
+                               '<th style="text-align: center;">金额</th>' +
+                             '</tr>' +
+                           '</thead>' +
+                         '</table>');
+        var table_1 = $('#table_1');
+        for (; i < data.cash.length; i++) {
+          table_1.append('<tbody>' +
+                             '<tr>' +
+                               '<td style="text-align: center;">' + (i + 1) + '</th>' +
+                               '<td style="text-align: center;">现金发票</th>' +
+                               '<td style="text-align: center;">' + data.cash[i].name + '</th>' +
+                               '<td style="text-align: center;">' + data.cash[i].projectName + '</th>' +
+                               '<td style="text-align: center;">' + dateFormat(new Date(data.cash[i].createDate), 'yyyy-MM-dd') + '</th>' +
+                               '<td style="text-align: center;">¥ ' + data.cash[i].totalPrice + '</th>' +
+                             '</tr>' +
+                           '</tbody>');
+          sum += data.cash[i].totalPrice;
+        }
+        var j = i;
+        for (; i < data.travel.length + j; i++) {
+          table_1.append('<tbody>' +
+                             '<tr>' +
+                               '<td style="text-align: center;">' + (i + 1) + '</th>' +
+                               '<td style="text-align: center;">差旅发票</th>' +
+                               '<td style="text-align: center;">' + data.travel[i - j].name + '</th>' +
+                               '<td style="text-align: center;">' + data.travel[i - j].projectName + '</th>' +
+                               '<td style="text-align: center;">' + dateFormat(new Date(data.travel[i - j].createDate), 'yyyy-MM-dd') + '</th>' +
+                               '<td style="text-align: center;">¥ ' + data.travel[i - j].totalPrice + '</th>' +
+                             '</tr>' +
+                           '</tbody>');
+          sum += data.travel[i - j].totalPrice;
+        }
+
+        printPage.append('<table class="table table-condensed table-bordered" style="margin-bottom:0; text-align: center;">' +
+                           '<thead>' +
+                             '<tr>' +
+                               '<th style="text-align: center; width: 25%">合计</th>' +
+                               '<th style="text-align: center; width: 25%">¥ ' + sum + '</th>' +
+                               '<th style="text-align: center; width: 25%">审核人</th>' +
+                               '<th style="text-align: center; width: 25%"></th>' +
+                             '</tr>' +
+                           '</thead>' +
+                         '</table>');
+      }
+    });
     return;
   });
+
+  // 时间格式化工具
+  function dateFormat (date, fmt) {
+    var days = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+    var o = {
+      "M+" : date.getMonth() + 1,                   //月份
+      "d+" : date.getDate(),                        //日
+      "h+" : date.getHours(),                       //小时
+      "m+" : date.getMinutes(),                     //分
+      "s+" : date.getSeconds(),                     //秒
+      "q+" : Math.floor((date.getMonth() + 3) / 3), //季度
+      "S"  : date.getMilliseconds(),                //毫秒
+      "D"  : days[date.getDay()]                    // 星期几
+    };
+    if(/(y+)/.test(fmt)) {
+      fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+    }
+    for(var k in o) {
+      if (new RegExp("("+ k +")").test(fmt)) {
+        fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+      }
+    }
+    return fmt;
+  }
 });
 
