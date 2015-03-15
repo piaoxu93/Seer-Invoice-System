@@ -298,6 +298,7 @@ exports.changeProgress = function (req, res, next) {
             return next();
           }
           res.render('invoice/cashinvoice', {
+            dateFormat: tools.dateFormat,
             invoice: invoice,
             notify: '修改进度成功',
             items: items
