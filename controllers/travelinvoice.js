@@ -163,7 +163,7 @@ exports.submitTravel = function (req, res, next) {
       });
       // 发邮件给管理员
       for (var i = 0; i < config.admins_email.length; i++) {
-        mail.sendNewInvoiceMail(config.admins_email[i], newInvoice);
+        mail.sendNewInvoiceMail(config.admins_email[i], newInvoice, 'travel');
       }
       return;
     });
