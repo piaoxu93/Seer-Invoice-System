@@ -310,30 +310,26 @@ $(document).ready(function () {
                          '</table>');
         var table_1 = $('#table_1');
         for (; i < data.cash.length; i++) {
-          table_1.append('<tbody>' +
-                             '<tr>' +
-                               '<td style="text-align: center;">' + (i + 1) + '</th>' +
-                               '<td style="text-align: center;">现金发票</th>' +
-                               '<td style="text-align: center;">' + data.cash[i].name + '</th>' +
-                               '<td style="text-align: center;">' + data.cash[i].projectName + '</th>' +
-                               '<td style="text-align: center;">' + dateFormat(new Date(data.cash[i].createDate), 'yyyy-MM-dd') + '</th>' +
-                               '<td style="text-align: center;">¥ ' + data.cash[i].totalPrice + '</th>' +
-                             '</tr>' +
-                           '</tbody>');
+          table_1.append('<tr>' +
+                            '<td style="text-align: center;">' + (i + 1) + '</th>' +
+                            '<td style="text-align: center;">现金发票</th>' +
+                            '<td style="text-align: center;">' + data.cash[i].name + '</th>' +
+                            '<td style="text-align: center;">' + data.cash[i].projectName + '</th>' +
+                            '<td style="text-align: center;">' + dateFormat(new Date(data.cash[i].createDate), 'yyyy-MM-dd') + '</th>' +
+                            '<td style="text-align: center;">¥ ' + data.cash[i].totalPrice + '</th>' +
+                          '</tr>');
           sum += data.cash[i].totalPrice;
         }
         var j = i;
         for (; i < data.travel.length + j; i++) {
-          table_1.append('<tbody>' +
-                             '<tr>' +
-                               '<td style="text-align: center;">' + (i + 1) + '</th>' +
-                               '<td style="text-align: center;">差旅发票</th>' +
-                               '<td style="text-align: center;">' + data.travel[i - j].name + '</th>' +
-                               '<td style="text-align: center;">' + data.travel[i - j].projectName + '</th>' +
-                               '<td style="text-align: center;">' + dateFormat(new Date(data.travel[i - j].createDate), 'yyyy-MM-dd') + '</th>' +
-                               '<td style="text-align: center;">¥ ' + data.travel[i - j].totalPrice + '</th>' +
-                             '</tr>' +
-                           '</tbody>');
+          table_1.append('<tr>' +
+                            '<td style="text-align: center;">' + (i + 1) + '</th>' +
+                            '<td style="text-align: center;">差旅发票</th>' +
+                            '<td style="text-align: center;">' + data.travel[i - j].name + '</th>' +
+                            '<td style="text-align: center;">' + data.travel[i - j].projectName + '</th>' +
+                            '<td style="text-align: center;">' + dateFormat(new Date(data.travel[i - j].createDate), 'yyyy-MM-dd') + '</th>' +
+                            '<td style="text-align: center;">¥ ' + data.travel[i - j].totalPrice + '</th>' +
+                          '</tr>');
           sum += data.travel[i - j].totalPrice;
         }
 
