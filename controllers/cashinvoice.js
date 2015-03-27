@@ -168,6 +168,16 @@ exports.showUserInvoice = function (req, res, next) {
         var totalMoney = 0;
         for (var i = 0; i < totalInvoices; i++) {
           totalMoney += invoices[i].totalPrice;
+          if (i === 0) {
+            invoices[i].prev = '';
+            invoices[i].next = invoices[i+1]._id;
+          } else if (i > 0 && i < totalInvoices - 1) {
+            invoices[i].prev = invoices[i-1]._id;
+            invoices[i].next = invoices[i+1]._id;
+          } else {
+            invoices[i].prev = invoices[i-1]._id;
+            invoices[i].next = '';
+          }
         }
         var pages = Math.ceil(totalInvoices / config.page_limit);
         // 没有记录的时候
@@ -202,6 +212,18 @@ exports.showInvoice = function (req, res, next) {
   id = xss(id);
   id = validator.trim(id);
   id = validator.escape(id);
+  var prev = req.query.prev;
+  if (!!prev) {
+    prev = xss(prev);
+    prev = validator.trim(prev);
+    prev = validator.escape(prev);
+  }
+  var nex = req.query.next;
+  if (!!nex) {
+    nex = xss(nex);
+    nex = validator.trim(nex);
+    nex = validator.escape(nex);
+  }
   CashInvoice.getInvoiceById(id, function (err, invoice) {
     if (err) {
       return next(err);
@@ -224,7 +246,9 @@ exports.showInvoice = function (req, res, next) {
         res.render('invoice/cashinvoice', {
           dateFormat: tools.dateFormat,
           invoice: invoice,
-          items: items
+          items: items,
+          prev: prev,
+          next: nex,
         });
         return;
       });
@@ -247,6 +271,16 @@ exports.showAllInvoice = function (req, res, next) {
       var totalMoney = 0;
       for (var i = 0; i < totalInvoices; i++) {
         totalMoney += invoices[i].totalPrice;
+        if (i === 0) {
+          invoices[i].prev = '';
+          invoices[i].next = invoices[i+1]._id;
+        } else if (i > 0 && i < totalInvoices - 1) {
+          invoices[i].prev = invoices[i-1]._id;
+          invoices[i].next = invoices[i+1]._id;
+        } else {
+          invoices[i].prev = invoices[i-1]._id;
+          invoices[i].next = '';
+        }
       }
       var pages = Math.ceil(totalInvoices / config.page_limit);
       // 没有记录的时候

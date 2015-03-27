@@ -32,7 +32,7 @@ exports.getInvoices = function (opt, callback) {
 exports.getInvoicesByDate = function (beginDate, endDate, opt, callback) {
   var beginDate = beginDate;
   var endDate = endDate;
-  TravelInvoice.find({createDate: {$gte: beginDate, $lte: endDate}}, '_id name projectName totalPrice createDate', opt, callback);
+  TravelInvoice.find({createDate: {$gte: beginDate, $lte: endDate}, progress: '已完成'}, '_id name projectName totalPrice createDate', opt, callback);
 }
 
 

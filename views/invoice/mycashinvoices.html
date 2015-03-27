@@ -7,8 +7,19 @@
     <div class="fubot-invoice-form">
       <ul class="list-group invoice-list">
         <% for (var i = 0; i < invoices.length; i++) { %>
-          <li class="list-group-item">
-            <a href="/cashinvoice/id/<%= invoices[i]._id %>">
+          <% if (invoices[i].progress === '未处理') { %>
+            <li class="list-group-item light-red">
+          <% } %>
+          <% if (invoices[i].progress === '已受理') { %>
+            <li class="list-group-item light-orange">
+          <% } %>
+          <% if (invoices[i].progress === '发票收到') { %>
+            <li class="list-group-item light-yellow">
+          <% } %>
+          <% if (invoices[i].progress === '已完成') { %>
+            <li class="list-group-item light-green">
+          <% } %>
+            <a href="/cashinvoice/id/<%= invoices[i]._id %>?prev=<%= invoices[i].prev %>&next=<%= invoices[i].next %>">
               <label>序列号 : </label>
               <label class="gray-font"><%= invoices[i]._id %></label><br/>
               <label>项目名称 : </label>

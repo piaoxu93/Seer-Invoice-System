@@ -79,16 +79,22 @@
         <form class="form-inline" method="post" action="/cashinvoice/id/<%= invoice._id %>" name="changeprogress" id="changeprogress" role="form">
           <div class="form-group">
             <label for="progress">报销进度</label>
-            <select class="form-control" name="progress" id="progress" required>
-              <option value="未处理" <%= invoice.progress === '未处理' ? 'selected' : '' %>>未处理</option>
-              <option value="已受理" <%= invoice.progress === '已受理' ? 'selected' : '' %>>已受理</option>
-              <option value="发票收到" <%= invoice.progress === '发票收到' ? 'selected' : '' %>>发票收到</option>
-              <option value="已完成" <%= invoice.progress === '已完成' ? 'selected' : '' %>>已完成</option>
-            </select>
+            <% if (invoice.progress === '已完成') { %>
+              <label class="gray-font"><%= invoice.progress %></label>
+            <% } else { %>
+              <select class="form-control" name="progress" id="progress" required>
+                <option value="未处理" <%= invoice.progress === '未处理' ? 'selected' : '' %>>未处理</option>
+                <option value="已受理" <%= invoice.progress === '已受理' ? 'selected' : '' %>>已受理</option>
+                <option value="发票收到" <%= invoice.progress === '发票收到' ? 'selected' : '' %>>发票收到</option>
+                <option value="已完成" <%= invoice.progress === '已完成' ? 'selected' : '' %>>已完成</option>
+              </select>
+            <% } %>
           </div>
           <input type="hidden" name="_id" value='<%= invoice._id %>'/>
           <input type='hidden' name='_csrf' value='<%= csrf %>'/>
-          <button type="submit" class="btn btn-success">确定</button>
+          <% if (invoice.progress !== '已完成') { %>
+            <button type="submit" class="btn btn-success">确定</button>
+          <% } %>
           <% if (typeof(notify) !== 'undefined') { %>
             <span class="label label-danger"><%= notify %></span>
           <% } %>
