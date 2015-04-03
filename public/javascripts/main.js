@@ -281,7 +281,7 @@ $(document).ready(function () {
       if (status === 'success') {
         var printPage = $('#printPage');
         printPage.empty();
-        var title = users ? '福物个人月度发票报销核对总表' : '福物月度发票报销核对总表';
+        var title = users ? '福物个人发票报销核对总表' : '福物月度发票报销核对总表';
         printPage.append('<table class="table table-condensed table-bordered" style="margin-bottom:0">' +
                            '<tr>' +
                              '<th style="text-align: center;">' + title + '</th>' +

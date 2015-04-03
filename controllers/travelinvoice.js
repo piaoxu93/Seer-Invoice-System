@@ -271,7 +271,7 @@ exports.showUserInvoice = function (req, res, next) {
           invoices: invoices,
           currentPage: currentPage,
           totalInvoices: totalInvoices,
-          totalMoney: totalMoney,
+          totalMoney: totalMoney.toFixed(2),
           pages: pages,
           // 只显示最多前后5个分页
           pageRangeFirst: currentPage - 5 < 1 ? 1 : currentPage - 5,
@@ -408,7 +408,7 @@ exports.showAllInvoice = function (req, res, next) {
         invoices: invoices,
         currentPage: currentPage,
         totalInvoices: totalInvoices,
-        totalMoney: totalMoney,
+        totalMoney: totalMoney.toFixed(2),
         pages: pages,
         // 只显示最多前后5个分页
         pageRangeFirst: currentPage - 5 < 1 ? 1 : currentPage - 5,
