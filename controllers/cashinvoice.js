@@ -167,7 +167,7 @@ exports.showUserInvoice = function (req, res, next) {
         var totalInvoices = invoices.length;
         var totalMoney = 0;
         for (var i = 0; i < totalInvoices; i++) {
-          totalMoney += invoices[i].totalPrice.toFixed(2);
+          totalMoney += invoices[i].totalPrice;
           if (i === 0) {
             invoices[i].prev = '';
             invoices[i].next = invoices[i+1]._id;
@@ -196,7 +196,7 @@ exports.showUserInvoice = function (req, res, next) {
           invoices: invoices,
           currentPage: currentPage,
           totalInvoices: totalInvoices,
-          totalMoney: totalMoney,
+          totalMoney: totalMoney.toFixed(2),
           pages: pages,
           // 只显示最多前后5个分页
           pageRangeFirst: currentPage - 5 < 1 ? 1 : currentPage - 5,
@@ -270,7 +270,7 @@ exports.showAllInvoice = function (req, res, next) {
       var totalInvoices = invoices.length;
       var totalMoney = 0;
       for (var i = 0; i < totalInvoices; i++) {
-        totalMoney += invoices[i].totalPrice.toFixed(2);
+        totalMoney += invoices[i].totalPrice;
         if (i === 0) {
           invoices[i].prev = '';
           invoices[i].next = invoices[i+1]._id;
@@ -299,7 +299,7 @@ exports.showAllInvoice = function (req, res, next) {
         invoices: invoices,
         currentPage: currentPage,
         totalInvoices: totalInvoices,
-        totalMoney: totalMoney,
+        totalMoney: totalMoney.toFixed(2),
         pages: pages,
         // 只显示最多前后5个分页
         pageRangeFirst: currentPage - 5 < 1 ? 1 : currentPage - 5,
