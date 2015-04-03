@@ -29,7 +29,8 @@ exports.getData = function (req, res, next) {
   	res.status(200);
   	res.json({ cash: cash, travel: travel, beginDate: beginDate, endDate: endDate});
   });
-  if (!users) {
+
+  if (users === 'false') {
     if (!req.session.user.is_admin) {
       return res.render('notify/notify', {error: '需要管理员权限。'});
     }
