@@ -47,7 +47,8 @@ router.post('/travelinvoice/delete', auth.adminRequired, travelInvoice.deleteInv
 
 // print monthly table controller
 router.get('/printmonthly', auth.adminRequired, printMonthly.show);
-router.post('/monthlydata', auth.adminRequired, printMonthly.getData);
+router.get('/printusermonthly', auth.userRequired, printMonthly.showUsers);
+router.post('/monthlydata', auth.userRequired, printMonthly.getData);
 
 // sign controller
 router.post('/signout', sign.signout);  // 登出

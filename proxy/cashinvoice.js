@@ -40,6 +40,12 @@ exports.getInvoicesByDate = function (beginDate, endDate, opt, callback) {
   CashInvoice.find({createDate: {$gte: beginDate, $lte: endDate}, progress: '已完成' }, '_id name projectName totalPrice createDate', opt, callback);
 }
 
+exports.getInvoicesByDateAndName = function(beginDate, endDate, name, opt, callback) {
+  var beginDate = beginDate;
+  var endDate = endDate;
+  CashInvoice.find({createDate: {$gte: beginDate, $lte: endDate}, progress: '已完成', name: name }, '_id name projectName totalPrice createDate', opt, callback);
+}
+
 exports.findByIdAndUpdateProgress = function (id, progress, callback) {
   CashInvoice.findByIdAndUpdate(id, { $set: { progress: progress } }, callback);
 }
