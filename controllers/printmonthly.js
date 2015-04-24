@@ -14,8 +14,11 @@ var EventProxy = require('eventproxy');
 var auth = require('../middlewares/auth');
 
 exports.show = function (req, res, next) {
-  res.render('invoice/printmonthly', {
-  });
+  res.render('invoice/printmonthly', {});
+};
+
+exports.showUsers = function (req, res, next) {
+  res.render('invoice/printusermonthly', {});
 };
 
 exports.getData = function (req, res, next) {
@@ -28,6 +31,24 @@ exports.getData = function (req, res, next) {
   ep.all('cash', 'travel', function (cash, travel) {
   	res.status(200);
   	res.json({ cash: cash, travel: travel, beginDate: beginDate, endDate: endDate});
+  });
+
+  ep.all('userCash', function (invoices) {
+    ep.after('getItemName', invoices.length, function () {
+      res.status(200);
+      res.json({ cash: invoices, travel: [], beginDate: beginDate, endDate: endDate});
+    });
+    for (var i = 0; i < invoices.length; i++) {
+      (function (arg) {
+        Item.getItemsByIds(invoices[arg].itemId, function (err, items) {
+          invoices[arg].itemName = [];
+          for (var j = 0; j < items.length; j++) {
+            invoices[arg].itemId[j] = items[j].itemName;
+          }
+          ep.emit('getItemName');
+        });
+      })(i);
+    }
   });
 
   if (users === 'false') {
@@ -54,19 +75,14 @@ exports.getData = function (req, res, next) {
       if (err) {
         return next(err);
       }
-      ep.emit('cash', invoices);
+      ep.emit('userCash', invoices);
     });
-  TravelInvoice.getInvoicesByDateAndName(beginDate, endDate, name, {sort: 'createDate'},
-    function (err, invoices) {
-      if (err) {
-        return next(err);
-      }
-      ep.emit('travel', invoices);
-    });
+  // TravelInvoice.getInvoicesByDateAndName(beginDate, endDate, name, {sort: 'createDate'},
+  //   function (err, invoices) {
+  //     if (err) {
+  //       return next(err);
+  //     }
+  //     ep.emit('travel', invoices);
+  //   });
   }
-};
-
-exports.showUsers = function (req, res, next) {
-  res.render('invoice/printusermonthly', {
-  });
 };

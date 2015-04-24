@@ -45,13 +45,15 @@ exports.getItemsByIds = function (ids, callback) {
     callback(null, items);
   });
   for (var k = 0; k < num; k++) {
-    exports.getItemById(ids[k], function (err, item) {
-      if (err) {
-        req.errorMsg = err.toString();
-        return next();
-      }
-      ep.emit('found', item);
-    });
+    (function (arg) {
+      exports.getItemById(ids[arg], function (err, item) {
+        if (err) {
+          req.errorMsg = err.toString();
+          return next();
+        }
+        ep.emit('found', item);
+      });
+    })(k);
   }
 };
 

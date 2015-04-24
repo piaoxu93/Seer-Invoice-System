@@ -242,7 +242,7 @@ $(document).ready(function () {
   });
 
   // print monthly
-  $('#confirm-monthly').click(function(event) {
+  $('#confirm-monthly').click(function (event) {
     var today = new Date();
     var beginDate = $('#beginDate').val() ? new Date($('#beginDate').val()) : null;
     var endDate = $('#endDate').val() ? new Date($('#endDate').val()) : null;
@@ -271,7 +271,7 @@ $(document).ready(function () {
       }
     }
     event.preventDefault();
-    var users = window.location.pathname === '/printusermonthly' ? true : false;
+    var users = false;
     $.post('/monthlydata', {
       beginDate: beginDate,
       endDate: endDate,
@@ -306,7 +306,7 @@ $(document).ready(function () {
                                '<th style="text-align: center;">类型</th>' +
                                '<th style="text-align: center;">提交人</th>' +
                                '<th style="text-align: center;">项目名称</th>' +
-                               '<th style="text-align: center;">提交时间</th>' +
+                               '<th style="text-align: center;">提交日期</th>' +
                                '<th style="text-align: center;">金额</th>' +
                              '</tr>' +
                            '</thead>' +
@@ -318,6 +318,120 @@ $(document).ready(function () {
                             '<td style="text-align: center;">现金发票</th>' +
                             '<td style="text-align: center;">' + data.cash[i].name + '</th>' +
                             '<td style="text-align: center;">' + data.cash[i].projectName + '</th>' +
+                            '<td style="text-align: center;">' + dateFormat(new Date(data.cash[i].createDate), 'yyyy-MM-dd') + '</th>' +
+                            '<td style="text-align: center;">¥ ' + data.cash[i].totalPrice + '</th>' +
+                          '</tr>');
+          sum += data.cash[i].totalPrice;
+        }
+        var j = i;
+        for (; i < data.travel.length + j; i++) {
+          table_1.append('<tr>' +
+                            '<td style="text-align: center;">' + (i + 1) + '</th>' +
+                            '<td style="text-align: center;">差旅发票</th>' +
+                            '<td style="text-align: center;">' + data.travel[i - j].name + '</th>' +
+                            '<td style="text-align: center;">' + data.travel[i - j].projectName + '</th>' +
+                            '<td style="text-align: center;">' + dateFormat(new Date(data.travel[i - j].createDate), 'yyyy-MM-dd') + '</th>' +
+                            '<td style="text-align: center;">¥ ' + data.travel[i - j].totalPrice + '</th>' +
+                          '</tr>');
+          sum += data.travel[i - j].totalPrice;
+        }
+
+        printPage.append('<table class="table table-condensed table-bordered" style="margin-bottom:0; text-align: center;">' +
+                           '<thead>' +
+                             '<tr>' +
+                               '<th style="text-align: center; width: 25%">合计</th>' +
+                               '<th style="text-align: center; width: 25%">¥ ' + sum + '</th>' +
+                               '<th style="text-align: center; width: 25%">审核人</th>' +
+                               '<th style="text-align: center; width: 25%"></th>' +
+                             '</tr>' +
+                           '</thead>' +
+                         '</table>');
+      }
+    });
+    return;
+  });
+
+  // print user monthly
+  $('#confirm-usermonthly').click(function (event) {
+    var today = new Date();
+    var beginDate = $('#beginDate').val() ? new Date($('#beginDate').val()) : null;
+    var endDate = $('#endDate').val() ? new Date($('#endDate').val()) : null;
+    if (!beginDate || !endDate) {
+      return;
+    }
+    beginDate.setHours(0);
+    beginDate.setMinutes(0);
+    beginDate.setSeconds(0);
+    endDate.setHours(23);
+    endDate.setMinutes(59);
+    endDate.setSeconds(59);
+    today.setHours(23);
+    today.setMinutes(59);
+    today.setSeconds(59);
+    if (!!beginDate && !!endDate) {
+      if (beginDate > today || endDate > today) {
+        event.preventDefault();
+        alert('起始时间或截止时间不能晚于今天');
+        return;
+      }
+      if (beginDate > endDate) {
+        event.preventDefault();
+        alert('起始时间不能晚于截止时间');
+        return;
+      }
+    }
+    event.preventDefault();
+    var users = true;
+    $.post('/monthlydata', {
+      beginDate: beginDate,
+      endDate: endDate,
+      users: users
+    },
+    function (data, status) {
+      if (status === 'success') {
+        var printPage = $('#printPage');
+        printPage.empty();
+        var title = users ? '福物个人发票报销核对总表' : '福物月度发票报销核对总表';
+        printPage.append('<table class="table table-condensed table-bordered" style="margin-bottom:0">' +
+                           '<tr>' +
+                             '<th style="text-align: center;">' + title + '</th>' +
+                           '</tr>' +
+                         '</table>');
+        printPage.append('<table class="table table-condensed table-bordered" style="margin-bottom:0">' +
+                           '<tbody>' +
+                             '<tr>' +
+                               '<th style="text-align: center; width: 25%">起始日期</th>' +
+                               '<th style="text-align: center; width: 25%">' + dateFormat(new Date(data.beginDate), 'yyyy-MM-dd') + '</th>' +
+                               '<th style="text-align: center; width: 25%">截止日期</th>' +
+                               '<th style="text-align: center; width: 25%">' + dateFormat(new Date(data.endDate), 'yyyy-MM-dd') + '</th>' +
+                             '</tr>' +
+                           '</tbody>' +
+                         '</table>');
+        var i = 0;
+        var sum = 0;
+        printPage.append('<table id="table_1" class="table table-condensed table-bordered" style="margin-bottom:0; text-align: center;">' +
+                           '<thead>' +
+                             '<tr>' +
+                               '<th style="text-align: center;">编号</th>' +
+                               '<th style="text-align: center;">类型</th>' +
+                               '<th style="text-align: center;">提交人</th>' +
+                               '<th style="text-align: center;">项目名称</th>' +
+                               '<th style="text-align: center;">支出部门</th>' +
+                               '<th style="text-align: center;">商品名</th>' +
+                               '<th style="text-align: center;">提交日期</th>' +
+                               '<th style="text-align: center;">金额</th>' +
+                             '</tr>' +
+                           '</thead>' +
+                         '</table>');
+        var table_1 = $('#table_1');
+        for (; i < data.cash.length; i++) {
+          table_1.append('<tr>' +
+                            '<td style="text-align: center;">' + (i + 1) + '</th>' +
+                            '<td style="text-align: center;">现金发票</th>' +
+                            '<td style="text-align: center;">' + data.cash[i].name + '</th>' +
+                            '<td style="text-align: center;">' + data.cash[i].projectName + '</th>' +
+                            '<td style="text-align: center;">' + data.cash[i].department + '</th>' +
+                            '<td style="text-align: center;">' + data.cash[i].itemId + '</th>' +
                             '<td style="text-align: center;">' + dateFormat(new Date(data.cash[i].createDate), 'yyyy-MM-dd') + '</th>' +
                             '<td style="text-align: center;">¥ ' + data.cash[i].totalPrice + '</th>' +
                           '</tr>');
