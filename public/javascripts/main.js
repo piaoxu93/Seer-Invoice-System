@@ -453,10 +453,12 @@ $(document).ready(function () {
         printPage.append('<table class="table table-condensed table-bordered" style="margin-bottom:0; text-align: center;">' +
                            '<thead>' +
                              '<tr>' +
-                               '<th style="text-align: center; width: 25%">合计</th>' +
-                               '<th style="text-align: center; width: 25%">¥ ' + sum + '</th>' +
-                               '<th style="text-align: center; width: 25%">审核人</th>' +
-                               '<th style="text-align: center; width: 25%"></th>' +
+                               '<th style="text-align: center; width: 12%">合计</th>' +
+                               '<th style="text-align: center; width: 22%">¥ ' + sum + '</th>' +
+                               '<th style="text-align: center; width: 15%">报销人</th>' +
+                               '<th style="text-align: center; width: 18%"></th>' +
+                               '<th style="text-align: center; width: 15%">审核人</th>' +
+                               '<th style="text-align: center; width: 18%"></th>' +
                              '</tr>' +
                            '</thead>' +
                          '</table>');
