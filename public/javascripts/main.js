@@ -340,7 +340,7 @@ $(document).ready(function () {
                            '<thead>' +
                              '<tr>' +
                                '<th style="text-align: center; width: 25%">合计</th>' +
-                               '<th style="text-align: center; width: 25%">¥ ' + sum + '</th>' +
+                               '<th style="text-align: center; width: 25%">¥ ' + (sum).toFixed() + '</th>' +
                                '<th style="text-align: center; width: 25%">审核人</th>' +
                                '<th style="text-align: center; width: 25%"></th>' +
                              '</tr>' +
@@ -454,7 +454,7 @@ $(document).ready(function () {
                            '<thead>' +
                              '<tr>' +
                                '<th style="text-align: center; width: 12%">合计</th>' +
-                               '<th style="text-align: center; width: 22%">¥ ' + sum + '</th>' +
+                               '<th style="text-align: center; width: 22%">¥ ' + (sum).toFixed(2) + '</th>' +
                                '<th style="text-align: center; width: 15%">报销人</th>' +
                                '<th style="text-align: center; width: 18%"></th>' +
                                '<th style="text-align: center; width: 15%">审核人</th>' +
