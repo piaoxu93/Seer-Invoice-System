@@ -29,11 +29,11 @@ exports.sendNewInvoiceMail = function (who, invoice, type) {
   var subject = invoice.name + ' 有新发票提交';
   if (type === 'cash') {
     var html = '<p>管理员您好：</p>' +
-    '<p>' + invoice.name + '在Fubot发票系统中提交了新的现金发票报销申请，请查看。</p>' +
+    '<p>' + invoice.name + '在Seer发票系统中提交了新的现金发票报销申请，请查看。</p>' +
     '<a href="http://' + config.host +'/cashinvoice/id/' + invoice._id +  '">查看链接</a>';
   } else if (type === 'travel') {
     var html = '<p>管理员您好：</p>' +
-    '<p>' + invoice.name + '在Fubot发票系统中提交了新的差旅发票报销申请，请查看。</p>' +
+    '<p>' + invoice.name + '在Seer发票系统中提交了新的差旅发票报销申请，请查看。</p>' +
     '<a href="http://' + config.host +'/travelinvoice/id/' + invoice._id +  '">查看链接</a>';
   }
   exports.sendMail({

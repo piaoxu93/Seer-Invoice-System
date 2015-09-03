@@ -10,12 +10,12 @@ var config = {
 
   get mini_assets() { return !this.debug; }, // 是否启用静态文件的合并压缩，详见视图中的Loader
 
-  name: 'Fubot invoice system', // 社区名字
-  description: 'Fubot 发票系统', // 社区的描述
-  keywords: 'FIS',
+  name: 'Seer invoice system', // 名字
+  description: 'Seer 发票系统', // 描述
+  keywords: 'Seer',
 
-  site_logo: '/public/images/FUBOT.png', // default is `name`
-  site_icon: '/public/images/FUBOT_icon_32.png', // 默认没有 favicon, 这里填写网址
+  site_logo: '/public/images/seer.png', // default is `name`
+  site_icon: '/public/images/seer_icon_32.png', // 默认没有 favicon, 这里填写网址
   // 右上角的导航区
   site_navs: [
     // 格式 [ path, title, [target=''] ]
@@ -24,7 +24,7 @@ var config = {
 
   site_static_host: '', // 静态文件存储域名
   // 网站的域名
-  host: 'invoice.fubot.cn',
+  host: 'invoice.seer-robotics.com',
 
   // mongodb 配置
   db: 'mongodb://FIS:123456@127.0.0.1:27017/FIS_dev',
@@ -38,12 +38,10 @@ var config = {
 
   // admin
   admins: {
-    piaoxu: true,
-    ninjawei: true,
-    zhyaic: true
+    piaoxu: true
   },
   // admin email
-  admins_email: ['piaoxu@fubot.cn'],
+  admins_email: ['yys@seer-robotics.com'],
 
   // 每页显示的发票数量
   page_limit: 7,
@@ -79,11 +77,11 @@ var config = {
   // 首页的通知 - ToDo
   informs: [{
     head: 'BUG反馈',
-    text: '使用时若发现BUG，请及时联系管理员，piaoxu@fubot.cn'
+    text: '使用时若发现BUG，请及时联系管理员，yys@seer-robotics.com'
   },
   {
-    head: 'Fubot 发票系统开通',
-    text: 'Fubot发票系统正式上线，使用前请先点击右上角的关于查看使用方法,有任何意见及建议请联系管理员'
+    head: 'Seer Robotics 发票系统开通',
+    text: 'Seer发票系统正式上线，使用前请先点击右上角的关于查看使用方法,有任何意见及建议请联系管理员'
   }]
 };
 

@@ -1,4 +1,4 @@
-Fubot invoice system
+Seer invoice system
 =
 
 ## 安装部署
