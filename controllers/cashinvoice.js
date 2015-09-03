@@ -168,7 +168,7 @@ exports.showUserInvoice = function (req, res, next) {
         var totalMoney = 0;
         for (var i = 0; i < totalInvoices; i++) {
           totalMoney += invoices[i].totalPrice;
-          if (i === 0) {
+          if (i === 0 && i < totalInvoices - 1) {
             invoices[i].prev = '';
             invoices[i].next = invoices[i+1]._id;
           } else if (i > 0 && i < totalInvoices - 1) {
@@ -271,7 +271,7 @@ exports.showAllInvoice = function (req, res, next) {
       var totalMoney = 0;
       for (var i = 0; i < totalInvoices; i++) {
         totalMoney += invoices[i].totalPrice;
-        if (i === 0) {
+        if (i === 0 && i < totalInvoices - 1) {
           invoices[i].prev = '';
           invoices[i].next = invoices[i+1]._id;
         } else if (i > 0 && i < totalInvoices - 1) {
