@@ -24,7 +24,7 @@
     "markdown-it": "3.0.3",
     "method-override": "1.0.2",
     "moment": "2.8.3",
-    "mongoose": "3.8.16",
+    "mongoose": "4.1.5",
     "multiline": "1.0.1",
     "node-uuid": "1.4.1",
     "nodemailer": "0.3.43",
