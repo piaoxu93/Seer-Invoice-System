@@ -34,7 +34,7 @@
             <label class="gray-font label-250"><%= tickets[i].destination %></label>
             <br />
             <label>单价</label>
-            <label class="gray-font label-250">¥ <%= tickets[i].price %></label>
+            <label class="gray-font label-250">¥ <%= tickets[i].price.toFixed(2) %></label>
             <label>乘客姓名</label>
             <label class="gray-font label-250"><%= tickets[i].person %></label>
             <br />
@@ -63,7 +63,7 @@
             <label class="gray-font label-250"><%= hotels[j].person %></label>
             <br />
             <label>单价</label>
-            <label class="gray-font label-250">¥ <%= hotels[j].unitPrice %></label>
+            <label class="gray-font label-250">¥ <%= hotels[j].unitPrice.toFixed(2) %></label>
             <label>天数</label>
             <label class="gray-font label-250"><%= hotels[j].days %></label>
             <br />
@@ -92,7 +92,7 @@
             <label class="gray-font label-250"><%= meals[k].person %></label>
             <br />
             <label>价格</label>
-            <label class="gray-font label-250">¥ <%= meals[k].price %></label>
+            <label class="gray-font label-250">¥ <%= meals[k].price.toFixed(2) %></label>
             <br />
             <div class="note">
               <label>备注</label>
@@ -105,7 +105,7 @@
 
       <div class="form-group">
         <label>总价</label>
-        <label class="gray-font">¥ <%= invoice.totalPrice %></label>
+        <label class="gray-font">¥ <%= invoice.totalPrice.toFixed(2) %></label>
       </div>
       <hr />
       <div id="signature" class="form-group noPrint">
@@ -207,7 +207,7 @@
               <td><%= dateFormat(tickets[i].date, 'yyyy-MM-dd') %></td>
               <td>交通费</td>
               <td><%= tickets[i].flights %></td>
-              <td>¥ <%= tickets[i].price %></td>
+              <td>¥ <%= tickets[i].price.toFixed(2) %></td>
             </tr>
           <% } %>
           <% var j = i; %>
@@ -217,7 +217,7 @@
               <td><%= dateFormat(hotels[i - j].checkInDate, 'yyyy-MM-dd') %></td>
               <td>住宿费</td>
               <td><%= hotels[i - j].name %></td>
-              <td>¥ <%= hotels[i - j].totalPrice %></td>
+              <td>¥ <%= hotels[i - j].totalPrice.toFixed(2) %></td>
             </tr>
           <% } %>
           <% var k = i; %>
@@ -227,7 +227,7 @@
               <td><%= dateFormat(meals[i - k].date, 'yyyy-MM-dd') %></td>
               <td>餐饮费</td>
               <td><%= meals[i - k].restaurant %></td>
-              <td>¥ <%= meals[i - k].price %></td>
+              <td>¥ <%= meals[i - k].price.toFixed(2) %></td>
             </tr>
           <% } %>
         </tbody>

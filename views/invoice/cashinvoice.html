@@ -31,7 +31,7 @@
             <label class="gray-font label-150"><%= items[i].model %></label>
             <br />
             <label>单价</label>
-            <label class="gray-font label-150">¥ <%= items[i].unitPrice %></label>
+            <label class="gray-font label-150">¥ <%= items[i].unitPrice.toFixed(2) %></label>
             <label>数量</label>
             <label class="gray-font label-150"><%= items[i].quantity %></label>
           </div>
@@ -41,7 +41,7 @@
 
       <div class="form-group">
         <label>总价</label>
-        <label class="gray-font">¥ <%= invoice.totalPrice %></label>
+        <label class="gray-font">¥ <%= invoice.totalPrice.toFixed(2) %></label>
       </div>
       <hr />
       <div class="form-group">
@@ -167,9 +167,9 @@
           <tr>
             <td><%= i+1 %></td>
             <td><%= items[i].itemName %></td>
-            <td>¥ <%= items[i].unitPrice %></td>
+            <td>¥ <%= items[i].unitPrice.toFixed(2) %></td>
             <td><%= items[i].quantity %></td>
-            <td>¥ <%= items[i].unitPrice * items[i].quantity %></td>
+            <td>¥ <%= (items[i].unitPrice * items[i].quantity).toFixed(2) %></td>
           </tr>
         <% } %>
       </tbody>
