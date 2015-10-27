@@ -319,7 +319,7 @@ $(document).ready(function () {
                             '<td style="text-align: center;">' + data.cash[i].name + '</th>' +
                             '<td style="text-align: center;">' + data.cash[i].projectName + '</th>' +
                             '<td style="text-align: center;">' + dateFormat(new Date(data.cash[i].createDate), 'yyyy-MM-dd') + '</th>' +
-                            '<td style="text-align: center;">¥ ' + data.cash[i].totalPrice + '</th>' +
+                            '<td style="text-align: center;">¥ ' + (data.cash[i].totalPrice).toFixed(2) + '</th>' +
                           '</tr>');
           sum += data.cash[i].totalPrice;
         }
@@ -331,7 +331,7 @@ $(document).ready(function () {
                             '<td style="text-align: center;">' + data.travel[i - j].name + '</th>' +
                             '<td style="text-align: center;">' + data.travel[i - j].projectName + '</th>' +
                             '<td style="text-align: center;">' + dateFormat(new Date(data.travel[i - j].createDate), 'yyyy-MM-dd') + '</th>' +
-                            '<td style="text-align: center;">¥ ' + data.travel[i - j].totalPrice + '</th>' +
+                            '<td style="text-align: center;">¥ ' + (data.travel[i - j].totalPrice).toFixed(2) + '</th>' +
                           '</tr>');
           sum += data.travel[i - j].totalPrice;
         }

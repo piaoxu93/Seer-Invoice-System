@@ -33,7 +33,7 @@
             <label class="gray-font label-250"><%= tickets[i].destination %></label>
             <br />
             <label>单价</label>
-            <label class="gray-font label-250">¥ <%= tickets[i].price %></label>
+            <label class="gray-font label-250">¥ <%= (tickets[i].price).toFixed(2) %></label>
             <label>乘客姓名</label>
             <label class="gray-font label-250"><%= tickets[i].person %></label>
             <br />
@@ -60,7 +60,7 @@
             <label class="gray-font label-250"><%= hotels[j].person %></label>
             <br />
             <label>单价</label>
-            <label class="gray-font label-250">¥ <%= hotels[j].unitPrice %></label>
+            <label class="gray-font label-250">¥ <%= (hotels[j].unitPrice).toFixed(2) %></label>
             <label>天数</label>
             <label class="gray-font label-250"><%= hotels[j].days %></label>
             <br />
@@ -87,7 +87,7 @@
             <label class="gray-font label-250"><%= meals[k].person %></label>
             <br />
             <label>价格</label>
-            <label class="gray-font label-250">¥ <%= meals[k].price %></label>
+            <label class="gray-font label-250">¥ <%= (meals[k].price).toFixed(2) %></label>
             <br />
             <label>备注</label>
             <pre class="gray-font label-550"><%= meals[k].note %></pre>
@@ -98,7 +98,7 @@
 
       <div class="form-group">
         <label>总价</label>
-        <label class="gray-font">¥ <%= invoice.totalPrice %></label>
+        <label class="gray-font">¥ <%= (invoice.totalPrice).toFixed(2) %></label>
       </div>
     </div>
   </div>
